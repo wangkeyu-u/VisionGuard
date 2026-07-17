@@ -24,6 +24,8 @@ def test_baseline_training_config_resolves_paths_and_values(tmp_path: Path) -> N
     assert config.seed == 42
     assert config.device in {"mps", "cpu"}
     assert config.expected_fingerprint == FROZEN_DATASET_SHA256
+    assert config.class_weight_power == 0.0
+    assert config.save_period == -1
     assert config.data.is_absolute()
     assert config.project.is_absolute()
 
@@ -31,6 +33,19 @@ def test_baseline_training_config_resolves_paths_and_values(tmp_path: Path) -> N
 def test_training_config_rejects_invalid_batch(tmp_path: Path) -> None:
     with pytest.raises(ValueError, match="batch"):
         TrainingConfig(data=tmp_path / "data.yaml", batch=0).resolved()
+
+
+def test_training_config_validates_class_weight_and_checkpoint_period(tmp_path: Path) -> None:
+    with pytest.raises(ValueError, match="class_weight_power"):
+        TrainingConfig(data=tmp_path / "data.yaml", class_weight_power=1.1).resolved()
+    with pytest.raises(ValueError, match="save_period"):
+        TrainingConfig(data=tmp_path / "data.yaml", save_period=0).resolved()
+
+    config = TrainingConfig(
+        data=tmp_path / "data.yaml", class_weight_power=0.5, save_period=3
+    ).resolved()
+    assert config.class_weight_power == 0.5
+    assert config.save_period == 3
 
 
 def test_runtime_data_yaml_resolves_root_without_modifying_source(tmp_path: Path) -> None:

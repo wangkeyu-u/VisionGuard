@@ -26,6 +26,11 @@ POSITIVE_GROUNDING_CLASSES = {"person", "helmet", "vest"}
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run VisionGuard VLM ablation baselines.")
     parser.add_argument("--split", choices=("train", "dev", "test"), default="dev")
+    parser.add_argument(
+        "--data-path",
+        type=Path,
+        help="Optional gold JSONL override, for example vlm/data_v2/test.jsonl.",
+    )
     parser.add_argument("--mode", choices=("yolo", "vlm", "grounded"), default="vlm")
     parser.add_argument("--limit", type=int)
     parser.add_argument("--device", default="auto", help="VLM device: auto, mps, cpu, or cuda.")
@@ -304,7 +309,7 @@ def main() -> int:
         raise SystemExit("--limit must be positive")
     if args.schema_retries < 0:
         raise SystemExit("--schema-retries must be non-negative")
-    data_path = PROJECT_ROOT / "vlm" / "data" / f"{args.split}.jsonl"
+    data_path = (args.data_path or PROJECT_ROOT / "vlm" / "data" / f"{args.split}.jsonl").resolve()
     records, issues = read_jsonl(data_path)
     if issues:
         raise SystemExit("\n".join(str(issue) for issue in issues))

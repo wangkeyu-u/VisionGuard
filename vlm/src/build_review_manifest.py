@@ -32,6 +32,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--per-split", type=int, default=40)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument(
+        "--splits",
+        nargs="+",
+        choices=tuple(SPLIT_DIRS),
+        default=list(SPLIT_DIRS),
+        help="Build only the requested review queues.",
+    )
+    parser.add_argument(
         "--dataset-root",
         type=Path,
         default=PROJECT_ROOT / "training" / "datasets" / "safety_final",
@@ -40,6 +47,12 @@ def parse_args() -> argparse.Namespace:
         "--output",
         type=Path,
         default=PROJECT_ROOT / "vlm" / "data" / "candidates.jsonl",
+    )
+    parser.add_argument(
+        "--history-data-dir",
+        type=Path,
+        action="append",
+        help="Gold/review directory to exclude. Repeat to combine histories; defaults to vlm/data.",
     )
     return parser.parse_args()
 
@@ -82,15 +95,33 @@ def _category(class_ids: list[int]) -> str:
     return "no_labeled_violation"
 
 
-def _already_reviewed() -> tuple[set[str], set[str]]:
+def _group_from_image(value: object) -> str | None:
+    if not isinstance(value, str) or not value:
+        return None
+    return Path(value).stem.split(".rf.", maxsplit=1)[0]
+
+
+def _already_reviewed(data_dirs: list[Path]) -> tuple[set[str], set[str]]:
     used_groups: set[str] = set()
     used_images: set[str] = set()
-    for name in ("train", "dev", "test"):
-        records, _ = read_jsonl(PROJECT_ROOT / "vlm" / "data" / f"{name}.jsonl")
-        used_groups.update(str(record.get("source_group")) for record in records)
-        used_images.update(str(record.get("image")) for record in records)
-    review_records, _ = read_jsonl(PROJECT_ROOT / "vlm" / "data" / "review_log.jsonl")
-    used_images.update(str(record.get("image")) for record in review_records)
+    for data_dir in data_dirs:
+        for name in ("train", "dev", "test"):
+            records, _ = read_jsonl(data_dir / f"{name}.jsonl")
+            for record in records:
+                group = record.get("source_group") or _group_from_image(record.get("image"))
+                if isinstance(group, str) and group:
+                    used_groups.add(group)
+                image = record.get("image")
+                if isinstance(image, str) and image:
+                    used_images.add(image)
+        review_records, _ = read_jsonl(data_dir / "review_log.jsonl")
+        for record in review_records:
+            group = record.get("source_group") or _group_from_image(record.get("image"))
+            if isinstance(group, str) and group:
+                used_groups.add(group)
+            image = record.get("image")
+            if isinstance(image, str) and image:
+                used_images.add(image)
     return used_groups, used_images
 
 
@@ -99,10 +130,12 @@ def main() -> int:
     if args.per_split < 1:
         raise SystemExit("--per-split must be positive")
     rng = random.Random(args.seed)
-    used_groups, used_images = _already_reviewed()
+    history_dirs = args.history_data_dir or [PROJECT_ROOT / "vlm" / "data"]
+    used_groups, used_images = _already_reviewed([path.expanduser().resolve() for path in history_dirs])
     output: list[dict[str, object]] = []
 
-    for target_split, directory_name in SPLIT_DIRS.items():
+    for target_split in args.splits:
+        directory_name = SPLIT_DIRS[target_split]
         label_dir = args.dataset_root / directory_name / "labels"
         buckets: dict[str, list[dict[str, object]]] = defaultdict(list)
         seen_groups: set[str] = set()
@@ -141,6 +174,7 @@ def main() -> int:
                 if buckets[category] and len(selected) < args.per_split:
                     selected.append(buckets[category].pop(0))
         output.extend(selected)
+        used_groups.update(str(record["source_group"]) for record in selected)
 
     write_jsonl(args.output, output)
     counts: dict[str, int] = defaultdict(int)

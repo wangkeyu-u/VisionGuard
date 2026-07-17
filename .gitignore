@@ -31,3 +31,5 @@ runs/
 .cache/
 vlm/outputs/
 vlm/data/candidates.jsonl
+vlm/data_v2/candidates.jsonl
+vlm/data_v2/TEST_DATA_QA.json

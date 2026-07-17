@@ -37,6 +37,15 @@ Test class metrics:
 
 The recorded batch-1 MPS benchmark is 23.61 ms/image mean and 31.02 ms/image P95 after five warm-up images on 100 sorted test images. This excludes upload, decoding, rendering, network, and queueing time.
 
+## Rejected safety-tuning follow-up
+
+Exp5 combined Train-only rare-class resampling, `cls_pw=0.5`, and 640 px fine-tuning for 15 epochs.
+Checkpoint selection used only Validation and maximized the harmonic mean of `no_helmet` and
+`no_vest` AP@50–95, subject to a maximum 0.01 regression in overall mAP@50–95. Its best
+safety-specific checkpoint reached 0.2308 safety H-mean and 0.4543 overall mAP@50–95, compared with
+0.2552 and 0.4887 for Exp4. Exp5 failed the guardrail, was not promoted, and was not evaluated on
+Test. The model documented above therefore remains unchanged.
+
 ## Intended use
 
 - Offline analysis of construction/PPE imagery

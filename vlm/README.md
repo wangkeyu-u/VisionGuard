@@ -36,7 +36,47 @@ Build a balanced review queue from the frozen YOLO dataset:
 make vlm-candidates
 ```
 
-Every candidate starts with `review_status=pending`. Review the image, assign left-to-right person IDs, draw visible person boxes, and either create a gold record or add an exclusion decision.
+Every candidate starts with `review_status=pending`. Review the image, assign left-to-right person IDs,
+draw boxes around the complete visible person (not only a head, helmet, torso, or vest), and either
+create a gold record or add an exclusion decision.
+
+Start the local human-review desk instead of editing JSONL by hand:
+
+```bash
+make vlm-review VLM_REVIEWER="Your Name"
+```
+
+Open [http://127.0.0.1:7861](http://127.0.0.1:7861). The desk shows the balanced queue and Train/Dev/Test targets, overlays YOLO-format source boxes, seeds editable person boxes when available, and supports:
+
+- drawing, moving, resizing, and deleting normalized person boxes;
+- confirming `no_helmet` and `no_vest` per person with evidence and confidence;
+- marking compliant samples and recording uncertainty or quality tags;
+- preserving every reviewed person box, including people with no violation finding;
+- requiring an explicit full-visible-person contract confirmation after every geometry edit;
+- excluding dirty data with a required audit reason;
+- server-side target/person-registry consistency validation and atomic writes to gold JSONL.
+
+Test candidates are always shown in blind-review mode. The UI hides source categories and all YOLO boxes so the held-out set is built from the original image without exposing model-derived signals.
+
+### Test v2 recovery protocol
+
+Test v1 is consumed and immutable. A separate 40-image Test v2 queue has been generated from source
+groups absent from every prior gold record and review decision:
+
+```bash
+make vlm-test-v2-candidates
+make vlm-review-v2 VLM_REVIEWER="Your Name"
+# Open http://127.0.0.1:7862 and blind-review the Test queue.
+make vlm-test-v2-gate
+```
+
+The gate blocks evaluation unless Test v2 has at least 20 records, human reviewer provenance,
+`full-visible-person-v2` metadata, a consistent person-box registry, no source-group reuse, and a
+median person-box area reasonably aligned with reviewed Dev geometry. The current gate is expected
+to report `BLOCKED` while `data_v2/test.jsonl` is empty. Only a `PASS` permits freezing and running
+the already selected configuration once via `make vlm-test-v2-once VLM_YOLO_DEVICE=cpu`. The runner
+writes `RUN_MANIFEST.json` before inference and refuses any retry or overwrite. See
+[`data_v2/README.md`](data_v2/README.md).
 
 ## Environment
 
@@ -96,4 +136,14 @@ Use `--qlora` only in a CUDA environment with `bitsandbytes` installed. Freeze t
 
 ## Current status
 
-The pipeline currently contains one reviewed training record and three reviewed development records. The test set remains empty and uninspected until the prompt, model, and configuration are frozen. See [`SMOKE_RESULTS.md`](SMOKE_RESULTS.md) for the deliberately small development smoke test; those numbers verify the experimental machinery and are not evidence of generalization.
+The pipeline now contains 41 Train, 36 Dev, and 40 blind-reviewed Test records. The frozen formal
+Dev ablation selected YOLO-only (F1 0.600) over Qwen3-VL-only (0.362) and YOLO-grounded
+Qwen3-VL (0.235). See
+[`outputs/dev_formal/DEV_ABLATION_REPORT.md`](outputs/dev_formal/DEV_ABLATION_REPORT.md).
+
+The selected YOLO-only configuration was run exactly once on Test. Image-level violation presence
+F1 was 0.735, but strict person-grounding F1 was 0.027 because Test v1 gold boxes were typically
+PPE-part boxes rather than complete visible-person boxes. Test v1 remains frozen and was not rerun.
+See [`outputs/test_final/FINAL_REPORT.md`](outputs/test_final/FINAL_REPORT.md) for the full diagnosis
+and the Test v2 protocol. The replacement Test v2 queue contains 40 pending, source-independent
+candidates; it has not been evaluated.
