@@ -1,0 +1,12 @@
+data: training/datasets/safety_final/data.yaml
+expected_fingerprint: 6d40b6e5d09cc4e1ed3a6d8d9a8a88259f1e18dc9f117d664fa5694473db3bb2
+model: yolo11n.pt
+epochs: 30
+imgsz: 512
+batch: 4
+patience: 8
+workers: 0
+seed: 42
+device: mps
+project: outputs/experiments
+name: baseline_yolo11n_512

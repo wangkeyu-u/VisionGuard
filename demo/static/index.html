@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="VisionGuard local PPE compliance detection demo for images and short videos."
+    />
+    <title>VisionGuard // PPE Detection Console</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23f4c430' d='M4 4h56v42L42 60H4z'/%3E%3Ctext x='12' y='39' font-family='Arial' font-size='23' font-weight='900'%3EVG%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="page-grid" aria-hidden="true"></div>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="VisionGuard home">
+        <span class="brand-mark">VG</span>
+        <span>
+          <strong>VISIONGUARD</strong>
+          <small>PPE DETECTION CONSOLE</small>
+        </span>
+      </a>
+      <div class="system-line">
+        <span class="pulse" aria-hidden="true"></span>
+        <span id="system-status">INITIALIZING MODEL LINK</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">WORKPLACE SAFETY / VISUAL PERCEPTION</p>
+          <h1 id="hero-title">Turn a frame into<br /><em>inspectable evidence.</em></h1>
+          <p class="lede">
+            Upload an image or a short video. VisionGuard detects people, PPE, and visible
+            <code>no_helmet</code> / <code>no_vest</code> events, then returns annotated media and
+            an auditable JSON record.
+          </p>
+        </div>
+        <aside class="model-plate" aria-label="Active model configuration">
+          <div class="plate-index">01 / MODEL</div>
+          <dl>
+            <div><dt>CHECKPOINT</dt><dd id="model-name">—</dd></div>
+            <div><dt>DEVICE</dt><dd id="device-name">—</dd></div>
+            <div><dt>INPUT</dt><dd id="input-size">—</dd></div>
+            <div><dt>THRESHOLD</dt><dd id="threshold">—</dd></div>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="workbench" aria-label="Inference workbench">
+        <div class="upload-panel">
+          <div class="section-label"><span>02</span> INPUT MATERIAL</div>
+          <label class="dropzone" id="dropzone" for="file-input">
+            <input
+              id="file-input"
+              name="file"
+              type="file"
+              accept="image/*,video/mp4,video/quicktime,video/x-m4v,video/webm,video/x-msvideo"
+            />
+            <span class="scan-corners" aria-hidden="true"></span>
+            <span class="upload-symbol" aria-hidden="true">↥</span>
+            <strong>DROP INSPECTION MEDIA</strong>
+            <span>or click to choose an image / short video</span>
+            <small id="upload-limits">LOCAL PROCESSING · NOTHING IS UPLOADED TO A CLOUD SERVICE</small>
+          </label>
+
+          <div class="file-ticket" id="file-ticket" hidden>
+            <div>
+              <span class="ticket-label">READY</span>
+              <strong id="file-name"></strong>
+              <small id="file-meta"></small>
+            </div>
+            <button id="clear-file" type="button" aria-label="Remove selected file">×</button>
+          </div>
+
+          <button class="run-button" id="run-button" type="button" disabled>
+            <span>RUN SAFETY SCAN</span>
+            <span aria-hidden="true">→</span>
+          </button>
+          <p class="error-message" id="error-message" role="alert" hidden></p>
+        </div>
+
+        <div class="preview-panel">
+          <div class="section-label"><span>03</span> VISUAL EVIDENCE</div>
+          <div class="viewer" id="viewer">
+            <div class="viewer-empty" id="viewer-empty">
+              <span class="reticle" aria-hidden="true"></span>
+              <strong>NO SIGNAL</strong>
+              <small>SELECT MEDIA TO ARM THE VIEWER</small>
+            </div>
+            <img id="image-preview" alt="Selected or annotated safety inspection" hidden />
+            <video id="video-preview" controls playsinline hidden></video>
+            <div class="processing" id="processing" hidden>
+              <span class="processing-line"></span>
+              <strong>ANALYZING FRAMES</strong>
+              <small>DETECTION · CLASSIFICATION · ANNOTATION</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="results" id="results" hidden aria-labelledby="results-title">
+        <div class="results-heading">
+          <div>
+            <p class="eyebrow">SCAN COMPLETE</p>
+            <h2 id="results-title">Inspection record</h2>
+          </div>
+          <a id="json-download" class="json-link" href="#" download>DOWNLOAD JSON ↗</a>
+        </div>
+
+        <div class="decision-strip" id="decision-strip">
+          <div>
+            <span class="decision-kicker">MODEL DECISION</span>
+            <strong id="decision-text">—</strong>
+          </div>
+          <p>
+            A “clear” result means no modeled violation exceeded the configured threshold. It is
+            not a guarantee that the scene is safe.
+          </p>
+        </div>
+
+        <div class="metric-row">
+          <article>
+            <span>DETECTION EVENTS</span>
+            <strong id="metric-detections">0</strong>
+          </article>
+          <article>
+            <span>VIOLATION EVENTS</span>
+            <strong id="metric-violations">0</strong>
+          </article>
+          <article>
+            <span>FRAMES PROCESSED</span>
+            <strong id="metric-frames">0</strong>
+          </article>
+          <article>
+            <span>FLAGGED FRAMES</span>
+            <strong id="metric-flagged">0</strong>
+          </article>
+        </div>
+
+        <div class="result-grid">
+          <article class="class-ledger">
+            <div class="section-label"><span>04</span> CLASS LEDGER</div>
+            <div id="class-counts" class="class-counts"></div>
+          </article>
+          <article class="json-panel">
+            <div class="section-label"><span>05</span> STRUCTURED OUTPUT</div>
+            <pre id="json-output" tabindex="0"></pre>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>VISIONGUARD / LOCAL INFERENCE BUILD</span>
+      <span>DETECTIONS ARE REVIEW CANDIDATES, NOT SAFETY CERTIFICATION</span>
+    </footer>
+
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>

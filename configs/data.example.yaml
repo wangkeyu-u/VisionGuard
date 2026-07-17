@@ -1,0 +1,10 @@
+# Copy this file and adjust paths for your local YOLO detection dataset.
+path: ../datasets/visionguard
+train: images/train
+val: images/val
+test: images/test
+
+names:
+  0: person
+  1: helmet
+  2: safety_vest

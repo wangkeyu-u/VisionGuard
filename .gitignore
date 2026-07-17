@@ -1,0 +1,27 @@
+.DS_Store
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+
+# Build and editor artifacts
+build/
+dist/
+*.egg-info/
+.idea/
+.vscode/
+
+# Generated outputs and local data/model artifacts
+outputs/*
+!outputs/.gitkeep
+datasets/
+training/
+runs/
+*.pt
+*.pth
+*.onnx
+*.engine
+*.mlpackage
