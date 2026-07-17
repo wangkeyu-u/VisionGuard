@@ -18,8 +18,15 @@ EXPERIMENT ?= baseline_yolo11n_512
 EXPERIMENT_DIR ?= outputs/experiments/$(EXPERIMENT)
 FINAL_DATA ?= training/datasets/safety_final/data.yaml
 BEST_MODEL ?= $(EXPERIMENT_DIR)/weights/best.pt
+VLM_SPLIT ?= train
+VLM_MODE ?= vlm
+VLM_LIMIT ?= 1
+VLM_PREDICTIONS ?= vlm/outputs/$(VLM_SPLIT)_$(VLM_MODE).jsonl
+VLM_DEVICE ?= auto
+VLM_YOLO_DEVICE ?= cpu
+VLM_SCHEMA_RETRIES ?= 1
 
-.PHONY: setup install environment validate remap finalize visualize train resume evaluate benchmark errors report comparison demo baseline test lint compile check
+.PHONY: setup install environment validate remap finalize visualize train resume evaluate benchmark errors report comparison demo vlm-install vlm-validate vlm-candidates vlm-baseline vlm-evaluate vlm-train baseline test lint compile check
 
 setup:
 	$(BOOTSTRAP_PYTHON) -m venv .venv
@@ -88,15 +95,36 @@ comparison:
 demo:
 	$(PYTHON) scripts/run_demo.py --model "$(BEST_MODEL)" --imgsz $(IMGSZ) --device auto
 
+vlm-install:
+	uv pip install --python $(PYTHON) -r requirements-vlm.txt
+
+vlm-validate:
+	$(PYTHON) vlm/src/validate_data.py
+
+vlm-candidates:
+	$(PYTHON) vlm/src/build_review_manifest.py --per-split 40
+
+vlm-baseline:
+	$(PYTHON) vlm/src/run_baseline.py --split $(VLM_SPLIT) --mode $(VLM_MODE) \
+		--limit $(VLM_LIMIT) --device $(VLM_DEVICE) --yolo-device $(VLM_YOLO_DEVICE) \
+		--schema-retries $(VLM_SCHEMA_RETRIES) --output $(VLM_PREDICTIONS)
+
+vlm-evaluate:
+	$(PYTHON) vlm/src/evaluate.py --gold vlm/data/$(VLM_SPLIT).jsonl \
+		--predictions $(VLM_PREDICTIONS)
+
+vlm-train:
+	$(PYTHON) vlm/src/train_lora.py
+
 baseline: train evaluate benchmark errors report
 
 test:
 	PYTHONPATH=src $(PYTHON) -m pytest -q
 
 lint:
-	$(PYTHON) -m ruff check src scripts tests
+	$(PYTHON) -m ruff check src scripts tests vlm/src
 
 compile:
-	$(PYTHON) -m compileall -q src scripts tests
+	$(PYTHON) -m compileall -q src scripts tests vlm/src
 
 check: environment lint compile test

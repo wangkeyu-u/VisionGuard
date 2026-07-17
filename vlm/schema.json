@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VisionGuardInspection",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "findings",
+    "uncertainties",
+    "recommended_action"
+  ],
+  "properties": {
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "person_id",
+          "person_box",
+          "violation",
+          "evidence",
+          "confidence"
+        ],
+        "properties": {
+          "person_id": {
+            "type": "string",
+            "pattern": "^p[1-9][0-9]*$"
+          },
+          "person_box": {
+            "type": "array",
+            "minItems": 4,
+            "maxItems": 4,
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000
+            }
+          },
+          "violation": {
+            "type": "string",
+            "enum": [
+              "no_helmet",
+              "no_vest"
+            ]
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1
+          },
+          "confidence": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ]
+          }
+        }
+      }
+    },
+    "uncertainties": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "recommended_action": {
+      "type": "string",
+      "enum": [
+        "human_review",
+        "no_action"
+      ]
+    }
+  }
+}

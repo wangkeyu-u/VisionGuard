@@ -1,5 +1,6 @@
 .DS_Store
 .venv/
+.venv-vlm/
 __pycache__/
 *.py[cod]
 .pytest_cache/
@@ -25,3 +26,8 @@ runs/
 *.onnx
 *.engine
 *.mlpackage
+
+# Local model caches and VLM-generated artifacts
+.cache/
+vlm/outputs/
+vlm/data/candidates.jsonl

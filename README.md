@@ -123,16 +123,33 @@ configs/                     experiment and data examples
 scripts/                     CLI entry points
 src/visionguard/             dataset, training, evaluation, reporting, demo logic
 tests/                       unit and regression tests
+vlm/                         grounded-VLM data, baselines, evaluation, LoRA entry point
 DATASET_CARD.md              data provenance and limitations
 MODEL_CARD.md                selected model evidence and intended use
-docs/VLM_EXTENSION_GUIDE.md  next-stage multimodal implementation guide
+docs/VLM_EXTENSION_GUIDE.md  multimodal experiment design guide
 ```
+
+## Experimental grounded-VLM extension
+
+The `feature/vlm-grounding` work adds a strict safety-inspection JSON schema, manually reviewed gold-data workflow, YOLO-only / VLM-only / YOLO-grounded ablations, hallucination and grounding metrics, and a guarded CUDA LoRA entry point. The grounded prompt exposes only `person`, `helmet`, and `vest` detections—not the target violation labels.
+
+```bash
+make vlm-install
+make vlm-validate
+make vlm-candidates
+
+# One-record system smoke tests; not reportable performance metrics
+make vlm-baseline VLM_SPLIT=train VLM_MODE=yolo VLM_LIMIT=1
+make vlm-evaluate VLM_SPLIT=train VLM_MODE=yolo
+```
+
+See [`vlm/README.md`](vlm/README.md) for the data-adjudication contract, Qwen3-VL baseline commands, evaluation methodology, and CUDA LoRA gate. Dev/test gold sets must be populated by manual review before any multimodal accuracy claim is made.
 
 ## What this project does—and does not—claim
 
 This repository demonstrates an end-to-end ML workflow and a working inference surface. It does not establish production readiness: each configuration has only one seed; minority-class test coverage is small; source grouping relies on filename-derived proxies; and no domain-shift, calibration, adversarial, privacy, or human-factors study has been completed. See [MODEL_CARD.md](MODEL_CARD.md) before interpreting outputs.
 
-The next multimodal stage is deliberately left as a guided extension so its training and evaluation can be completed and defended by the project owner: [VLM extension guide](docs/VLM_EXTENSION_GUIDE.md).
+The multimodal extension is experimental and currently contains one reviewed training record and three reviewed development records; the test manifest remains empty and uninspected. Its [smoke-test results](vlm/SMOKE_RESULTS.md) verify the pipeline but are not evidence of generalization. The full annotation and experiment plan remains in the [VLM extension guide](docs/VLM_EXTENSION_GUIDE.md).
 
 ## License
 
