@@ -149,9 +149,25 @@ function invalidateGeometryContract() {
   syncApprovalState();
 }
 
+function availableSplits() {
+  return new Set(state.snapshot.candidates.map((candidate) => candidate.source_split));
+}
+
+function syncAvailableSplits() {
+  const available = availableSplits();
+  elements.splitFilter.querySelectorAll("button[data-value]").forEach((button) => {
+    button.disabled = !available.has(button.dataset.value);
+  });
+  if (!available.has(state.split)) {
+    state.split = ["train", "dev", "test"].find((split) => available.has(split)) || "train";
+  }
+  syncFilterButtons(elements.splitFilter, state.split);
+}
+
 function renderProgress() {
   elements.splitProgress.replaceChildren();
-  ["train", "dev", "test"].forEach((split) => {
+  const available = availableSplits();
+  ["train", "dev", "test"].filter((split) => available.has(split)).forEach((split) => {
     const count = state.snapshot.counts[split] || 0;
     const target = state.snapshot.targets[split];
     const row = document.createElement("div");
@@ -840,6 +856,7 @@ async function loadSnapshot() {
     if (!response.ok) throw new Error(snapshot.error || "无法读取审核队列");
     state.snapshot = snapshot;
     elements.reviewer.value = localStorage.getItem("visionguard-reviewer") || snapshot.reviewer || "";
+    syncAvailableSplits();
     renderSnapshot();
     elements.systemState.textContent = "本地审核服务已连接";
   } catch (error) {

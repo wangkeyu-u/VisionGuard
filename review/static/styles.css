@@ -22,7 +22,7 @@
 * { box-sizing: border-box; }
 
 html,
-body { min-width: 1180px; min-height: 100%; }
+body { min-width: 0; min-height: 100%; }
 
 html { background: var(--ink); }
 
@@ -162,6 +162,7 @@ h3 { margin: 0; font-family: var(--display); text-transform: uppercase; }
 .segmented button:last-child { border-right: 0; }
 .segmented button:hover { color: var(--paper); }
 .segmented button.is-active { color: var(--ink); background: var(--signal); }
+.segmented button:disabled { cursor: not-allowed; opacity: 0.24; }
 .segmented-three button { font-family: var(--body); font-size: 11px; }
 
 select,
@@ -206,7 +207,7 @@ textarea { resize: vertical; padding: 11px; line-height: 1.55; font-size: 12px; 
 .mix-stat strong { color: var(--paper); font: 800 22px/1 var(--display); }
 .mix-stat span { margin-top: 5px; color: var(--faint); font: 600 8px/1 var(--mono); text-transform: uppercase; }
 
-.evidence-panel { min-width: 0; min-height: 0; display: grid; grid-template-rows: auto auto auto minmax(0, 1fr) auto; padding: 22px; }
+.evidence-panel { min-width: 0; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto minmax(0, 1fr) auto; padding: 22px; }
 .evidence-head { min-height: 61px; align-items: flex-start; }
 .candidate-identity { min-width: 0; }
 .candidate-identity h2 { max-width: 650px; margin-top: 7px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 27px; }
@@ -362,6 +363,53 @@ kbd { margin-left: 7px; padding: 2px 4px; color: inherit; border: 1px solid curr
 @media (max-width: 1320px) {
   .review-shell { grid-template-columns: 270px minmax(510px, 1fr) 370px; }
   .legend { display: none; }
+}
+
+@media (max-width: 1100px) {
+  body { overflow: auto; }
+  .topbar { position: sticky; top: 0; z-index: 20; }
+  .system-state { display: none; }
+  .review-shell {
+    height: auto;
+    min-height: calc(100vh - 70px);
+    grid-template-columns: 250px minmax(0, 1fr);
+    grid-template-rows: minmax(650px, calc(100vh - 70px)) auto;
+  }
+  .queue-panel { grid-column: 1; grid-row: 1; }
+  .evidence-panel { grid-column: 2; grid-row: 1; }
+  .annotation-panel {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    overflow: visible;
+    border-top: 1px solid var(--line);
+    border-left: 0;
+  }
+  .annotation-panel form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 24px;
+  }
+  .quick-verdict,
+  .protocol-section,
+  .record-preview,
+  .decision-actions { grid-column: 1 / -1; }
+  .candidate-identity h2 { max-width: min(58vw, 560px); }
+}
+
+@media (max-width: 620px) {
+  .topbar { height: auto; min-height: 70px; gap: 14px; padding: 12px 16px; }
+  .brand-copy small { display: none; }
+  .session-strip { margin-left: auto; }
+  .session-strip label { display: none; }
+  .session-strip input { width: 112px; }
+  .review-shell { display: block; }
+  .queue-panel { max-height: 520px; border-right: 0; border-bottom: 1px solid var(--line); }
+  .evidence-panel { min-height: 650px; padding: 18px 14px; }
+  .annotation-panel { padding: 20px 16px; }
+  .annotation-panel form { display: block; }
+  .candidate-identity h2 { max-width: 70vw; font-size: 22px; }
+  .canvas-toolbar { flex-wrap: wrap; }
+  .stage-foot { flex-direction: column; gap: 5px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
