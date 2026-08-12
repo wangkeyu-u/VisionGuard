@@ -19,7 +19,7 @@ EXPERIMENT_DIR ?= outputs/experiments/$(EXPERIMENT)
 FINAL_DATA ?= training/datasets/safety_final/data.yaml
 BEST_MODEL ?= $(EXPERIMENT_DIR)/weights/best.pt
 
-.PHONY: setup install environment validate remap finalize visualize train resume evaluate benchmark errors report comparison vlm-fixture demo baseline test lint compile check
+.PHONY: setup install environment validate remap finalize visualize train resume evaluate benchmark errors report comparison evidence evidence-gate vlm-fixture demo baseline test lint compile check
 
 setup:
 	$(BOOTSTRAP_PYTHON) -m venv .venv
@@ -84,6 +84,12 @@ comparison:
 		outputs/experiments/exp3_yolo11s_512 \
 		outputs/experiments/exp4_yolo11s_512_e50 \
 		--output-dir outputs/reports/experiment_comparison
+
+evidence:
+	$(PYTHON) scripts/verify_resume_evidence.py --output docs/source-verification.json
+
+evidence-gate:
+	$(PYTHON) scripts/verify_resume_evidence.py --output docs/source-verification.json --require-verified
 
 vlm-fixture:
 	$(PYTHON) scripts/evaluate_vlm.py --config configs/vlm_ablation.fixture.yaml \

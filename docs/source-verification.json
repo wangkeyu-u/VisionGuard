@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-12T17:23:31.985055+00:00",
+  "generator": "scripts/verify_resume_evidence.py",
+  "runtime": {
+    "python": "3.12.13",
+    "platform": "macOS-26.5.2-arm64-arm-64bit"
+  },
+  "dataset": {
+    "status": "missing",
+    "missing": [
+      {
+        "path": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_final/data.yaml",
+        "purpose": "frozen dataset YAML",
+        "exists": false
+      }
+    ]
+  },
+  "yolo": {
+    "status": "missing",
+    "expected_experiments": [
+      "baseline_yolo11n_512",
+      "exp2_yolo11n_640",
+      "exp3_yolo11s_512",
+      "exp4_yolo11s_512_e50"
+    ],
+    "experiments": {},
+    "derived": {},
+    "sources": {},
+    "missing": [
+      {
+        "path": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/outputs/experiments/baseline_yolo11n_512/results.csv",
+        "purpose": "baseline_yolo11n_512 training metrics",
+        "exists": false
+      },
+      {
+        "path": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/outputs/experiments/exp2_yolo11n_640/results.csv",
+        "purpose": "exp2_yolo11n_640 training metrics",
+        "exists": false
+      },
+      {
+        "path": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/outputs/experiments/exp3_yolo11s_512/results.csv",
+        "purpose": "exp3_yolo11s_512 training metrics",
+        "exists": false
+      },
+      {
+        "path": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/outputs/experiments/exp4_yolo11s_512_e50/results.csv",
+        "purpose": "exp4_yolo11s_512_e50 training metrics",
+        "exists": false
+      },
+      {
+        "path": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/outputs/experiments/baseline_yolo11n_512/test_evaluation/test_metrics.json",
+        "purpose": "baseline independent test metrics",
+        "exists": false
+      },
+      {
+        "path": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/outputs/experiments/exp4_yolo11s_512_e50/test_evaluation/test_metrics.json",
+        "purpose": "selected-model independent test metrics",
+        "exists": false
+      },
+      {
+        "path": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/outputs/experiments/exp4_yolo11s_512_e50/performance/performance.json",
+        "purpose": "selected-model latency samples/summary",
+        "exists": false
+      }
+    ]
+  }
+}
