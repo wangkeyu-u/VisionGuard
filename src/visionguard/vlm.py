@@ -192,7 +192,6 @@ class Qwen3VLAdapter(VisionAdapter):
     execution_mode = "real"
 
     def __init__(self, name: str, model_id: str, revision: str | None, device_map: str, max_new_tokens: int) -> None:
-        import torch
         from transformers import AutoModelForMultimodalLM, AutoProcessor
 
         self.name = name
@@ -200,7 +199,7 @@ class Qwen3VLAdapter(VisionAdapter):
         self.max_new_tokens = max_new_tokens
         self.processor = AutoProcessor.from_pretrained(model_id, revision=revision)
         self.model = AutoModelForMultimodalLM.from_pretrained(
-            model_id, revision=revision, torch_dtype=torch.bfloat16, device_map=device_map
+            model_id, revision=revision, device_map=device_map
         )
 
     def _prompt(self, grounding: list[dict[str, Any]] | None = None) -> str:
