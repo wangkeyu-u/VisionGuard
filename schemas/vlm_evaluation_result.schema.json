@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://visionguard.local/schemas/vlm_evaluation_result.schema.json",
+  "title": "VisionGuard VLM evaluation result",
+  "type": "object",
+  "required": ["schema_version", "generated_at", "iou_threshold", "execution_modes", "runs"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "iou_threshold": {"type": "number", "minimum": 0, "maximum": 1},
+    "execution_modes": {"type": "array", "items": {"enum": ["fixture", "real"]}},
+    "contains_real_model_results": {"type": "boolean"},
+    "contains_fixture_results": {"type": "boolean"},
+    "runs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["adapter", "execution_mode", "result_interpretation", "metrics", "records"],
+        "properties": {
+          "adapter": {"type": "string"},
+          "execution_mode": {"enum": ["fixture", "real"]},
+          "result_interpretation": {"type": "string"},
+          "metrics": {
+            "type": "object",
+            "required": [
+              "examples", "schema_valid_rate", "grounding_precision", "grounding_recall",
+              "grounding_f1", "unsupported_finding_rate", "negative_scene_hallucination_rate",
+              "mean_latency_ms"
+            ]
+          },
+          "records": {"type": "array"}
+        }
+      }
+    }
+  }
+}

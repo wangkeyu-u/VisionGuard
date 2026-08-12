@@ -1,0 +1,16 @@
+schema_version: 1
+manifest: ../tests/fixtures/vlm/manifest.jsonl
+iou_threshold: 0.5
+runs:
+  - name: yolo11_fixture
+    adapter: yolo11
+    execution: fixture
+    fixture_predictions: ../tests/fixtures/vlm/yolo11_predictions.jsonl
+  - name: qwen3_vl_fixture
+    adapter: qwen3_vl
+    execution: fixture
+    fixture_predictions: ../tests/fixtures/vlm/qwen3_vl_predictions.jsonl
+  - name: grounded_qwen3_vl_fixture
+    adapter: grounded_qwen3_vl
+    execution: fixture
+    fixture_predictions: ../tests/fixtures/vlm/grounded_predictions.jsonl
