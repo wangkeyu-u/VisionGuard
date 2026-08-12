@@ -31,6 +31,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-upload-mb", type=int, default=150)
     parser.add_argument("--max-video-seconds", type=float, default=120.0)
     parser.add_argument("--output-dir", type=Path, default=PROJECT_ROOT / "outputs" / "demo")
+    parser.add_argument("--review-database", type=Path)
     return parser.parse_args()
 
 

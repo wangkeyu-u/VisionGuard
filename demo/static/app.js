@@ -2,6 +2,9 @@ const state = {
   file: null,
   objectUrl: null,
   config: null,
+  reviews: [],
+  activeReview: null,
+  corrections: [],
 };
 
 const elements = {
@@ -33,7 +36,24 @@ const elements = {
   classCounts: document.querySelector("#class-counts"),
   jsonOutput: document.querySelector("#json-output"),
   jsonDownload: document.querySelector("#json-download"),
+  reviewFilter: document.querySelector("#review-filter"),
+  queueCount: document.querySelector("#queue-count"),
+  reviewQueue: document.querySelector("#review-queue"),
+  reviewEmpty: document.querySelector("#review-empty"),
+  reviewForm: document.querySelector("#review-form"),
+  reviewImage: document.querySelector("#review-image"),
+  boxOverlay: document.querySelector("#box-overlay"),
+  reviewState: document.querySelector("#review-state"),
+  reviewSource: document.querySelector("#review-source"),
+  reviewTimestamp: document.querySelector("#review-timestamp"),
+  reviewer: document.querySelector("#reviewer"),
+  reviewNotes: document.querySelector("#review-notes"),
+  bboxList: document.querySelector("#bbox-list"),
+  addBox: document.querySelector("#add-box"),
+  reviewMessage: document.querySelector("#review-message"),
 };
+
+const reviewClasses = ["person", "helmet", "vest", "gloves", "boots", "no_helmet", "no_vest"];
 
 function humanBytes(bytes) {
   if (bytes < 1024) return `${bytes} B`;
@@ -127,6 +147,167 @@ function renderReport(report) {
   showMedia(`${report.result_url}?v=${Date.now()}`, report.media_type);
   elements.results.hidden = false;
   elements.results.scrollIntoView({ behavior: "smooth", block: "start" });
+  loadReviews(report.review_id);
+}
+
+function correctionFromPrediction(prediction, index) {
+  return {
+    action: "update",
+    original_index: index,
+    class_name: prediction.class_name,
+    xyxy: [...prediction.xyxy],
+  };
+}
+
+function renderBoxes() {
+  elements.boxOverlay.replaceChildren();
+  if (!state.activeReview || !elements.reviewImage.naturalWidth) return;
+  const width = elements.reviewImage.naturalWidth;
+  const height = elements.reviewImage.naturalHeight;
+  state.corrections.forEach((correction, index) => {
+    if (correction.action === "delete") return;
+    const [x1, y1, x2, y2] = correction.xyxy;
+    const box = document.createElement("div");
+    box.className = "review-box";
+    box.style.left = `${(x1 / width) * 100}%`;
+    box.style.top = `${(y1 / height) * 100}%`;
+    box.style.width = `${((x2 - x1) / width) * 100}%`;
+    box.style.height = `${((y2 - y1) / height) * 100}%`;
+    box.dataset.label = `${index + 1} · ${correction.class_name}`;
+    elements.boxOverlay.append(box);
+  });
+}
+
+function renderCorrectionRows() {
+  elements.bboxList.replaceChildren();
+  state.corrections.forEach((correction, index) => {
+    const row = document.createElement("div");
+    row.className = `bbox-row${correction.action === "delete" ? " is-deleted" : ""}`;
+    const indexLabel = document.createElement("span");
+    indexLabel.className = "bbox-index";
+    indexLabel.textContent = String(index + 1).padStart(2, "0");
+    const select = document.createElement("select");
+    select.setAttribute("aria-label", `Box ${index + 1} label`);
+    reviewClasses.forEach((name) => {
+      const option = document.createElement("option");
+      option.value = name;
+      option.textContent = name;
+      option.selected = correction.class_name === name;
+      select.append(option);
+    });
+    select.disabled = correction.action === "delete";
+    select.addEventListener("change", () => {
+      correction.class_name = select.value;
+      renderBoxes();
+    });
+    const coordinates = document.createElement("div");
+    coordinates.className = "coordinate-grid";
+    (correction.xyxy || [0, 0, 1, 1]).forEach((value, coordinateIndex) => {
+      const input = document.createElement("input");
+      input.type = "number";
+      input.min = "0";
+      input.step = "1";
+      input.value = value;
+      input.disabled = correction.action === "delete";
+      input.setAttribute("aria-label", `Box ${index + 1} coordinate ${coordinateIndex + 1}`);
+      input.addEventListener("change", () => {
+        correction.xyxy[coordinateIndex] = Number(input.value);
+        renderBoxes();
+      });
+      coordinates.append(input);
+    });
+    const remove = document.createElement("button");
+    remove.type = "button";
+    remove.textContent = correction.action === "delete" ? "UNDO" : "DELETE";
+    remove.addEventListener("click", () => {
+      if (correction.action === "add") state.corrections.splice(index, 1);
+      else correction.action = correction.action === "delete" ? "update" : "delete";
+      renderCorrectionRows();
+      renderBoxes();
+    });
+    row.append(indexLabel, select, coordinates, remove);
+    elements.bboxList.append(row);
+  });
+  renderBoxes();
+}
+
+function openReview(review) {
+  state.activeReview = review;
+  state.corrections = review.corrections.length
+    ? JSON.parse(JSON.stringify(review.corrections))
+    : review.predictions.map(correctionFromPrediction);
+  elements.reviewEmpty.hidden = true;
+  elements.reviewForm.hidden = false;
+  elements.reviewImage.src = review.source_url;
+  elements.reviewState.textContent = review.status.toUpperCase();
+  elements.reviewState.dataset.state = review.status;
+  elements.reviewSource.textContent = review.source_name;
+  elements.reviewTimestamp.textContent = `QUEUED ${new Date(review.created_at).toLocaleString()}`;
+  elements.reviewer.value = review.reviewer;
+  elements.reviewNotes.value = review.notes;
+  elements.reviewMessage.textContent = "";
+  renderCorrectionRows();
+  elements.reviewImage.onload = renderBoxes;
+}
+
+function renderQueue(focusId) {
+  elements.queueCount.textContent = state.reviews.length;
+  elements.reviewQueue.replaceChildren();
+  if (!state.reviews.length) {
+    const empty = document.createElement("p");
+    empty.className = "queue-empty";
+    empty.textContent = "NO ITEMS IN THIS STATE";
+    elements.reviewQueue.append(empty);
+    return;
+  }
+  state.reviews.forEach((review) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "queue-item";
+    button.dataset.state = review.status;
+    button.innerHTML = `<span>${review.status.toUpperCase()}</span><strong></strong><small></small>`;
+    button.querySelector("strong").textContent = review.source_name;
+    button.querySelector("small").textContent = `${review.predictions.length} predictions · #${review.id}`;
+    button.addEventListener("click", () => openReview(review));
+    elements.reviewQueue.append(button);
+  });
+  const focused = state.reviews.find((review) => review.id === focusId);
+  if (focused) openReview(focused);
+}
+
+async function loadReviews(focusId) {
+  try {
+    const suffix = elements.reviewFilter.value ? `?status=${elements.reviewFilter.value}` : "";
+    const response = await fetch(`/api/reviews${suffix}`);
+    if (!response.ok) throw new Error("Could not load review queue");
+    state.reviews = (await response.json()).reviews;
+    renderQueue(focusId);
+  } catch (error) {
+    elements.reviewQueue.textContent = error.message;
+  }
+}
+
+async function submitReview(status) {
+  if (!state.activeReview) return;
+  const payload = {
+    status,
+    reviewer: elements.reviewer.value,
+    notes: elements.reviewNotes.value,
+    corrections: status === "corrected" ? state.corrections : [],
+  };
+  try {
+    const response = await fetch(`/api/reviews/${state.activeReview.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || "Review update failed");
+    elements.reviewMessage.textContent = `AUDIT SAVED · ${result.status.toUpperCase()}`;
+    await loadReviews(result.id);
+  } catch (error) {
+    elements.reviewMessage.textContent = error.message;
+  }
 }
 
 async function runInference() {
@@ -183,6 +364,17 @@ async function loadConfig() {
 elements.fileInput.addEventListener("change", (event) => selectFile(event.target.files[0]));
 elements.clearFile.addEventListener("click", clearFile);
 elements.runButton.addEventListener("click", runInference);
+elements.reviewFilter.addEventListener("change", () => loadReviews());
+elements.addBox.addEventListener("click", () => {
+  const width = elements.reviewImage.naturalWidth || 100;
+  const height = elements.reviewImage.naturalHeight || 100;
+  state.corrections.push({action: "add", class_name: "person", xyxy: [0, 0, width, height]});
+  renderCorrectionRows();
+});
+document.querySelectorAll("[data-status]").forEach((button) => {
+  button.addEventListener("click", () => submitReview(button.dataset.status));
+});
+window.addEventListener("resize", renderBoxes);
 
 ["dragenter", "dragover"].forEach((eventName) => {
   elements.dropzone.addEventListener(eventName, (event) => {
@@ -200,3 +392,4 @@ elements.runButton.addEventListener("click", runInference);
 
 elements.dropzone.addEventListener("drop", (event) => selectFile(event.dataTransfer.files[0]));
 loadConfig();
+loadReviews();

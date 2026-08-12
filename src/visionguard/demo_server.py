@@ -18,6 +18,7 @@ from visionguard.demo import (
     DemoConfig,
     VisionGuardDemoEngine,
 )
+from visionguard.review import ReviewStore
 
 
 @dataclass(frozen=True)
@@ -31,6 +32,7 @@ class DemoServerConfig:
     device: str = "auto"
     max_upload_mb: int = 150
     max_video_seconds: float = 120.0
+    review_database: Path | None = None
 
 
 def _safe_child(root: Path, relative_path: str) -> Path:
@@ -68,6 +70,7 @@ def _handler_factory(
     server_config: DemoServerConfig,
     static_dir: Path,
     output_dir: Path,
+    review_store: ReviewStore | None = None,
 ) -> type[BaseHTTPRequestHandler]:
     inference_lock = threading.Lock()
     upload_limit = server_config.max_upload_mb * 1024 * 1024
@@ -91,8 +94,38 @@ def _handler_factory(
                         "max_video_seconds": server_config.max_video_seconds,
                         "image_extensions": sorted(IMAGE_SUFFIXES),
                         "video_extensions": sorted(VIDEO_SUFFIXES),
+                        "review_enabled": review_store is not None,
                     }
                 )
+                return
+            if path == "/api/reviews":
+                if review_store is None:
+                    self._send_error(503, "Review store is disabled")
+                    return
+                try:
+                    query = urlparse(self.path).query
+                    status = query.split("status=", 1)[1].split("&", 1)[0] if "status=" in query else None
+                    self._send_json({"reviews": review_store.list(status)})
+                except ValueError as exc:
+                    self._send_error(400, str(exc))
+                return
+            if path == "/api/reviews/export.json":
+                self._send_export(review_store, "json")
+                return
+            if path == "/api/reviews/export.csv":
+                self._send_export(review_store, "csv")
+                return
+            if path.startswith("/api/reviews/"):
+                if review_store is None:
+                    self._send_error(503, "Review store is disabled")
+                    return
+                try:
+                    review_id = int(path.removeprefix("/api/reviews/"))
+                    self._send_json(review_store.get(review_id))
+                except ValueError:
+                    self._send_error(400, "Review ID must be an integer")
+                except KeyError as exc:
+                    self._send_error(404, str(exc))
                 return
             if path.startswith("/static/"):
                 try:
@@ -147,16 +180,41 @@ def _handler_factory(
                 session_dir.mkdir(parents=True, exist_ok=False)
                 input_path = session_dir / f"input{suffix}"
                 input_path.write_bytes(upload["content"])
-                try:
-                    with inference_lock:
-                        report = engine.infer(input_path, session_dir)
-                finally:
-                    input_path.unlink(missing_ok=True)
+                with inference_lock:
+                    report = engine.infer(input_path, session_dir)
+                report["source_url"] = f"/results/{session_id}/{input_path.name}"
                 report["result_url"] = f"/results/{session_id}/{report['output_file']}"
                 report["report_url"] = f"/results/{session_id}/report.json"
+                if review_store is not None:
+                    review = review_store.enqueue(session_id, report)
+                    report["review_id"] = review["id"]
                 self._send_json(report)
             except (FileNotFoundError, OSError, RuntimeError, ValueError) as exc:
                 self._send_error(400, f"{type(exc).__name__}: {exc}")
+
+        def do_PATCH(self) -> None:  # noqa: N802
+            path = unquote(urlparse(self.path).path)
+            if not path.startswith("/api/reviews/"):
+                self._send_error(404, "Not found")
+                return
+            if review_store is None:
+                self._send_error(503, "Review store is disabled")
+                return
+            try:
+                review_id = int(path.removeprefix("/api/reviews/"))
+                length = int(self.headers.get("Content-Length", "0"))
+                if length <= 0 or length > 1024 * 1024:
+                    raise ValueError("Review body must be between 1 byte and 1 MB")
+                payload = json.loads(self.rfile.read(length))
+                if not isinstance(payload, dict):
+                    raise ValueError("Review body must be a JSON object")
+                self._send_json(review_store.update(review_id, payload))
+            except json.JSONDecodeError:
+                self._send_error(400, "Review body is not valid JSON")
+            except ValueError as exc:
+                self._send_error(400, str(exc))
+            except KeyError as exc:
+                self._send_error(404, str(exc))
 
         def _send_file(self, path: Path) -> None:
             if not path.is_file():
@@ -178,6 +236,20 @@ def _handler_factory(
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.send_header("Content-Length", str(len(body)))
             self.send_header("Cache-Control", "no-store")
+            self.send_header("X-Content-Type-Options", "nosniff")
+            self.end_headers()
+            self.wfile.write(body)
+
+        def _send_export(self, store: ReviewStore | None, export_format: str) -> None:
+            if store is None:
+                self._send_error(503, "Review store is disabled")
+                return
+            body = store.export_json() if export_format == "json" else store.export_csv()
+            content_type = "application/json" if export_format == "json" else "text/csv"
+            self.send_response(200)
+            self.send_header("Content-Type", f"{content_type}; charset=utf-8")
+            self.send_header("Content-Disposition", f'attachment; filename="visionguard_reviews.{export_format}"')
+            self.send_header("Content-Length", str(len(body)))
             self.send_header("X-Content-Type-Options", "nosniff")
             self.end_headers()
             self.wfile.write(body)
@@ -208,7 +280,9 @@ def run_demo_server(config: DemoServerConfig) -> None:
             max_video_seconds=config.max_video_seconds,
         )
     )
-    handler = _handler_factory(engine, config, static_dir, output_dir)
+    review_database = config.review_database or output_dir / "reviews.sqlite3"
+    review_store = ReviewStore(review_database)
+    handler = _handler_factory(engine, config, static_dir, output_dir, review_store)
     server = ThreadingHTTPServer((config.host, config.port), handler)
     print(f"VisionGuard demo ready: http://{config.host}:{config.port}")
     print(f"Model: {engine.config.model} | device={engine.config.device}")
