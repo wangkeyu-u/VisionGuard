@@ -1,6 +1,17 @@
-# VLM Extension Guide: Your Next Stage
+# VLM Implementation and Real-Experiment Guide
 
-This stage is intentionally a guide rather than an implemented feature. The goal is for you to build and defend the multimodal part yourself in an interview.
+The shared adapter contract, strict output validation, ablation runner, IoU-grounded metrics, schemas, fixture configuration, and three execution paths are implemented. The fixture run validates only the software pipeline. It does **not** constitute a real VLM experiment.
+
+## What is implemented
+
+- `visionguard.vlm`: `YOLO11Adapter`, `Qwen3VLAdapter`, `GroundedQwen3VLAdapter`, fixture adapter, config and manifest loading, JSON extraction and finding validation.
+- `visionguard.vlm_evaluation`: one-to-one IoU/class matching, grounding precision/recall/F1, unsupported-finding rate, negative-scene hallucination rate, schema validity and latency.
+- `scripts/evaluate_vlm.py`: one configuration can compare all three conditions and records `fixture` versus `real` in every artifact.
+- `schemas/`: stable finding and evaluation result contracts.
+- `configs/vlm_ablation.fixture.yaml`: deterministic tests; intentionally synthetic.
+- `configs/vlm_ablation.real.example.yaml`: explicit real execution template with placeholder revision and paths that must be supplied.
+
+Run the fixture check with `make vlm-fixture`. Run real models only after constructing an adjudicated manifest and pinning the exact Qwen revision.
 
 ## The project you should build
 
@@ -18,7 +29,7 @@ The VLM should answer questions the detector cannot: Which person is missing whi
 
 Recommended first scope: images only, English output, `no_helmet` and `no_vest`, one JSON schema, and no real-time claim.
 
-## Phase 0 — Define the contract (half day)
+## Implemented contract
 
 Use one output schema from day one:
 
@@ -38,7 +49,7 @@ Use one output schema from day one:
 }
 ```
 
-Write a JSON Schema and reject/repair invalid output. Treat `person_box` as normalized `xyxy`. Allow an empty `findings` list and require explicit uncertainty when evidence is weak.
+`schemas/vlm_finding.schema.json` defines this contract. The evaluator rejects invalid model output from scoring; it does not silently repair output because repair can change evaluated meaning. `person_box` is normalized `xyxy`.
 
 ## Phase 1 — Build an evaluation set before fine-tuning (1–2 days)
 
@@ -55,21 +66,21 @@ Start with about 200–300 carefully reviewed examples balanced across:
 
 For every example record: image ID, person box, violation labels, short evidence, uncertainty, source/license, and reviewer status. Have a second person review at least the final test portion if possible.
 
-## Phase 2 — Establish three baselines (1–2 days)
+## Three implemented adapter conditions
 
 Choose one compact open-weight instruct VLM that fits your available GPU and whose license permits your use. Model ecosystems change quickly, so record the exact model ID, revision, library versions, precision, and prompt.
 
 Compare:
 
 1. **VLM only** — full image plus task prompt.
-2. **YOLO rules only** — current detector output converted to the same schema.
+2. **YOLO rules only** — current detector output converted to the same schema. Direct violation boxes are explicitly marked as person-association proxies.
 3. **YOLO-grounded VLM** — full image, annotated image or crops, and serialized detector boxes/classes.
 
 This ablation is your interview story: it shows whether grounding actually reduces hallucination or improves minority violations.
 
-## Phase 3 — Build detector-grounded inputs (2–3 days)
+## Implemented detector-grounded input path
 
-Add a script that exports one JSONL row per image:
+The grounded adapter serializes YOLO detections directly into the Qwen prompt. An optional reusable export/crop dataset builder remains future work. A real evaluation manifest uses one JSONL row per image:
 
 ```json
 {"image":".../frame.jpg","detections":[{"class":"person","conf":0.91,"xyxy":[...]},{"class":"no_vest","conf":0.62,"xyxy":[...]}],"target":{...}}
@@ -95,7 +106,7 @@ Training discipline:
 
 If 200 examples are insufficient, do not manufacture confidence with a large epoch count. Add adjudicated data through error-driven collection.
 
-## Phase 5 — Evaluate the actual multimodal behavior (1–2 days)
+## Implemented metrics and required real evaluation
 
 Report more than prose quality:
 
@@ -109,11 +120,11 @@ Report more than prose quality:
 | Explanation | human-rated evidence correctness, not writing style |
 | System | detector + VLM end-to-end P50/P95 latency and peak memory |
 
-Use bootstrap confidence intervals where possible. Publish a table comparing VLM-only, YOLO-only, grounded VLM, and grounded VLM + LoRA. Include 20–30 categorized failure cases.
+The current evaluator implements deterministic point metrics and per-example records. Bootstrap confidence intervals, LoRA, repeated seeds, peak memory measurement, selective-risk curves, and a 20–30 case reviewed failure gallery remain future work.
 
-## Phase 6 — Connect it to the demo (half day)
+## Human review platform
 
-Only after offline evaluation, add a second action to the existing demo: **Generate safety explanation**. Keep detector and VLM output visibly separate. Show evidence boxes, the raw JSON, model/version, and a “human review required” state. Never turn uncertain generated text into an automatic enforcement action.
+The existing YOLO demo now includes a persistent human review queue with explicit accept/reject/correct decisions, bbox/label edits, reviewer/notes, SQLite state, and JSON/CSV exports. Direct VLM explanation generation is intentionally not connected to the UI before a real offline evaluation is completed. Never turn uncertain generated text into automatic enforcement action.
 
 ## A realistic two-week schedule
 
@@ -142,7 +153,7 @@ Use this structure:
 
 The strongest version of this work is not “I called a VLM API.” It is “I framed a measurable multimodal hypothesis, controlled leakage, grounded outputs, quantified hallucination, and knew where the system must abstain.”
 
-## Definition of done
+## Real-experiment definition of done (not yet complete)
 
 - Reproducible environment and exact model revision
 - Versioned schema and prompt

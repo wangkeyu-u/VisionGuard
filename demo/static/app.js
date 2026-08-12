@@ -162,6 +162,10 @@ function correctionFromPrediction(prediction, index) {
 function renderBoxes() {
   elements.boxOverlay.replaceChildren();
   if (!state.activeReview || !elements.reviewImage.naturalWidth) return;
+  elements.boxOverlay.style.left = `${elements.reviewImage.offsetLeft}px`;
+  elements.boxOverlay.style.top = `${elements.reviewImage.offsetTop}px`;
+  elements.boxOverlay.style.width = `${elements.reviewImage.clientWidth}px`;
+  elements.boxOverlay.style.height = `${elements.reviewImage.clientHeight}px`;
   const width = elements.reviewImage.naturalWidth;
   const height = elements.reviewImage.naturalHeight;
   state.corrections.forEach((correction, index) => {

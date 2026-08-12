@@ -146,11 +146,32 @@ class YOLO11Adapter(VisionAdapter):
     def predict(self, example: VLMExample) -> AdapterResult:
         start = time.perf_counter()
         detections = self.detect(example.image)
+        persons = [detection for detection in detections if detection["class_name"] == "person"]
+
+        def associated_person_box(violation: dict[str, Any]) -> list[float]:
+            box = violation["xyxy"]
+            center_x, center_y = (box[0] + box[2]) / 2, (box[1] + box[3]) / 2
+            containing = [
+                person
+                for person in persons
+                if person["xyxy"][0] <= center_x <= person["xyxy"][2]
+                and person["xyxy"][1] <= center_y <= person["xyxy"][3]
+            ]
+            if not containing:
+                return box
+            return min(
+                containing,
+                key=lambda person: (
+                    (person["xyxy"][2] - person["xyxy"][0])
+                    * (person["xyxy"][3] - person["xyxy"][1])
+                ),
+            )["xyxy"]
+
         findings = [
             {
-                "person_box": detection["xyxy"],
+                "person_box": associated_person_box(detection),
                 "violation": detection["class_name"],
-                "evidence": "YOLO11 violation-class detection; requires human association review.",
+                "evidence": "YOLO11 violation detection associated to the smallest containing person box.",
                 "confidence": "high" if detection["confidence"] >= 0.75 else "medium",
             }
             for detection in detections
@@ -159,7 +180,9 @@ class YOLO11Adapter(VisionAdapter):
         document = {
             "scene_summary": f"YOLO11 produced {len(detections)} detections.",
             "findings": findings,
-            "uncertainties": ["YOLO violation boxes are used as grounding proxies, not verified person associations."],
+            "uncertainties": [
+                "Person association uses center-in-person; unmatched violation boxes remain grounding proxies."
+            ],
             "recommended_action": "Human review required." if findings else "Continue routine human review.",
         }
         return AdapterResult(document, (time.perf_counter() - start) * 1000)
@@ -170,13 +193,13 @@ class Qwen3VLAdapter(VisionAdapter):
 
     def __init__(self, name: str, model_id: str, revision: str | None, device_map: str, max_new_tokens: int) -> None:
         import torch
-        from transformers import AutoModelForImageTextToText, AutoProcessor
+        from transformers import AutoModelForMultimodalLM, AutoProcessor
 
         self.name = name
         self.model_id = model_id
         self.max_new_tokens = max_new_tokens
         self.processor = AutoProcessor.from_pretrained(model_id, revision=revision)
-        self.model = AutoModelForImageTextToText.from_pretrained(
+        self.model = AutoModelForMultimodalLM.from_pretrained(
             model_id, revision=revision, torch_dtype=torch.bfloat16, device_map=device_map
         )
 

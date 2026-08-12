@@ -709,7 +709,7 @@ code {
 .review-empty { min-height: 620px; display: grid; place-content: center; gap: 12px; color: var(--muted); text-align: center; }
 .review-media { position: relative; display: grid; place-items: center; min-height: 360px; background: #050606; }
 .review-media img { display: block; max-width: 100%; max-height: 560px; }
-.box-overlay { position: absolute; inset: 0; pointer-events: none; }
+.box-overlay { position: absolute; pointer-events: none; }
 .review-box { position: absolute; border: 2px solid var(--signal); box-shadow: 0 0 0 1px #000; }
 .review-box::before { content: attr(data-label); position: absolute; bottom: 100%; left: -2px; padding: 4px 6px; color: var(--ink); background: var(--signal); font: 9px/1 var(--mono); white-space: nowrap; }
 .review-metadata { display: flex; align-items: center; gap: 12px; padding: 18px 0; border-bottom: 1px solid var(--line); }
