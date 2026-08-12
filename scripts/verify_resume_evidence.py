@@ -14,12 +14,13 @@ from visionguard.evidence import build_verification, write_verification  # noqa:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Recompute VisionGuard resume evidence from source artifacts.")
     parser.add_argument("--data", type=Path, default=PROJECT_ROOT / "training/datasets/safety_final/data.yaml")
+    parser.add_argument("--dataset-root", type=Path, help="Explicit root for a relocated data.yaml")
     parser.add_argument("--experiments", type=Path, default=PROJECT_ROOT / "outputs/experiments")
     parser.add_argument("--output", type=Path, default=PROJECT_ROOT / "docs/source-verification.json")
     parser.add_argument("--require-verified", action="store_true")
     args = parser.parse_args()
     try:
-        report = build_verification(args.data, args.experiments)
+        report = build_verification(args.data, args.experiments, args.dataset_root)
         write_verification(report, args.output)
     except (KeyError, OSError, ValueError) as exc:
         print(f"Evidence verification failed: {type(exc).__name__}: {exc}", file=sys.stderr)

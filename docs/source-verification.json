@@ -1,20 +1,49 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-12T17:23:31.985055+00:00",
+  "generated_at": "2026-08-12T17:31:43.311472+00:00",
   "generator": "scripts/verify_resume_evidence.py",
   "runtime": {
     "python": "3.12.13",
     "platform": "macOS-26.5.2-arm64-arm-64bit"
   },
   "dataset": {
-    "status": "missing",
-    "missing": [
-      {
-        "path": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_final/data.yaml",
-        "purpose": "frozen dataset YAML",
-        "exists": false
+    "status": "verified",
+    "source": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_final/data.yaml",
+    "source_sha256": "23430adaf17f2e3e5f6c9e915c1e64f495d1120413c42f7f91b55a607b8692ac",
+    "dataset_root": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_final",
+    "dataset_root_override": false,
+    "dataset_sha256": "6d40b6e5d09cc4e1ed3a6d8d9a8a88259f1e18dc9f117d664fa5694473db3bb2",
+    "classes": [
+      "person",
+      "helmet",
+      "vest",
+      "gloves",
+      "boots",
+      "no_helmet",
+      "no_vest"
+    ],
+    "class_count": 7,
+    "images": 8762,
+    "annotations": 43727,
+    "splits": {
+      "train": {
+        "images": 6125,
+        "annotations": 30656
+      },
+      "valid": {
+        "images": 1753,
+        "annotations": 8747
+      },
+      "test": {
+        "images": 884,
+        "annotations": 4324
       }
-    ]
+    },
+    "duplicate_sha256_groups": 0,
+    "cross_split_sha256_groups": 0,
+    "cross_split_source_groups": 0,
+    "source_group_leakage": {},
+    "missing": []
   },
   "yolo": {
     "status": "missing",

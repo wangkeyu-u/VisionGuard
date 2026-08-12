@@ -1,0 +1,1806 @@
+{
+  "generated_at": "2026-08-12T17:31:21.042644+00:00",
+  "source_data_yaml": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/data.yaml",
+  "source_dataset_root": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean",
+  "output_dataset_root": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_final",
+  "source_dataset_modified": false,
+  "configuration": {
+    "seed": 42,
+    "split_ratios": {
+      "train": 0.7,
+      "valid": 0.2,
+      "test": 0.1
+    }
+  },
+  "strategy": {
+    "deduplication": "exact image bytes using SHA-256",
+    "source_grouping": "filename prefix before Roboflow .rf. export suffix",
+    "split": "group-level approximate multilabel stratification with local improvement",
+    "strict_stratification": false,
+    "limitation": "Exact ratios are not guaranteed because all variants from one source are assigned as an indivisible group. No oversampling or synthetic balancing was used.",
+    "objective": 0.016220468602430718
+  },
+  "counts": {
+    "input_images": 8845,
+    "duplicate_groups": 78,
+    "duplicate_groups_with_inconsistent_labels": 52,
+    "duplicate_images_removed": 78,
+    "empty_label_images_removed": 5,
+    "final_images": 8762,
+    "input_removed_class_annotations": {
+      "no_boots": 9,
+      "no_gloves": 1
+    },
+    "final_annotations": 43727,
+    "source_groups": 1398
+  },
+  "target_classes": {
+    "0": "person",
+    "1": "helmet",
+    "2": "vest",
+    "3": "gloves",
+    "4": "boots",
+    "5": "no_helmet",
+    "6": "no_vest"
+  },
+  "removed_classes": [
+    "no_boots",
+    "no_gloves"
+  ],
+  "total_class_annotations": {
+    "person": 5738,
+    "helmet": 8379,
+    "vest": 10385,
+    "gloves": 5317,
+    "boots": 11540,
+    "no_helmet": 994,
+    "no_vest": 1374
+  },
+  "total_class_image_coverage": {
+    "person": 4765,
+    "helmet": 6468,
+    "vest": 7655,
+    "gloves": 2830,
+    "boots": 5470,
+    "no_helmet": 422,
+    "no_vest": 601
+  },
+  "splits": {
+    "train": {
+      "images": 6125,
+      "labels": 6125,
+      "annotations": 30656,
+      "class_annotations": {
+        "person": 4017,
+        "helmet": 5885,
+        "vest": 7225,
+        "gloves": 3754,
+        "boots": 8121,
+        "no_helmet": 701,
+        "no_vest": 953
+      },
+      "class_image_coverage": {
+        "person": 3333,
+        "helmet": 4525,
+        "vest": 5376,
+        "gloves": 1978,
+        "boots": 3820,
+        "no_helmet": 295,
+        "no_vest": 421
+      },
+      "actual_ratio": 0.6990413147683178,
+      "target_ratio": 0.7,
+      "ratio_deviation": -0.0009586852316821881,
+      "class_annotation_proportions": {
+        "person": 0.13103470772442588,
+        "helmet": 0.19196894572025053,
+        "vest": 0.23567980167014613,
+        "gloves": 0.12245563674321504,
+        "boots": 0.2649073590814196,
+        "no_helmet": 0.022866649269311066,
+        "no_vest": 0.031086899791231734
+      }
+    },
+    "valid": {
+      "images": 1753,
+      "labels": 1753,
+      "annotations": 8747,
+      "class_annotations": {
+        "person": 1133,
+        "helmet": 1675,
+        "vest": 2086,
+        "gloves": 1041,
+        "boots": 2340,
+        "no_helmet": 192,
+        "no_vest": 280
+      },
+      "class_image_coverage": {
+        "person": 958,
+        "helmet": 1293,
+        "vest": 1530,
+        "gloves": 570,
+        "boots": 1090,
+        "no_helmet": 85,
+        "no_vest": 120
+      },
+      "actual_ratio": 0.20006847751654874,
+      "target_ratio": 0.2,
+      "ratio_deviation": 6.847751654873169e-05,
+      "class_annotation_proportions": {
+        "person": 0.12953012461415342,
+        "helmet": 0.1914942265919744,
+        "vest": 0.238481765176632,
+        "gloves": 0.1190122327655196,
+        "boots": 0.2675202926717732,
+        "no_helmet": 0.021950382988453185,
+        "no_vest": 0.03201097519149423
+      }
+    },
+    "test": {
+      "images": 884,
+      "labels": 884,
+      "annotations": 4324,
+      "class_annotations": {
+        "person": 588,
+        "helmet": 819,
+        "vest": 1074,
+        "gloves": 522,
+        "boots": 1079,
+        "no_helmet": 101,
+        "no_vest": 141
+      },
+      "class_image_coverage": {
+        "person": 474,
+        "helmet": 650,
+        "vest": 749,
+        "gloves": 282,
+        "boots": 560,
+        "no_helmet": 42,
+        "no_vest": 60
+      },
+      "actual_ratio": 0.10089020771513353,
+      "target_ratio": 0.1,
+      "ratio_deviation": 0.0008902077151335258,
+      "class_annotation_proportions": {
+        "person": 0.13598519888991675,
+        "helmet": 0.18940795559666976,
+        "vest": 0.24838112858464384,
+        "gloves": 0.12072155411655874,
+        "boots": 0.24953746530989823,
+        "no_helmet": 0.02335800185013876,
+        "no_vest": 0.03260869565217391
+      }
+    }
+  },
+  "duplicate_groups": [
+    {
+      "sha256": "05031ab2154bcb4d959af12022c8d8a90bb7485d669bd27053c259051463b932",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_170_jpg.rf.9a089f6afea86e68ee600c6756c6065b.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_170_jpg.rf.9a089f6afea86e68ee600c6756c6065b.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_170_jpg.rf.afd293bb509967a6c4cc46a37505024b.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_170_jpg.rf.afd293bb509967a6c4cc46a37505024b.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "05526316b463c87c3eee13d5e43642df14fe5383b699efa1e65dbde86d0afe98",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_34_jpg.rf.fdd2cee505d67871e73f600654b6272b.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/labels/image_34_jpg.rf.fdd2cee505d67871e73f600654b6272b.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_34_jpg.rf.a8c0bbfafaf931bc2f2b03919a535b43.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_34_jpg.rf.a8c0bbfafaf931bc2f2b03919a535b43.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "0563fdae8e411bf318ecef152e747e8717fa76c173dbbd50da793fa739d068a9",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/images85_jpg.rf.8f1f028d3ad0750ba6dc953ea05f1b22.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/images85_jpg.rf.8f1f028d3ad0750ba6dc953ea05f1b22.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/images85_jpg.rf.95b4c893541793ffcde0a063ca385b08.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/images85_jpg.rf.95b4c893541793ffcde0a063ca385b08.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "0902a2547c5e7fb07a7c5d50fdd837e41a8df51ca35ff33fc75e29d8690eeb7c",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/images-68-_jpg.rf.ecf3d0b694881f8910618b9373a547d0.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/images-68-_jpg.rf.ecf3d0b694881f8910618b9373a547d0.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/images-68-_jpg.rf.ddefedab1f75ae1a7fc9b7622fcf643c.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/images-68-_jpg.rf.ddefedab1f75ae1a7fc9b7622fcf643c.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "090c337136acd8a8d41209aaef58815956c626e78a7c3cec96496014f12a8141",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/KakaoTalk_20221018_001425789_06_jpg.rf.1ce8815f4be284389456a6f8b444a62d.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/KakaoTalk_20221018_001425789_06_jpg.rf.1ce8815f4be284389456a6f8b444a62d.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/KakaoTalk_20221018_001425789_06_jpg.rf.836493b1ee0eb1956c83f083b5cc5fcc.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/KakaoTalk_20221018_001425789_06_jpg.rf.836493b1ee0eb1956c83f083b5cc5fcc.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "0b41b1838f5f9943a46bb74ec7fb5f539d965328e11904b658a3b103f8dbf54a",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/00148_jpg.rf.a7f23e9100fe1927298b1e0c2608454b.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/00148_jpg.rf.a7f23e9100fe1927298b1e0c2608454b.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/00148_jpg.rf.caff42ffededd9204075654eddd3a01e.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/00148_jpg.rf.caff42ffededd9204075654eddd3a01e.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "10ff55b647bf1b3b159202d558153ad001b3a4cb1644c1e74ffc35d2fcca838b",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/images-30-_jpg.rf.e4efe6a0f86b01bf804da6d2f1bc563d.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/images-30-_jpg.rf.e4efe6a0f86b01bf804da6d2f1bc563d.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/images-30-_jpg.rf.627404d11acb0e8225fd19463ecbdada.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/images-30-_jpg.rf.627404d11acb0e8225fd19463ecbdada.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "129cd35635199930372cbfc4ed75d1a7ca930d1a37e330692b2936270a457e07",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Tan0150150_jpg.rf.64f7e6fbca3ecdebe31792357c17bcad.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/Tan0150150_jpg.rf.64f7e6fbca3ecdebe31792357c17bcad.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Tan0150150_jpg.rf.6b7b90c247d1caf0dde400c83f52f5bd.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/Tan0150150_jpg.rf.6b7b90c247d1caf0dde400c83f52f5bd.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "1cbb9db376790e9e269c3b84a69be60fb97a9277653c031d04608563880071f1",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Tan004343_jpg.rf.22a869b10843ce820b50e8f23dc4f01a.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/Tan004343_jpg.rf.22a869b10843ce820b50e8f23dc4f01a.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Tan004343_jpg.rf.c0a534400bb1033e171c6cda958f3dfb.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/Tan004343_jpg.rf.c0a534400bb1033e171c6cda958f3dfb.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "2257ae1b085ac2d6c7706c5bc86afe07190598ac3b8ed32d27d72d5d5bcc6d62",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/KakaoTalk_20221018_001312059_02_jpg.rf.dae982ce123fa64a45296592b259cfb9.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/KakaoTalk_20221018_001312059_02_jpg.rf.dae982ce123fa64a45296592b259cfb9.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/KakaoTalk_20221018_001312059_02_jpg.rf.1a9412e103ae0cd09200654df8261622.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/KakaoTalk_20221018_001312059_02_jpg.rf.1a9412e103ae0cd09200654df8261622.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "225976cd925b0c7a1bee6f94e3aa55a87ae903bbcfb04cc8eb4c36b98e3cf6ec",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_200_jpg.rf.6c7e935c44e30d0396291b6b3430d24d.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/labels/image_200_jpg.rf.6c7e935c44e30d0396291b6b3430d24d.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_200_jpg.rf.42773c8b37e67e23e2ddb78c0c337947.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_200_jpg.rf.42773c8b37e67e23e2ddb78c0c337947.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "231b401e83bb7e7772909fc43f702471a6dda4c72f2d07f2d234c4ecf2d99468",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_155_jpg.rf.b7831ead07caf0d91aecf1e53d2d185e.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/labels/image_155_jpg.rf.b7831ead07caf0d91aecf1e53d2d185e.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_155_jpg.rf.c65c0fd29469764e0a0e1e5dd41608d8.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_155_jpg.rf.c65c0fd29469764e0a0e1e5dd41608d8.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "275798e0a92eb3aa8cf574c3ca13e10781eec436cf900d27f342503232be892c",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_185_jpg.rf.707ae92744701b0dab6dec940f72acbb.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_185_jpg.rf.707ae92744701b0dab6dec940f72acbb.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_185_jpg.rf.055939c52830590a85614325dba54fb2.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_185_jpg.rf.055939c52830590a85614325dba54fb2.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "28000fe392fafab63b3d6195caf6e3b91f704ad522f0d37dcdbdeebbe93e0808",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_165_jpg.rf.efa94be680f6ec216992294603cd31cc.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_165_jpg.rf.efa94be680f6ec216992294603cd31cc.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_165_jpg.rf.22a723e569f741fe7ae9fcf45e49b31e.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/labels/image_165_jpg.rf.22a723e569f741fe7ae9fcf45e49b31e.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "28941894f74e9c2ec6de78364ca4cf0d62c8bea6b9a902b2b4bcc9e8f5812786",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/KakaoTalk_20221018_001726988_01_jpg.rf.ae0d0ac5465f29c04a54f591a4c939fa.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/KakaoTalk_20221018_001726988_01_jpg.rf.ae0d0ac5465f29c04a54f591a4c939fa.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/KakaoTalk_20221018_001726988_01_jpg.rf.8fc2cf79e29bbafcfaf28eda59093976.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/labels/KakaoTalk_20221018_001726988_01_jpg.rf.8fc2cf79e29bbafcfaf28eda59093976.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "2bf711ab28192875d2a81ad924e0acbc0e778797f53e9bcd33e6416abee62d92",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_248_jpg.rf.fc5b1443e970dc79df8422078563fbb3.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_248_jpg.rf.fc5b1443e970dc79df8422078563fbb3.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_248_jpg.rf.a1abfb12c608dc337079679f6ccc71ed.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_248_jpg.rf.a1abfb12c608dc337079679f6ccc71ed.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "2d5f56cfc66ddd8b39e180e34f32804e7d7995a6de86312adab154a34c7453da",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_150_jpg.rf.70be70d1eed3bdd92f4f5107305f6ebb.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_150_jpg.rf.70be70d1eed3bdd92f4f5107305f6ebb.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_150_jpg.rf.c1109cc9a428446429da33d9c344789a.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_150_jpg.rf.c1109cc9a428446429da33d9c344789a.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "2d67d881d7050272accf631d09bb3870c9c08feaa4f3434a0ab7fd6893982630",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/images-2022-07-04T013435_jpg.rf.27d752f765865851ce65f964c7bc00e3.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/images-2022-07-04T013435_jpg.rf.27d752f765865851ce65f964c7bc00e3.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/images-2022-07-04T013435_jpg.rf.4cd286fbe7ccb031677577332fa78e4d.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/images-2022-07-04T013435_jpg.rf.4cd286fbe7ccb031677577332fa78e4d.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "391003a0dc2a919b431f5b0bae3bfe9b879541def3e3755e5afbdb39e65d80a9",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/01459_jpg.rf.a6b0d8a064cdabc6f48b1c73fafcbb91.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/labels/01459_jpg.rf.a6b0d8a064cdabc6f48b1c73fafcbb91.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/01459_jpg.rf.54b90f42907a1e7a5c86fc30a39f22e7.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/01459_jpg.rf.54b90f42907a1e7a5c86fc30a39f22e7.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "42fdbd372c90aec4580e076ef65b3f5b064a9c160f4150ea726d16a3c28a98ad",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/Tan0532532_jpg.rf.4f5188b497d15bf53f7aa3fafca43ffc.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/labels/Tan0532532_jpg.rf.4f5188b497d15bf53f7aa3fafca43ffc.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/Tan0532532_jpg.rf.7bf5d5c86da9db9c5efe4804166f997d.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/Tan0532532_jpg.rf.7bf5d5c86da9db9c5efe4804166f997d.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "4559714629bb84a9bff2dbf7d74c004f8f1597b499d98540a2242e6367a6e224",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/images-29-_jpg.rf.865a8ee0fe8eeb04556b6df82461a3f6.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/images-29-_jpg.rf.865a8ee0fe8eeb04556b6df82461a3f6.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/images-29-_jpg.rf.87bc59139de9f31643ea2284605d9c61.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/images-29-_jpg.rf.87bc59139de9f31643ea2284605d9c61.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "4917259a1e7bfc7d27d4b0431c11a7bb00e87feeddf2f0dd5c6e6788eeade6e8",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/KakaoTalk_20221018_001425789_06_jpg.rf.d2cbee694b54193f4a14ef956d965139.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/KakaoTalk_20221018_001425789_06_jpg.rf.d2cbee694b54193f4a14ef956d965139.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/KakaoTalk_20221018_001425789_06_jpg.rf.405581336f2d45526db2576d56ed971f.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/KakaoTalk_20221018_001425789_06_jpg.rf.405581336f2d45526db2576d56ed971f.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "496365b4a177a937dfd3c12c1b6a489da0582b38f37d0c764782745e77d2c70e",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_232_jpg.rf.0439679ea9bb899edc15750ad248724a.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/labels/image_232_jpg.rf.0439679ea9bb899edc15750ad248724a.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_232_jpg.rf.52ff2c33500717cf25b5658e21870023.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_232_jpg.rf.52ff2c33500717cf25b5658e21870023.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "5256c188bbe82de30b913cb3a1293cd72d891a83b72b5b77a087d81002d6d69c",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_193_jpg.rf.4487a66dcffe3ef6bbb8893cdc0aa6c0.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_193_jpg.rf.4487a66dcffe3ef6bbb8893cdc0aa6c0.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_193_jpg.rf.aa6fb1db537274de09d49be44a8cdf00.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_193_jpg.rf.aa6fb1db537274de09d49be44a8cdf00.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "5414be49c96106a30b604483a53b1035c4e3ccaa5adeef3a35db0a69dff1f091",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_226_jpg.rf.b964ef7ae423b66930c40bf2ff7ac01a.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_226_jpg.rf.b964ef7ae423b66930c40bf2ff7ac01a.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_226_jpg.rf.979cdd59e4d60c97e75c43b352db2052.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_226_jpg.rf.979cdd59e4d60c97e75c43b352db2052.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "54ec36146844a123f87d493892f846fdff9bf99b8464d9892269a34d29a32708",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_212_jpg.rf.73a835fdff23081d498e8bc337550e5b.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_212_jpg.rf.73a835fdff23081d498e8bc337550e5b.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_212_jpg.rf.a4d41812fdbb240a149b71ef29847713.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_212_jpg.rf.a4d41812fdbb240a149b71ef29847713.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "55c379adf38eaab0d273011181d82f06a06173c1730f0765cf534d33f0a9cf08",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/20220721_162229_jpg.rf.9c10355abbc6e9a603f48d388dc3ba89.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/20220721_162229_jpg.rf.9c10355abbc6e9a603f48d388dc3ba89.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/20220721_162229_jpg.rf.afc49c2510c21c46b94ea352c3580714.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/20220721_162229_jpg.rf.afc49c2510c21c46b94ea352c3580714.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "59c27c9cd0fd041208d5a25063699713330987bd793f6504cc4c7ac4df8a0413",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_202_jpg.rf.a87daa6ee5f36a6c531838941f6d5479.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_202_jpg.rf.a87daa6ee5f36a6c531838941f6d5479.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_202_jpg.rf.e15afdc5bd519009dc0defb51a0ca823.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_202_jpg.rf.e15afdc5bd519009dc0defb51a0ca823.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "5b401a7b392d9a1357e59971472de217b53d1d5c478885320389ec95fbe7d840",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_183_jpg.rf.06481baf61141b81ac690d4a727ee2fd.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_183_jpg.rf.06481baf61141b81ac690d4a727ee2fd.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_183_jpg.rf.0d110784d2e20a627918d135ed96c816.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_183_jpg.rf.0d110784d2e20a627918d135ed96c816.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "5cadb7572a8e3395eec2f5e70768f6b49e4262105959e0ab4d74a39c14d1f2ce",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_231_jpg.rf.c9ac7540780a76bbc1f51688968f71e6.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/labels/image_231_jpg.rf.c9ac7540780a76bbc1f51688968f71e6.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_231_jpg.rf.4df4bf6676662a55ad98cb0da0704202.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_231_jpg.rf.4df4bf6676662a55ad98cb0da0704202.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "5d34bcefa5b14a432ddf6946c5a46807f033b0f66f175ab315f4f36c8b02e11c",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Nein4731_jpg.rf.aa6d4252161e1c788d3356334692fffc.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/Nein4731_jpg.rf.aa6d4252161e1c788d3356334692fffc.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Nein4731_jpg.rf.e3332ad7ab07a7276891f8d7cf04f12d.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/Nein4731_jpg.rf.e3332ad7ab07a7276891f8d7cf04f12d.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "5f528ff756952ce0e2b59e61ac08e3b9bf8ae9bcf455c28a796cc07a1b0daea6",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/KakaoTalk_20221018_001312059_02_jpg.rf.ad7ff4bbdedb030d5bb114321a13c62f.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/KakaoTalk_20221018_001312059_02_jpg.rf.ad7ff4bbdedb030d5bb114321a13c62f.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/KakaoTalk_20221018_001312059_02_jpg.rf.f3b5dfa3594b62e8458cf42723b7faad.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/KakaoTalk_20221018_001312059_02_jpg.rf.f3b5dfa3594b62e8458cf42723b7faad.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "5fd59eaf83bd73319170bc6e1b8ac3af2d97a25824d8275c877b0740ae131b2b",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_52_jpg.rf.62de52bdc0316aba89f1d2afa7199ea8.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_52_jpg.rf.62de52bdc0316aba89f1d2afa7199ea8.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_52_jpg.rf.73b9433ca4c6a4bc78240428fb1deaf8.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/labels/image_52_jpg.rf.73b9433ca4c6a4bc78240428fb1deaf8.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "6012aed25a573e10828b7d2c590c673c186b7fe5ba35dba3bfe2b2ac048d8ec9",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/gettyimages-1036354066-612x612_jpg.rf.1e9a204609871d4f3bf04379220fa08f.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/gettyimages-1036354066-612x612_jpg.rf.1e9a204609871d4f3bf04379220fa08f.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/gettyimages-1036354066-612x612_jpg.rf.32618c01422b24fc126883004b1d46dc.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/gettyimages-1036354066-612x612_jpg.rf.32618c01422b24fc126883004b1d46dc.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "63c1e186cf1f0140ba25feec6eb2bd38dcdcd8ec1dbf4f7625d2f2dcd15cedcb",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_175_jpg.rf.6791485959579f1f2a896e1ac79f09d7.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/labels/image_175_jpg.rf.6791485959579f1f2a896e1ac79f09d7.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_175_jpg.rf.e2bde6444b59008b5742fbd134bf0fd8.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_175_jpg.rf.e2bde6444b59008b5742fbd134bf0fd8.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "64b77518d5c65fc26ab0a78df1859d00f5a66508dff8d84936091fc510be7f29",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Tan0639639_jpg.rf.02ef0b3cee3830c1cad54a070976cf50.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/Tan0639639_jpg.rf.02ef0b3cee3830c1cad54a070976cf50.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Tan0639639_jpg.rf.a4f38f2e7a1ec8f907a5dad7dfb7c680.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/Tan0639639_jpg.rf.a4f38f2e7a1ec8f907a5dad7dfb7c680.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "6c36c9701375e581672199db4cb95e575ed7f1429b710a0eb568e3f805679724",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_164_jpg.rf.310bc6ecf722bc4b07ae3024c0b079de.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_164_jpg.rf.310bc6ecf722bc4b07ae3024c0b079de.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_164_jpg.rf.a110b9a649c87beb2fe2e63616576590.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_164_jpg.rf.a110b9a649c87beb2fe2e63616576590.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "6d5a82b2c6edfd906d91002351cbc1def2614f9cd2ee0f3037a62a23fc11bc80",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_150_jpg.rf.2a391c4bfe0419850099b66b18f7b103.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_150_jpg.rf.2a391c4bfe0419850099b66b18f7b103.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_150_jpg.rf.432ff3b7c8a502405bf67135248927da.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_150_jpg.rf.432ff3b7c8a502405bf67135248927da.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "6d83bafa502af4cadb235f149bc5f2a040a8d2495a8a50382d9f0804eede7528",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Tan0745745_jpg.rf.50d58948d632ce724d2c4aee46838f1e.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/Tan0745745_jpg.rf.50d58948d632ce724d2c4aee46838f1e.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Tan0745745_jpg.rf.9eb28f4a5d3c9697b09d0c94667e061a.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/Tan0745745_jpg.rf.9eb28f4a5d3c9697b09d0c94667e061a.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "6e4e65668145b68ff50ee52a06ebede92a733687fa8b14ce7105b5bcc598db6b",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_186_jpg.rf.b79ef6e127badc44cbb29557ee8f8c8a.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_186_jpg.rf.b79ef6e127badc44cbb29557ee8f8c8a.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_186_jpg.rf.6214eb808baaa9766aaf4a893ac60498.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_186_jpg.rf.6214eb808baaa9766aaf4a893ac60498.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "71e1fefc767bf9a1b2dbd7868ab31de3fe4332a88f9e3cebaaa4107fc6664a6b",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_159_jpg.rf.71dd1a70da0ef3877f31eb99dec144d2.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_159_jpg.rf.71dd1a70da0ef3877f31eb99dec144d2.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_159_jpg.rf.f37c892620b0b84fd47e47425dc8c0eb.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_159_jpg.rf.f37c892620b0b84fd47e47425dc8c0eb.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "72e1a57272ff2b8304929e50c6f699b9779b13bf4f910ccdfcccc7fc771eccf5",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_183_jpg.rf.995b30fe012562f485b1c6ddbfec169d.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_183_jpg.rf.995b30fe012562f485b1c6ddbfec169d.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_183_jpg.rf.8393bb21be714f2bdbef49e71bbd1337.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_183_jpg.rf.8393bb21be714f2bdbef49e71bbd1337.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "7a47f39152c664d2c76746494a291b853f6a20ef33ec73b12eb7f394a0bd92dc",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/KakaoTalk_20221018_001425789_07_jpg.rf.155e1aa9b2154bfd652e840b2070a908.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/KakaoTalk_20221018_001425789_07_jpg.rf.155e1aa9b2154bfd652e840b2070a908.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/KakaoTalk_20221018_001425789_07_jpg.rf.cfa6aff59146a0d9347ccaea2d07eee9.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/KakaoTalk_20221018_001425789_07_jpg.rf.cfa6aff59146a0d9347ccaea2d07eee9.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "7e0332903781d6c5f3c7b06e22cade564a8fb64429150c276b22e1a63ddb5ca9",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/images-34-_jpg.rf.640340b93f6c2bc125da9c61fdc693a6.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/images-34-_jpg.rf.640340b93f6c2bc125da9c61fdc693a6.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/images-34-_jpg.rf.aa73cfbb63b3b4e4b4ed14875de6429a.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/images-34-_jpg.rf.aa73cfbb63b3b4e4b4ed14875de6429a.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "7f4755d19cd0fd65af22b3846a013ba9520aec887dc33d726d2a444b5a0ac209",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Image_ipg-2083-_jpg.rf.24749fd0175fe802ac3ecd2f143f52de.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/Image_ipg-2083-_jpg.rf.24749fd0175fe802ac3ecd2f143f52de.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Image_ipg-2083-_jpg.rf.df4359fe4ffe7a0a3af46f36fee88b83.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/Image_ipg-2083-_jpg.rf.df4359fe4ffe7a0a3af46f36fee88b83.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "7f4abaa6448d4a0f6a47a336f2d23075837e616c3a14efd47c3721a40368f1af",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_166_jpg.rf.1e5702cf57c24eee893e31e954aa082e.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_166_jpg.rf.1e5702cf57c24eee893e31e954aa082e.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_166_jpg.rf.233f3692b17b83e442419cf062ebf38b.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_166_jpg.rf.233f3692b17b83e442419cf062ebf38b.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "83651d4d668d601a4c7a9ba3093ab1f56e840d3d5f6ce6801d4b69dc1bb52187",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/images-2022-07-04T012922_jpg.rf.0aa2953547e6dbc77de808ab491e0b45.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/images-2022-07-04T012922_jpg.rf.0aa2953547e6dbc77de808ab491e0b45.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/images-2022-07-04T012922_jpg.rf.d8436fa3a6129f928d1133d1a49c433c.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/images-2022-07-04T012922_jpg.rf.d8436fa3a6129f928d1133d1a49c433c.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "8783eef1b49a893a41b65c8639eefbf06d9722d2fde6d0a84719cb7d2a5e5d53",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Tan0827827_jpg.rf.51f4ac04ac8dc546f9d51eaf352d52bd.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/Tan0827827_jpg.rf.51f4ac04ac8dc546f9d51eaf352d52bd.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/Tan0827827_jpg.rf.48f48797f0084e910b8e77a08257ee66.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/Tan0827827_jpg.rf.48f48797f0084e910b8e77a08257ee66.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "87a61ec8161acf03febf2dd556c9d3a5db1fe2641d89cf69aed01cdacf5e3489",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/00091_jpg.rf.30aeb37cf74937cdc01174b7fc154259.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/00091_jpg.rf.30aeb37cf74937cdc01174b7fc154259.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/00091_jpg.rf.2aee3a07aacbb938455ac004f213888e.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/00091_jpg.rf.2aee3a07aacbb938455ac004f213888e.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "889e69ea96e6912808eb97659e9323adf10849c6bdb687155650e170195cd9bd",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/download-3-_jpeg_jpg.rf.1d791997271b4366187c806c63464c5d.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/download-3-_jpeg_jpg.rf.1d791997271b4366187c806c63464c5d.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/download-3-_jpeg_jpg.rf.aba11a546a1c428a15b7927d91ca06cf.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/download-3-_jpeg_jpg.rf.aba11a546a1c428a15b7927d91ca06cf.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "8af150c2bff2763604696a0b68a905cde556eb18c877f3687d84e878007d0b54",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_245_jpg.rf.4bbb1e7518d3b95ad4e2a6eb538b2156.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_245_jpg.rf.4bbb1e7518d3b95ad4e2a6eb538b2156.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_245_jpg.rf.79bedf9a41247cacc36ca9b0b357f331.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_245_jpg.rf.79bedf9a41247cacc36ca9b0b357f331.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "8cb3b26fcec4e74fb75fe76eda3d64d238d85522da6a55310dc4fec755482a01",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/ppe_0320_jpg.rf.1405495c14a9c486989ac75c9b8415c3.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/ppe_0320_jpg.rf.1405495c14a9c486989ac75c9b8415c3.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/ppe_0320_jpg.rf.eb4d8902bab781a3c0125f9092055780.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/ppe_0320_jpg.rf.eb4d8902bab781a3c0125f9092055780.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "90374d96444ee86e7fdf1c222e23bbde204d7ea116a515c98aa3551be56121a9",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_213_jpg.rf.c762b8dd164e6db649bf47af0ac14965.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_213_jpg.rf.c762b8dd164e6db649bf47af0ac14965.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_213_jpg.rf.80aeddaab7841962cfedd3a06099736e.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_213_jpg.rf.80aeddaab7841962cfedd3a06099736e.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "903ac09c173e72ba429dcebbd117bb361e7c7934851b54436e8a257b90538dfe",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_199_jpg.rf.a9167913ece76e3e3a2de8340586f45c.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_199_jpg.rf.a9167913ece76e3e3a2de8340586f45c.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_199_jpg.rf.5f6504ea402e948a202dce716763bed3.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_199_jpg.rf.5f6504ea402e948a202dce716763bed3.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "91367ce42fe180d152d1be5ab13f838558304024bc04286edcb760a833947d6c",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_190_jpg.rf.d2ac2a3ba4212e0d1cfad80405d469b7.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_190_jpg.rf.d2ac2a3ba4212e0d1cfad80405d469b7.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_190_jpg.rf.06bd01d7d35713c6d8c220e95c39b765.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_190_jpg.rf.06bd01d7d35713c6d8c220e95c39b765.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "9e565aef190a99e40cd1a5c64703988d94463450bc59da1f11e3af62fde5e6af",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_159_jpg.rf.7f7983fbece98068669d70b1abbd3f1a.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/labels/image_159_jpg.rf.7f7983fbece98068669d70b1abbd3f1a.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_159_jpg.rf.1446996c6fd05d5cf09d9b7c5eebc2b5.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_159_jpg.rf.1446996c6fd05d5cf09d9b7c5eebc2b5.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "9f8cfe9dcaf7fe2f7ff39a74e47b6736a06c8f3fdc203ba3cf8fb5f33cb6af05",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_215_jpg.rf.28fcf4ca14c48991479d65e29ad18ec7.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_215_jpg.rf.28fcf4ca14c48991479d65e29ad18ec7.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_215_jpg.rf.62e4d7a7703ed03f06de8040693d3ba0.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_215_jpg.rf.62e4d7a7703ed03f06de8040693d3ba0.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "a402e3d3a5c79c7ecf2248fdfdc28f34d43789018a7eec84b7fd88d14dd83317",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_215_jpg.rf.b73b369ab43529c224387201211e7fe7.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_215_jpg.rf.b73b369ab43529c224387201211e7fe7.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_215_jpg.rf.6e7b01556caa738c2d7add0b3d58366d.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_215_jpg.rf.6e7b01556caa738c2d7add0b3d58366d.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "a488164cfb4a5e9e75e749a3b4bdee76cbe7c499a6175159329c79fad6da8880",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_230_jpg.rf.702edd35bd4fbf54d6ab6b6d5bbacd8a.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_230_jpg.rf.702edd35bd4fbf54d6ab6b6d5bbacd8a.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_230_jpg.rf.64fc517e93b54018f06e633b0816b375.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_230_jpg.rf.64fc517e93b54018f06e633b0816b375.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "ae833e1beba17460da5ce2bf3eb089af11faec7852ddb5fc6175cecf8ef0e051",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_266_jpg.rf.564399bc328c4fd02cff36782ab8f4e9.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_266_jpg.rf.564399bc328c4fd02cff36782ab8f4e9.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_266_jpg.rf.c2b89fa0a4f88e55cba23ed8841607a7.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_266_jpg.rf.c2b89fa0a4f88e55cba23ed8841607a7.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "b0ec0a69e9717b64f731dc744cb1d1fa7a5804647d704a3a4d04bd7211f28afc",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/52_JPG_jpg.rf.a9ed24f4e4d10f9e93298a22011419b1.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/52_JPG_jpg.rf.a9ed24f4e4d10f9e93298a22011419b1.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/52_JPG_jpg.rf.b0c5620f8643a2091469c9a34c7f6b38.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/52_JPG_jpg.rf.b0c5620f8643a2091469c9a34c7f6b38.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "b4bf520876e0f6f7d612fb0d8fcc6d56eb56fe58a1850344630615b38610f1d4",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_167_jpg.rf.0d1742f143897b2edf2048980222d36b.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_167_jpg.rf.0d1742f143897b2edf2048980222d36b.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_167_jpg.rf.e3713becd92d8985feeb08eb12602e7f.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_167_jpg.rf.e3713becd92d8985feeb08eb12602e7f.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "bab45930eec61451ef50d2fee91098946e540375a88ba117fd8ebc61f8b45dd3",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_169_jpg.rf.5f717d6ebad92719031b7512ee63ade0.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_169_jpg.rf.5f717d6ebad92719031b7512ee63ade0.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_169_jpg.rf.0f433c06b7bee1363a4e70e5576d3e0f.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/labels/image_169_jpg.rf.0f433c06b7bee1363a4e70e5576d3e0f.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "bb9d15491c971d747415d70a3b5e0118ca901a37bf6164e8d64575633ead4cfc",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_256_jpg.rf.f6e8e3e825cb09d4334be41599710cfc.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_256_jpg.rf.f6e8e3e825cb09d4334be41599710cfc.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_256_jpg.rf.13befcde091ae898391c031dfc12b58f.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_256_jpg.rf.13befcde091ae898391c031dfc12b58f.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "bfcdb5651290544700ea02cae2b0f02302fa9dd3ed3023760ae957144ff29f7d",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_163_jpg.rf.9aa4dcdcf62f8087e75db66d20e19d7c.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_163_jpg.rf.9aa4dcdcf62f8087e75db66d20e19d7c.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_163_jpg.rf.138fd2e4fcee27c9be57a7947b03f8ff.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_163_jpg.rf.138fd2e4fcee27c9be57a7947b03f8ff.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "c1d558963a43ee521ecb2be567af98120728b7d253bbcec224ee78a7b5ffd8b2",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_195_jpg.rf.c0230836e9ce60b8568d334795eaf983.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_195_jpg.rf.c0230836e9ce60b8568d334795eaf983.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_195_jpg.rf.d1e7464c2c8147b77333c342dce20d52.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_195_jpg.rf.d1e7464c2c8147b77333c342dce20d52.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "c4263ec2f5ac434f26352528f4d1e483dfd011484902d63f3c7b38a0fac507c8",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_181_jpg.rf.44045272ce7397d775466629d56474e3.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_181_jpg.rf.44045272ce7397d775466629d56474e3.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_181_jpg.rf.1a939a2b892411708d63b084ce8dd272.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_181_jpg.rf.1a939a2b892411708d63b084ce8dd272.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "cc4985f5dab681ea790ed5baa59e59cd8dcd382f91008b825ee84d9b0e6f47ec",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_169_jpg.rf.de1510e662e5c44a0fe4fc7ab20c0480.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_169_jpg.rf.de1510e662e5c44a0fe4fc7ab20c0480.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_169_jpg.rf.2845309aa17cda4492afe3254d63742d.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_169_jpg.rf.2845309aa17cda4492afe3254d63742d.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "cd67373f96e51b6bda28c5001079555760514fb452e52a1e5f2bc541b66972b9",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/KakaoTalk_20221018_001425789_07_jpg.rf.666719eb40adba3e3121450273af4fda.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/labels/KakaoTalk_20221018_001425789_07_jpg.rf.666719eb40adba3e3121450273af4fda.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/KakaoTalk_20221018_001425789_07_jpg.rf.a1646422033da67b39ddb792fe2a6b37.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/KakaoTalk_20221018_001425789_07_jpg.rf.a1646422033da67b39ddb792fe2a6b37.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "d2a2c0168d33ab288efefebf5c55dfee9ad88bbcea841565f827c7335064adda",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_226_jpg.rf.1013ffbb19b123bc433312f7b9b16ac8.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_226_jpg.rf.1013ffbb19b123bc433312f7b9b16ac8.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_226_jpg.rf.20b55b27ef053cb08345048e19eaf7b6.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_226_jpg.rf.20b55b27ef053cb08345048e19eaf7b6.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "d84550550221f08ec3c8ac3d1a90819c1cda8fa6423a129154b46f6847d83ada",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_214_jpg.rf.2842bf5ea4909d1a19e0b32de98422ee.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/labels/image_214_jpg.rf.2842bf5ea4909d1a19e0b32de98422ee.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_214_jpg.rf.d715d6843a85141bec222654980f5f42.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_214_jpg.rf.d715d6843a85141bec222654980f5f42.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "e10c9a4583dfc5e09cc86cc53660c4585593428ea2516bd02c5afeb2ecf94473",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_218_jpg.rf.0dbd9ac7686d8494892742657b7b241d.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_218_jpg.rf.0dbd9ac7686d8494892742657b7b241d.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_218_jpg.rf.01daf0d1bbcf99abac9606f49f5230f2.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_218_jpg.rf.01daf0d1bbcf99abac9606f49f5230f2.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "e306d5033bb7f27dc597b31e075a3134ff64b68f0d5b0e1ea7d2eaf10a455484",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_177_jpg.rf.2ce668bdc82611d728749859b737a463.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/labels/image_177_jpg.rf.2ce668bdc82611d728749859b737a463.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_177_jpg.rf.71a95b392d01481241d078b56ab08a93.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_177_jpg.rf.71a95b392d01481241d078b56ab08a93.txt"
+      ],
+      "label_annotations_consistent": true,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "ea50ff713473ee6c120cdb44f8eb6f67e0c1dd7e9fe14f53d2692993a7d47f00",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_193_jpg.rf.0917a4824a1abd2c72512e4cfd8d74ec.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_193_jpg.rf.0917a4824a1abd2c72512e4cfd8d74ec.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_193_jpg.rf.7ad9b5b6ef2adde92124d9eb297b09c5.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_193_jpg.rf.7ad9b5b6ef2adde92124d9eb297b09c5.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "eccf380a835780b94bb59708f798d4cadd08183a4c65e8a56af89b0dc07e0877",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_163_jpg.rf.20c1f361d08db2e60cf1e8e50b79a6d8.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_163_jpg.rf.20c1f361d08db2e60cf1e8e50b79a6d8.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_163_jpg.rf.a1354adb71d5fd9264af721e8b3e8e61.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_163_jpg.rf.a1354adb71d5fd9264af721e8b3e8e61.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "edafc3fbd4f93cfdd0f5d7bd42ba2a14ece1d676c2a73904df5f34f160fc8656",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_242_jpg.rf.fd6fdb3643829be2f9775c40f65568bc.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_242_jpg.rf.fd6fdb3643829be2f9775c40f65568bc.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_242_jpg.rf.332cab31e4314ad64dff822d5915e62a.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_242_jpg.rf.332cab31e4314ad64dff822d5915e62a.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "f503130c9d3b71b5f0d0de44225d6d2eafa8f1e3d2e74ba406eedc76d35f02fb",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/00000383_jpg.rf.da6f22ced2d6287ee346e8d6a9b5c023.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/00000383_jpg.rf.da6f22ced2d6287ee346e8d6a9b5c023.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/00000383_jpg.rf.2d5a46dbd44924c6e943ecacfb859bf8.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/00000383_jpg.rf.2d5a46dbd44924c6e943ecacfb859bf8.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    },
+    {
+      "sha256": "f6bc3f1bf679d578b9f257872b9ee4bb7a8f6c5022be71316ac32c8b52e3ff87",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_240_jpg.rf.e308c3fa0b1cc437570b96f1f457e55b.jpg",
+      "kept_label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/labels/image_240_jpg.rf.e308c3fa0b1cc437570b96f1f457e55b.txt",
+      "removed_images": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_240_jpg.rf.be78518131b1a13619e2753be20fe138.jpg"
+      ],
+      "removed_labels": [
+        "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_240_jpg.rf.be78518131b1a13619e2753be20fe138.txt"
+      ],
+      "label_annotations_consistent": false,
+      "selection_rule": "most retained objects, then lexicographically smallest path"
+    }
+  ],
+  "removed_files": [
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_170_jpg.rf.afd293bb509967a6c4cc46a37505024b.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_170_jpg.rf.afd293bb509967a6c4cc46a37505024b.txt",
+      "sha256": "05031ab2154bcb4d959af12022c8d8a90bb7485d669bd27053c259051463b932",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_170_jpg.rf.9a089f6afea86e68ee600c6756c6065b.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_34_jpg.rf.a8c0bbfafaf931bc2f2b03919a535b43.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_34_jpg.rf.a8c0bbfafaf931bc2f2b03919a535b43.txt",
+      "sha256": "05526316b463c87c3eee13d5e43642df14fe5383b699efa1e65dbde86d0afe98",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_34_jpg.rf.fdd2cee505d67871e73f600654b6272b.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/images85_jpg.rf.95b4c893541793ffcde0a063ca385b08.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/images85_jpg.rf.95b4c893541793ffcde0a063ca385b08.txt",
+      "sha256": "0563fdae8e411bf318ecef152e747e8717fa76c173dbbd50da793fa739d068a9",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/images85_jpg.rf.8f1f028d3ad0750ba6dc953ea05f1b22.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/images-68-_jpg.rf.ddefedab1f75ae1a7fc9b7622fcf643c.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/images-68-_jpg.rf.ddefedab1f75ae1a7fc9b7622fcf643c.txt",
+      "sha256": "0902a2547c5e7fb07a7c5d50fdd837e41a8df51ca35ff33fc75e29d8690eeb7c",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/images-68-_jpg.rf.ecf3d0b694881f8910618b9373a547d0.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/KakaoTalk_20221018_001425789_06_jpg.rf.836493b1ee0eb1956c83f083b5cc5fcc.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/KakaoTalk_20221018_001425789_06_jpg.rf.836493b1ee0eb1956c83f083b5cc5fcc.txt",
+      "sha256": "090c337136acd8a8d41209aaef58815956c626e78a7c3cec96496014f12a8141",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/KakaoTalk_20221018_001425789_06_jpg.rf.1ce8815f4be284389456a6f8b444a62d.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/00148_jpg.rf.caff42ffededd9204075654eddd3a01e.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/00148_jpg.rf.caff42ffededd9204075654eddd3a01e.txt",
+      "sha256": "0b41b1838f5f9943a46bb74ec7fb5f539d965328e11904b658a3b103f8dbf54a",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/00148_jpg.rf.a7f23e9100fe1927298b1e0c2608454b.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/images-30-_jpg.rf.627404d11acb0e8225fd19463ecbdada.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/images-30-_jpg.rf.627404d11acb0e8225fd19463ecbdada.txt",
+      "sha256": "10ff55b647bf1b3b159202d558153ad001b3a4cb1644c1e74ffc35d2fcca838b",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/images-30-_jpg.rf.e4efe6a0f86b01bf804da6d2f1bc563d.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Tan0150150_jpg.rf.6b7b90c247d1caf0dde400c83f52f5bd.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/Tan0150150_jpg.rf.6b7b90c247d1caf0dde400c83f52f5bd.txt",
+      "sha256": "129cd35635199930372cbfc4ed75d1a7ca930d1a37e330692b2936270a457e07",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Tan0150150_jpg.rf.64f7e6fbca3ecdebe31792357c17bcad.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Tan004343_jpg.rf.c0a534400bb1033e171c6cda958f3dfb.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/Tan004343_jpg.rf.c0a534400bb1033e171c6cda958f3dfb.txt",
+      "sha256": "1cbb9db376790e9e269c3b84a69be60fb97a9277653c031d04608563880071f1",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Tan004343_jpg.rf.22a869b10843ce820b50e8f23dc4f01a.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/KakaoTalk_20221018_001312059_02_jpg.rf.1a9412e103ae0cd09200654df8261622.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/KakaoTalk_20221018_001312059_02_jpg.rf.1a9412e103ae0cd09200654df8261622.txt",
+      "sha256": "2257ae1b085ac2d6c7706c5bc86afe07190598ac3b8ed32d27d72d5d5bcc6d62",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/KakaoTalk_20221018_001312059_02_jpg.rf.dae982ce123fa64a45296592b259cfb9.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_200_jpg.rf.42773c8b37e67e23e2ddb78c0c337947.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_200_jpg.rf.42773c8b37e67e23e2ddb78c0c337947.txt",
+      "sha256": "225976cd925b0c7a1bee6f94e3aa55a87ae903bbcfb04cc8eb4c36b98e3cf6ec",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_200_jpg.rf.6c7e935c44e30d0396291b6b3430d24d.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_155_jpg.rf.c65c0fd29469764e0a0e1e5dd41608d8.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_155_jpg.rf.c65c0fd29469764e0a0e1e5dd41608d8.txt",
+      "sha256": "231b401e83bb7e7772909fc43f702471a6dda4c72f2d07f2d234c4ecf2d99468",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_155_jpg.rf.b7831ead07caf0d91aecf1e53d2d185e.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_185_jpg.rf.055939c52830590a85614325dba54fb2.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_185_jpg.rf.055939c52830590a85614325dba54fb2.txt",
+      "sha256": "275798e0a92eb3aa8cf574c3ca13e10781eec436cf900d27f342503232be892c",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_185_jpg.rf.707ae92744701b0dab6dec940f72acbb.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_165_jpg.rf.22a723e569f741fe7ae9fcf45e49b31e.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/labels/image_165_jpg.rf.22a723e569f741fe7ae9fcf45e49b31e.txt",
+      "sha256": "28000fe392fafab63b3d6195caf6e3b91f704ad522f0d37dcdbdeebbe93e0808",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_165_jpg.rf.efa94be680f6ec216992294603cd31cc.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/KakaoTalk_20221018_001726988_01_jpg.rf.8fc2cf79e29bbafcfaf28eda59093976.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/labels/KakaoTalk_20221018_001726988_01_jpg.rf.8fc2cf79e29bbafcfaf28eda59093976.txt",
+      "sha256": "28941894f74e9c2ec6de78364ca4cf0d62c8bea6b9a902b2b4bcc9e8f5812786",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/KakaoTalk_20221018_001726988_01_jpg.rf.ae0d0ac5465f29c04a54f591a4c939fa.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_248_jpg.rf.a1abfb12c608dc337079679f6ccc71ed.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_248_jpg.rf.a1abfb12c608dc337079679f6ccc71ed.txt",
+      "sha256": "2bf711ab28192875d2a81ad924e0acbc0e778797f53e9bcd33e6416abee62d92",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_248_jpg.rf.fc5b1443e970dc79df8422078563fbb3.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_150_jpg.rf.c1109cc9a428446429da33d9c344789a.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_150_jpg.rf.c1109cc9a428446429da33d9c344789a.txt",
+      "sha256": "2d5f56cfc66ddd8b39e180e34f32804e7d7995a6de86312adab154a34c7453da",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_150_jpg.rf.70be70d1eed3bdd92f4f5107305f6ebb.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/images-2022-07-04T013435_jpg.rf.4cd286fbe7ccb031677577332fa78e4d.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/images-2022-07-04T013435_jpg.rf.4cd286fbe7ccb031677577332fa78e4d.txt",
+      "sha256": "2d67d881d7050272accf631d09bb3870c9c08feaa4f3434a0ab7fd6893982630",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/images-2022-07-04T013435_jpg.rf.27d752f765865851ce65f964c7bc00e3.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/01459_jpg.rf.54b90f42907a1e7a5c86fc30a39f22e7.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/01459_jpg.rf.54b90f42907a1e7a5c86fc30a39f22e7.txt",
+      "sha256": "391003a0dc2a919b431f5b0bae3bfe9b879541def3e3755e5afbdb39e65d80a9",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/01459_jpg.rf.a6b0d8a064cdabc6f48b1c73fafcbb91.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/Tan0532532_jpg.rf.7bf5d5c86da9db9c5efe4804166f997d.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/Tan0532532_jpg.rf.7bf5d5c86da9db9c5efe4804166f997d.txt",
+      "sha256": "42fdbd372c90aec4580e076ef65b3f5b064a9c160f4150ea726d16a3c28a98ad",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/Tan0532532_jpg.rf.4f5188b497d15bf53f7aa3fafca43ffc.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/images-29-_jpg.rf.87bc59139de9f31643ea2284605d9c61.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/images-29-_jpg.rf.87bc59139de9f31643ea2284605d9c61.txt",
+      "sha256": "4559714629bb84a9bff2dbf7d74c004f8f1597b499d98540a2242e6367a6e224",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/images-29-_jpg.rf.865a8ee0fe8eeb04556b6df82461a3f6.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/KakaoTalk_20221018_001425789_06_jpg.rf.405581336f2d45526db2576d56ed971f.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/KakaoTalk_20221018_001425789_06_jpg.rf.405581336f2d45526db2576d56ed971f.txt",
+      "sha256": "4917259a1e7bfc7d27d4b0431c11a7bb00e87feeddf2f0dd5c6e6788eeade6e8",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/KakaoTalk_20221018_001425789_06_jpg.rf.d2cbee694b54193f4a14ef956d965139.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_232_jpg.rf.52ff2c33500717cf25b5658e21870023.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_232_jpg.rf.52ff2c33500717cf25b5658e21870023.txt",
+      "sha256": "496365b4a177a937dfd3c12c1b6a489da0582b38f37d0c764782745e77d2c70e",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_232_jpg.rf.0439679ea9bb899edc15750ad248724a.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_193_jpg.rf.aa6fb1db537274de09d49be44a8cdf00.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_193_jpg.rf.aa6fb1db537274de09d49be44a8cdf00.txt",
+      "sha256": "5256c188bbe82de30b913cb3a1293cd72d891a83b72b5b77a087d81002d6d69c",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_193_jpg.rf.4487a66dcffe3ef6bbb8893cdc0aa6c0.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_226_jpg.rf.979cdd59e4d60c97e75c43b352db2052.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_226_jpg.rf.979cdd59e4d60c97e75c43b352db2052.txt",
+      "sha256": "5414be49c96106a30b604483a53b1035c4e3ccaa5adeef3a35db0a69dff1f091",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_226_jpg.rf.b964ef7ae423b66930c40bf2ff7ac01a.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_212_jpg.rf.a4d41812fdbb240a149b71ef29847713.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_212_jpg.rf.a4d41812fdbb240a149b71ef29847713.txt",
+      "sha256": "54ec36146844a123f87d493892f846fdff9bf99b8464d9892269a34d29a32708",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_212_jpg.rf.73a835fdff23081d498e8bc337550e5b.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/20220721_162229_jpg.rf.afc49c2510c21c46b94ea352c3580714.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/20220721_162229_jpg.rf.afc49c2510c21c46b94ea352c3580714.txt",
+      "sha256": "55c379adf38eaab0d273011181d82f06a06173c1730f0765cf534d33f0a9cf08",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/20220721_162229_jpg.rf.9c10355abbc6e9a603f48d388dc3ba89.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_202_jpg.rf.e15afdc5bd519009dc0defb51a0ca823.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_202_jpg.rf.e15afdc5bd519009dc0defb51a0ca823.txt",
+      "sha256": "59c27c9cd0fd041208d5a25063699713330987bd793f6504cc4c7ac4df8a0413",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_202_jpg.rf.a87daa6ee5f36a6c531838941f6d5479.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_183_jpg.rf.0d110784d2e20a627918d135ed96c816.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_183_jpg.rf.0d110784d2e20a627918d135ed96c816.txt",
+      "sha256": "5b401a7b392d9a1357e59971472de217b53d1d5c478885320389ec95fbe7d840",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_183_jpg.rf.06481baf61141b81ac690d4a727ee2fd.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_231_jpg.rf.4df4bf6676662a55ad98cb0da0704202.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_231_jpg.rf.4df4bf6676662a55ad98cb0da0704202.txt",
+      "sha256": "5cadb7572a8e3395eec2f5e70768f6b49e4262105959e0ab4d74a39c14d1f2ce",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_231_jpg.rf.c9ac7540780a76bbc1f51688968f71e6.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Nein4731_jpg.rf.e3332ad7ab07a7276891f8d7cf04f12d.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/Nein4731_jpg.rf.e3332ad7ab07a7276891f8d7cf04f12d.txt",
+      "sha256": "5d34bcefa5b14a432ddf6946c5a46807f033b0f66f175ab315f4f36c8b02e11c",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Nein4731_jpg.rf.aa6d4252161e1c788d3356334692fffc.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/KakaoTalk_20221018_001312059_02_jpg.rf.f3b5dfa3594b62e8458cf42723b7faad.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/KakaoTalk_20221018_001312059_02_jpg.rf.f3b5dfa3594b62e8458cf42723b7faad.txt",
+      "sha256": "5f528ff756952ce0e2b59e61ac08e3b9bf8ae9bcf455c28a796cc07a1b0daea6",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/KakaoTalk_20221018_001312059_02_jpg.rf.ad7ff4bbdedb030d5bb114321a13c62f.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_52_jpg.rf.73b9433ca4c6a4bc78240428fb1deaf8.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/labels/image_52_jpg.rf.73b9433ca4c6a4bc78240428fb1deaf8.txt",
+      "sha256": "5fd59eaf83bd73319170bc6e1b8ac3af2d97a25824d8275c877b0740ae131b2b",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_52_jpg.rf.62de52bdc0316aba89f1d2afa7199ea8.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/gettyimages-1036354066-612x612_jpg.rf.32618c01422b24fc126883004b1d46dc.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/gettyimages-1036354066-612x612_jpg.rf.32618c01422b24fc126883004b1d46dc.txt",
+      "sha256": "6012aed25a573e10828b7d2c590c673c186b7fe5ba35dba3bfe2b2ac048d8ec9",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/gettyimages-1036354066-612x612_jpg.rf.1e9a204609871d4f3bf04379220fa08f.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_175_jpg.rf.e2bde6444b59008b5742fbd134bf0fd8.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_175_jpg.rf.e2bde6444b59008b5742fbd134bf0fd8.txt",
+      "sha256": "63c1e186cf1f0140ba25feec6eb2bd38dcdcd8ec1dbf4f7625d2f2dcd15cedcb",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_175_jpg.rf.6791485959579f1f2a896e1ac79f09d7.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Tan0639639_jpg.rf.a4f38f2e7a1ec8f907a5dad7dfb7c680.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/Tan0639639_jpg.rf.a4f38f2e7a1ec8f907a5dad7dfb7c680.txt",
+      "sha256": "64b77518d5c65fc26ab0a78df1859d00f5a66508dff8d84936091fc510be7f29",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Tan0639639_jpg.rf.02ef0b3cee3830c1cad54a070976cf50.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_164_jpg.rf.a110b9a649c87beb2fe2e63616576590.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_164_jpg.rf.a110b9a649c87beb2fe2e63616576590.txt",
+      "sha256": "6c36c9701375e581672199db4cb95e575ed7f1429b710a0eb568e3f805679724",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_164_jpg.rf.310bc6ecf722bc4b07ae3024c0b079de.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_150_jpg.rf.432ff3b7c8a502405bf67135248927da.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_150_jpg.rf.432ff3b7c8a502405bf67135248927da.txt",
+      "sha256": "6d5a82b2c6edfd906d91002351cbc1def2614f9cd2ee0f3037a62a23fc11bc80",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_150_jpg.rf.2a391c4bfe0419850099b66b18f7b103.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Tan0745745_jpg.rf.9eb28f4a5d3c9697b09d0c94667e061a.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/Tan0745745_jpg.rf.9eb28f4a5d3c9697b09d0c94667e061a.txt",
+      "sha256": "6d83bafa502af4cadb235f149bc5f2a040a8d2495a8a50382d9f0804eede7528",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Tan0745745_jpg.rf.50d58948d632ce724d2c4aee46838f1e.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_186_jpg.rf.6214eb808baaa9766aaf4a893ac60498.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_186_jpg.rf.6214eb808baaa9766aaf4a893ac60498.txt",
+      "sha256": "6e4e65668145b68ff50ee52a06ebede92a733687fa8b14ce7105b5bcc598db6b",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_186_jpg.rf.b79ef6e127badc44cbb29557ee8f8c8a.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_159_jpg.rf.f37c892620b0b84fd47e47425dc8c0eb.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_159_jpg.rf.f37c892620b0b84fd47e47425dc8c0eb.txt",
+      "sha256": "71e1fefc767bf9a1b2dbd7868ab31de3fe4332a88f9e3cebaaa4107fc6664a6b",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_159_jpg.rf.71dd1a70da0ef3877f31eb99dec144d2.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_183_jpg.rf.8393bb21be714f2bdbef49e71bbd1337.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_183_jpg.rf.8393bb21be714f2bdbef49e71bbd1337.txt",
+      "sha256": "72e1a57272ff2b8304929e50c6f699b9779b13bf4f910ccdfcccc7fc771eccf5",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_183_jpg.rf.995b30fe012562f485b1c6ddbfec169d.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/KakaoTalk_20221018_001425789_07_jpg.rf.cfa6aff59146a0d9347ccaea2d07eee9.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/KakaoTalk_20221018_001425789_07_jpg.rf.cfa6aff59146a0d9347ccaea2d07eee9.txt",
+      "sha256": "7a47f39152c664d2c76746494a291b853f6a20ef33ec73b12eb7f394a0bd92dc",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/KakaoTalk_20221018_001425789_07_jpg.rf.155e1aa9b2154bfd652e840b2070a908.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/images-34-_jpg.rf.aa73cfbb63b3b4e4b4ed14875de6429a.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/images-34-_jpg.rf.aa73cfbb63b3b4e4b4ed14875de6429a.txt",
+      "sha256": "7e0332903781d6c5f3c7b06e22cade564a8fb64429150c276b22e1a63ddb5ca9",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/images-34-_jpg.rf.640340b93f6c2bc125da9c61fdc693a6.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Image_ipg-2083-_jpg.rf.df4359fe4ffe7a0a3af46f36fee88b83.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/Image_ipg-2083-_jpg.rf.df4359fe4ffe7a0a3af46f36fee88b83.txt",
+      "sha256": "7f4755d19cd0fd65af22b3846a013ba9520aec887dc33d726d2a444b5a0ac209",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Image_ipg-2083-_jpg.rf.24749fd0175fe802ac3ecd2f143f52de.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_166_jpg.rf.233f3692b17b83e442419cf062ebf38b.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_166_jpg.rf.233f3692b17b83e442419cf062ebf38b.txt",
+      "sha256": "7f4abaa6448d4a0f6a47a336f2d23075837e616c3a14efd47c3721a40368f1af",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_166_jpg.rf.1e5702cf57c24eee893e31e954aa082e.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/images-2022-07-04T012922_jpg.rf.d8436fa3a6129f928d1133d1a49c433c.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/images-2022-07-04T012922_jpg.rf.d8436fa3a6129f928d1133d1a49c433c.txt",
+      "sha256": "83651d4d668d601a4c7a9ba3093ab1f56e840d3d5f6ce6801d4b69dc1bb52187",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/images-2022-07-04T012922_jpg.rf.0aa2953547e6dbc77de808ab491e0b45.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/Tan0827827_jpg.rf.48f48797f0084e910b8e77a08257ee66.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/Tan0827827_jpg.rf.48f48797f0084e910b8e77a08257ee66.txt",
+      "sha256": "8783eef1b49a893a41b65c8639eefbf06d9722d2fde6d0a84719cb7d2a5e5d53",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/Tan0827827_jpg.rf.51f4ac04ac8dc546f9d51eaf352d52bd.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/00091_jpg.rf.2aee3a07aacbb938455ac004f213888e.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/00091_jpg.rf.2aee3a07aacbb938455ac004f213888e.txt",
+      "sha256": "87a61ec8161acf03febf2dd556c9d3a5db1fe2641d89cf69aed01cdacf5e3489",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/00091_jpg.rf.30aeb37cf74937cdc01174b7fc154259.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/download-3-_jpeg_jpg.rf.aba11a546a1c428a15b7927d91ca06cf.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/download-3-_jpeg_jpg.rf.aba11a546a1c428a15b7927d91ca06cf.txt",
+      "sha256": "889e69ea96e6912808eb97659e9323adf10849c6bdb687155650e170195cd9bd",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/download-3-_jpeg_jpg.rf.1d791997271b4366187c806c63464c5d.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_245_jpg.rf.79bedf9a41247cacc36ca9b0b357f331.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_245_jpg.rf.79bedf9a41247cacc36ca9b0b357f331.txt",
+      "sha256": "8af150c2bff2763604696a0b68a905cde556eb18c877f3687d84e878007d0b54",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_245_jpg.rf.4bbb1e7518d3b95ad4e2a6eb538b2156.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/ppe_0320_jpg.rf.eb4d8902bab781a3c0125f9092055780.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/ppe_0320_jpg.rf.eb4d8902bab781a3c0125f9092055780.txt",
+      "sha256": "8cb3b26fcec4e74fb75fe76eda3d64d238d85522da6a55310dc4fec755482a01",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/ppe_0320_jpg.rf.1405495c14a9c486989ac75c9b8415c3.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_213_jpg.rf.80aeddaab7841962cfedd3a06099736e.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_213_jpg.rf.80aeddaab7841962cfedd3a06099736e.txt",
+      "sha256": "90374d96444ee86e7fdf1c222e23bbde204d7ea116a515c98aa3551be56121a9",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_213_jpg.rf.c762b8dd164e6db649bf47af0ac14965.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_199_jpg.rf.5f6504ea402e948a202dce716763bed3.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_199_jpg.rf.5f6504ea402e948a202dce716763bed3.txt",
+      "sha256": "903ac09c173e72ba429dcebbd117bb361e7c7934851b54436e8a257b90538dfe",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_199_jpg.rf.a9167913ece76e3e3a2de8340586f45c.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_190_jpg.rf.06bd01d7d35713c6d8c220e95c39b765.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_190_jpg.rf.06bd01d7d35713c6d8c220e95c39b765.txt",
+      "sha256": "91367ce42fe180d152d1be5ab13f838558304024bc04286edcb760a833947d6c",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_190_jpg.rf.d2ac2a3ba4212e0d1cfad80405d469b7.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_159_jpg.rf.1446996c6fd05d5cf09d9b7c5eebc2b5.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_159_jpg.rf.1446996c6fd05d5cf09d9b7c5eebc2b5.txt",
+      "sha256": "9e565aef190a99e40cd1a5c64703988d94463450bc59da1f11e3af62fde5e6af",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_159_jpg.rf.7f7983fbece98068669d70b1abbd3f1a.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_215_jpg.rf.62e4d7a7703ed03f06de8040693d3ba0.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_215_jpg.rf.62e4d7a7703ed03f06de8040693d3ba0.txt",
+      "sha256": "9f8cfe9dcaf7fe2f7ff39a74e47b6736a06c8f3fdc203ba3cf8fb5f33cb6af05",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_215_jpg.rf.28fcf4ca14c48991479d65e29ad18ec7.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_215_jpg.rf.6e7b01556caa738c2d7add0b3d58366d.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_215_jpg.rf.6e7b01556caa738c2d7add0b3d58366d.txt",
+      "sha256": "a402e3d3a5c79c7ecf2248fdfdc28f34d43789018a7eec84b7fd88d14dd83317",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_215_jpg.rf.b73b369ab43529c224387201211e7fe7.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_230_jpg.rf.64fc517e93b54018f06e633b0816b375.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_230_jpg.rf.64fc517e93b54018f06e633b0816b375.txt",
+      "sha256": "a488164cfb4a5e9e75e749a3b4bdee76cbe7c499a6175159329c79fad6da8880",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_230_jpg.rf.702edd35bd4fbf54d6ab6b6d5bbacd8a.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_266_jpg.rf.c2b89fa0a4f88e55cba23ed8841607a7.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_266_jpg.rf.c2b89fa0a4f88e55cba23ed8841607a7.txt",
+      "sha256": "ae833e1beba17460da5ce2bf3eb089af11faec7852ddb5fc6175cecf8ef0e051",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_266_jpg.rf.564399bc328c4fd02cff36782ab8f4e9.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/52_JPG_jpg.rf.b0c5620f8643a2091469c9a34c7f6b38.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/52_JPG_jpg.rf.b0c5620f8643a2091469c9a34c7f6b38.txt",
+      "sha256": "b0ec0a69e9717b64f731dc744cb1d1fa7a5804647d704a3a4d04bd7211f28afc",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/52_JPG_jpg.rf.a9ed24f4e4d10f9e93298a22011419b1.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_167_jpg.rf.e3713becd92d8985feeb08eb12602e7f.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_167_jpg.rf.e3713becd92d8985feeb08eb12602e7f.txt",
+      "sha256": "b4bf520876e0f6f7d612fb0d8fcc6d56eb56fe58a1850344630615b38610f1d4",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_167_jpg.rf.0d1742f143897b2edf2048980222d36b.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_169_jpg.rf.0f433c06b7bee1363a4e70e5576d3e0f.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/labels/image_169_jpg.rf.0f433c06b7bee1363a4e70e5576d3e0f.txt",
+      "sha256": "bab45930eec61451ef50d2fee91098946e540375a88ba117fd8ebc61f8b45dd3",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_169_jpg.rf.5f717d6ebad92719031b7512ee63ade0.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_256_jpg.rf.13befcde091ae898391c031dfc12b58f.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_256_jpg.rf.13befcde091ae898391c031dfc12b58f.txt",
+      "sha256": "bb9d15491c971d747415d70a3b5e0118ca901a37bf6164e8d64575633ead4cfc",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_256_jpg.rf.f6e8e3e825cb09d4334be41599710cfc.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_163_jpg.rf.138fd2e4fcee27c9be57a7947b03f8ff.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_163_jpg.rf.138fd2e4fcee27c9be57a7947b03f8ff.txt",
+      "sha256": "bfcdb5651290544700ea02cae2b0f02302fa9dd3ed3023760ae957144ff29f7d",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_163_jpg.rf.9aa4dcdcf62f8087e75db66d20e19d7c.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_195_jpg.rf.d1e7464c2c8147b77333c342dce20d52.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_195_jpg.rf.d1e7464c2c8147b77333c342dce20d52.txt",
+      "sha256": "c1d558963a43ee521ecb2be567af98120728b7d253bbcec224ee78a7b5ffd8b2",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_195_jpg.rf.c0230836e9ce60b8568d334795eaf983.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_181_jpg.rf.1a939a2b892411708d63b084ce8dd272.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_181_jpg.rf.1a939a2b892411708d63b084ce8dd272.txt",
+      "sha256": "c4263ec2f5ac434f26352528f4d1e483dfd011484902d63f3c7b38a0fac507c8",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_181_jpg.rf.44045272ce7397d775466629d56474e3.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_169_jpg.rf.2845309aa17cda4492afe3254d63742d.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_169_jpg.rf.2845309aa17cda4492afe3254d63742d.txt",
+      "sha256": "cc4985f5dab681ea790ed5baa59e59cd8dcd382f91008b825ee84d9b0e6f47ec",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_169_jpg.rf.de1510e662e5c44a0fe4fc7ab20c0480.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/KakaoTalk_20221018_001425789_07_jpg.rf.a1646422033da67b39ddb792fe2a6b37.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/KakaoTalk_20221018_001425789_07_jpg.rf.a1646422033da67b39ddb792fe2a6b37.txt",
+      "sha256": "cd67373f96e51b6bda28c5001079555760514fb452e52a1e5f2bc541b66972b9",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/KakaoTalk_20221018_001425789_07_jpg.rf.666719eb40adba3e3121450273af4fda.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_226_jpg.rf.20b55b27ef053cb08345048e19eaf7b6.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_226_jpg.rf.20b55b27ef053cb08345048e19eaf7b6.txt",
+      "sha256": "d2a2c0168d33ab288efefebf5c55dfee9ad88bbcea841565f827c7335064adda",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_226_jpg.rf.1013ffbb19b123bc433312f7b9b16ac8.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_214_jpg.rf.d715d6843a85141bec222654980f5f42.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_214_jpg.rf.d715d6843a85141bec222654980f5f42.txt",
+      "sha256": "d84550550221f08ec3c8ac3d1a90819c1cda8fa6423a129154b46f6847d83ada",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_214_jpg.rf.2842bf5ea4909d1a19e0b32de98422ee.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_218_jpg.rf.01daf0d1bbcf99abac9606f49f5230f2.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_218_jpg.rf.01daf0d1bbcf99abac9606f49f5230f2.txt",
+      "sha256": "e10c9a4583dfc5e09cc86cc53660c4585593428ea2516bd02c5afeb2ecf94473",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_218_jpg.rf.0dbd9ac7686d8494892742657b7b241d.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_177_jpg.rf.71a95b392d01481241d078b56ab08a93.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_177_jpg.rf.71a95b392d01481241d078b56ab08a93.txt",
+      "sha256": "e306d5033bb7f27dc597b31e075a3134ff64b68f0d5b0e1ea7d2eaf10a455484",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_177_jpg.rf.2ce668bdc82611d728749859b737a463.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_193_jpg.rf.7ad9b5b6ef2adde92124d9eb297b09c5.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_193_jpg.rf.7ad9b5b6ef2adde92124d9eb297b09c5.txt",
+      "sha256": "ea50ff713473ee6c120cdb44f8eb6f67e0c1dd7e9fe14f53d2692993a7d47f00",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_193_jpg.rf.0917a4824a1abd2c72512e4cfd8d74ec.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_163_jpg.rf.a1354adb71d5fd9264af721e8b3e8e61.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/image_163_jpg.rf.a1354adb71d5fd9264af721e8b3e8e61.txt",
+      "sha256": "eccf380a835780b94bb59708f798d4cadd08183a4c65e8a56af89b0dc07e0877",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/image_163_jpg.rf.20c1f361d08db2e60cf1e8e50b79a6d8.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_242_jpg.rf.332cab31e4314ad64dff822d5915e62a.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_242_jpg.rf.332cab31e4314ad64dff822d5915e62a.txt",
+      "sha256": "edafc3fbd4f93cfdd0f5d7bd42ba2a14ece1d676c2a73904df5f34f160fc8656",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_242_jpg.rf.fd6fdb3643829be2f9775c40f65568bc.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/00000383_jpg.rf.2d5a46dbd44924c6e943ecacfb859bf8.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/00000383_jpg.rf.2d5a46dbd44924c6e943ecacfb859bf8.txt",
+      "sha256": "f503130c9d3b71b5f0d0de44225d6d2eafa8f1e3d2e74ba406eedc76d35f02fb",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/00000383_jpg.rf.da6f22ced2d6287ee346e8d6a9b5c023.jpg"
+    },
+    {
+      "reason": "duplicate_sha256",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/image_240_jpg.rf.be78518131b1a13619e2753be20fe138.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/image_240_jpg.rf.be78518131b1a13619e2753be20fe138.txt",
+      "sha256": "f6bc3f1bf679d578b9f257872b9ee4bb7a8f6c5022be71316ac32c8b52e3ff87",
+      "kept_image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/image_240_jpg.rf.e308c3fa0b1cc437570b96f1f457e55b.jpg"
+    },
+    {
+      "reason": "empty_after_class_filter",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/images/IMG-20231220-WA0011_jpg.rf.90ce2a63b5ece30f7fc97c877b36b6d7.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/test/labels/IMG-20231220-WA0011_jpg.rf.90ce2a63b5ece30f7fc97c877b36b6d7.txt",
+      "sha256": "7bc3d48f8d77202e5307241d2c3ef0de31762a429f470ee6cbc9fcb615ca8a5d"
+    },
+    {
+      "reason": "empty_after_class_filter",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/IMG-20231220-WA0007_jpg.rf.d7adc8a1f3bd5f08154a414ed0516bf4.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/IMG-20231220-WA0007_jpg.rf.d7adc8a1f3bd5f08154a414ed0516bf4.txt",
+      "sha256": "3b92268815d9b2eb090a464029f80c66c5e7b91f0eca78e290f4f2af7807e484"
+    },
+    {
+      "reason": "empty_after_class_filter",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/IMG-20231220-WA0008_jpg.rf.4c3f542e5a7d694c6c3887557519f833.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/IMG-20231220-WA0008_jpg.rf.4c3f542e5a7d694c6c3887557519f833.txt",
+      "sha256": "e7899cd35b5148f2d11750a02a9704c34ee95bd854b80f37547d774dd07c48a6"
+    },
+    {
+      "reason": "empty_after_class_filter",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/images/IMG-20231220-WA0009_jpg.rf.d545cf8ca943d653d2428cde219e1a24.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/train/labels/IMG-20231220-WA0009_jpg.rf.d545cf8ca943d653d2428cde219e1a24.txt",
+      "sha256": "93994b3b8357b375db56779c3dd1adea87e68634c5950065866e80dd114c20f7"
+    },
+    {
+      "reason": "empty_after_class_filter",
+      "image": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/images/IMG-20231220-WA0010_jpg.rf.a925da2a32b8e438ceda7423706f89eb.jpg",
+      "label": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean/valid/labels/IMG-20231220-WA0010_jpg.rf.a925da2a32b8e438ceda7423706f89eb.txt",
+      "sha256": "316855769ec5150f7c845e5d2c9dcb2ffade1194e59e510d4c7588c0faefd347"
+    }
+  ],
+  "audit": {
+    "passed": true,
+    "total_images": 8762,
+    "class_id_range": [
+      0,
+      6
+    ],
+    "image_label_pairs_valid": true,
+    "duplicate_sha256_groups": 0,
+    "cross_split_sha256_groups": 0,
+    "cross_split_source_groups": 0,
+    "source_leakage": {}
+  },
+  "freeze": {
+    "manifest": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_final/freeze_manifest.json",
+    "dataset_sha256": "6d40b6e5d09cc4e1ed3a6d8d9a8a88259f1e18dc9f117d664fa5694473db3bb2"
+  },
+  "copied_metadata_files": [
+    "README.dataset.txt",
+    "README.roboflow.txt"
+  ],
+  "final_data_yaml": {
+    "path": ".",
+    "train": "train/images",
+    "val": "valid/images",
+    "test": "test/images",
+    "nc": 7,
+    "names": {
+      "0": "person",
+      "1": "helmet",
+      "2": "vest",
+      "3": "gloves",
+      "4": "boots",
+      "5": "no_helmet",
+      "6": "no_vest"
+    }
+  }
+}

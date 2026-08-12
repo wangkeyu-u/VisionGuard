@@ -32,16 +32,19 @@ def _missing(path: Path, purpose: str) -> dict[str, Any]:
     return {"path": str(path), "purpose": purpose, "exists": False}
 
 
-def verify_dataset(data_yaml: Path) -> dict[str, Any]:
+def verify_dataset(data_yaml: Path, root_override: Path | None = None) -> dict[str, Any]:
     if not data_yaml.is_file():
         return {
             "status": "missing",
             "missing": [_missing(data_yaml, "frozen dataset YAML")],
         }
     document = yaml.safe_load(data_yaml.read_text(encoding="utf-8"))
-    root = Path(document.get("path", "."))
-    if not root.is_absolute():
-        root = (data_yaml.parent / root).resolve()
+    if root_override is not None:
+        root = root_override.expanduser().resolve()
+    else:
+        root = Path(document.get("path", "."))
+        if not root.is_absolute():
+            root = (data_yaml.parent / root).resolve()
     names_value = document.get("names", {})
     names = list(names_value.values()) if isinstance(names_value, dict) else list(names_value)
     split_keys = {"train": "train", "valid": "val", "test": "test"}
@@ -57,7 +60,9 @@ def verify_dataset(data_yaml: Path) -> dict[str, Any]:
             missing.append(_missing(data_yaml, f"{yaml_key} split entry"))
             continue
         images_dir = Path(relative)
-        if not images_dir.is_absolute():
+        if root_override is not None:
+            images_dir = root / split / "images"
+        elif not images_dir.is_absolute():
             images_dir = (root / images_dir).resolve()
         if not images_dir.is_dir():
             missing.append(_missing(images_dir, f"{split} image directory"))
@@ -102,6 +107,8 @@ def verify_dataset(data_yaml: Path) -> dict[str, Any]:
         "status": "verified" if passed else "failed",
         "source": str(data_yaml.resolve()),
         "source_sha256": sha256_file(data_yaml),
+        "dataset_root": str(root),
+        "dataset_root_override": root_override is not None,
         "dataset_sha256": dataset_digest.hexdigest(),
         "classes": names,
         "class_count": len(names),
@@ -184,13 +191,17 @@ def verify_yolo_outputs(experiments_dir: Path) -> dict[str, Any]:
     }
 
 
-def build_verification(data_yaml: Path, experiments_dir: Path) -> dict[str, Any]:
+def build_verification(
+    data_yaml: Path,
+    experiments_dir: Path,
+    dataset_root: Path | None = None,
+) -> dict[str, Any]:
     return {
         "schema_version": 1,
         "generated_at": datetime.now(UTC).isoformat(),
         "generator": "scripts/verify_resume_evidence.py",
         "runtime": {"python": sys.version.split()[0], "platform": platform.platform()},
-        "dataset": verify_dataset(data_yaml),
+        "dataset": verify_dataset(data_yaml, dataset_root),
         "yolo": verify_yolo_outputs(experiments_dir),
     }
 
