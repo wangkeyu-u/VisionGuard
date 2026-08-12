@@ -51,6 +51,10 @@ const elements = {
   bboxList: document.querySelector("#bbox-list"),
   addBox: document.querySelector("#add-box"),
   reviewMessage: document.querySelector("#review-message"),
+  dirtySample: document.querySelector("#dirty-sample"),
+  excludeSample: document.querySelector("#exclude-sample"),
+  exclusionReason: document.querySelector("#exclusion-reason"),
+  violationConfirmations: document.querySelectorAll("[data-violation]"),
 };
 
 const reviewClasses = ["person", "helmet", "vest", "gloves", "boots", "no_helmet", "no_vest"];
@@ -249,6 +253,14 @@ function openReview(review) {
   elements.reviewTimestamp.textContent = `QUEUED ${new Date(review.created_at).toLocaleString()}`;
   elements.reviewer.value = review.reviewer;
   elements.reviewNotes.value = review.notes;
+  elements.dirtySample.checked = review.dirty;
+  elements.excludeSample.checked = review.excluded;
+  elements.exclusionReason.value = review.exclusion_reason;
+  elements.violationConfirmations.forEach((input) => {
+    input.checked = review.violation_confirmations.some(
+      (item) => item.class_name === input.dataset.violation && item.confirmed,
+    );
+  });
   elements.reviewMessage.textContent = "";
   renderCorrectionRows();
   elements.reviewImage.onload = renderBoxes;
@@ -298,6 +310,13 @@ async function submitReview(status) {
     reviewer: elements.reviewer.value,
     notes: elements.reviewNotes.value,
     corrections: status === "corrected" ? state.corrections : [],
+    dirty: elements.dirtySample.checked,
+    excluded: status === "rejected" || elements.excludeSample.checked,
+    exclusion_reason: elements.exclusionReason.value,
+    violation_confirmations: [...elements.violationConfirmations].map((input) => ({
+      class_name: input.dataset.violation,
+      confirmed: input.checked,
+    })),
   };
   try {
     const response = await fetch(`/api/reviews/${state.activeReview.id}`, {

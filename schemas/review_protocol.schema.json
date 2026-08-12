@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://visionguard.local/schemas/review_protocol.schema.json",
+  "title": "VisionGuard evaluation-eligible review record",
+  "type": "object",
+  "required": [
+    "protocol_version",
+    "dataset_split",
+    "blind_review",
+    "status",
+    "reviewer",
+    "dirty",
+    "excluded",
+    "corrections",
+    "violation_confirmations"
+  ],
+  "properties": {
+    "protocol_version": {"const": "visionguard-review-v1"},
+    "dataset_split": {"enum": ["train", "dev", "test", "inference"]},
+    "blind_review": {"type": "boolean"},
+    "status": {"enum": ["accepted", "corrected"]},
+    "reviewer": {"type": "string", "minLength": 1},
+    "dirty": {"const": false},
+    "excluded": {"const": false},
+    "exclusion_reason": {"type": "string"},
+    "corrections": {"type": "array"},
+    "violation_confirmations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["class_name", "confirmed"],
+        "properties": {
+          "class_name": {"enum": ["no_helmet", "no_vest"]},
+          "confirmed": {"type": "boolean"}
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"dataset_split": {"const": "test"}}},
+      "then": {"properties": {"blind_review": {"const": true}}}
+    }
+  ]
+}

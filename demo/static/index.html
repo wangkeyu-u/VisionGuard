@@ -168,6 +168,7 @@
             </select>
             <a class="json-link" href="/api/reviews/export.json" download>JSON EXPORT ↗</a>
             <a class="json-link" href="/api/reviews/export.csv" download>CSV EXPORT ↗</a>
+            <a class="json-link" href="/api/reviews/evaluation.jsonl" download>EVAL JSONL ↗</a>
           </div>
         </div>
         <p class="review-intro">
@@ -204,6 +205,16 @@
                 <button id="add-box" type="button">+ ADD BOX</button>
               </div>
               <div id="bbox-list" class="bbox-list"></div>
+              <fieldset class="violation-confirmations">
+                <legend>VIOLATION CONFIRMATION</legend>
+                <label><input type="checkbox" data-violation="no_helmet" /> Confirm no_helmet evidence</label>
+                <label><input type="checkbox" data-violation="no_vest" /> Confirm no_vest evidence</label>
+              </fieldset>
+              <div class="quality-controls">
+                <label><input id="dirty-sample" type="checkbox" /> DIRTY / CONTAMINATED</label>
+                <label><input id="exclude-sample" type="checkbox" /> EXCLUDE FROM EVAL</label>
+                <label>EXCLUSION REASON<textarea id="exclusion-reason" rows="2" placeholder="required for dirty or excluded samples"></textarea></label>
+              </div>
               <div class="decision-buttons">
                 <button data-status="rejected" class="reject-button" type="button">REJECT PREDICTION</button>
                 <button data-status="corrected" class="correct-button" type="button">SAVE CORRECTIONS</button>

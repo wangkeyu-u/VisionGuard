@@ -115,6 +115,15 @@ def _handler_factory(
             if path == "/api/reviews/export.csv":
                 self._send_export(review_store, "csv")
                 return
+            if path == "/api/reviews/evaluation.jsonl":
+                if review_store is None:
+                    self._send_error(503, "Review store is disabled")
+                    return
+                export_path = output_dir / "review_evaluation.jsonl"
+                count = review_store.export_evaluation_jsonl(export_path)
+                self._send_file(export_path)
+                print(f"[review] exported {count} evaluation-eligible records")
+                return
             if path.startswith("/api/reviews/"):
                 if review_store is None:
                     self._send_error(503, "Review store is disabled")

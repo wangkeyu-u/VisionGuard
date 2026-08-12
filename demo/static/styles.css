@@ -737,6 +737,25 @@ code {
 .correct-button { color: #071120; background: #69a8ff; }
 .accept-button { color: #052010; background: var(--safe); }
 .review-message { min-height: 20px; color: var(--signal); font: 10px/1.6 var(--mono); }
+.violation-confirmations,
+.quality-controls {
+  display: grid;
+  gap: 12px;
+  margin: 16px 0;
+  padding: 16px;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  font: 10px/1.4 var(--mono);
+}
+.violation-confirmations legend { color: var(--signal); padding: 0 8px; }
+.quality-controls label:last-child { display: grid; gap: 8px; }
+.quality-controls textarea {
+  padding: 10px;
+  color: var(--paper);
+  border: 1px solid var(--line);
+  background: #0c0f0e;
+  font: 11px/1.4 var(--mono);
+}
 
 footer {
   display: flex;

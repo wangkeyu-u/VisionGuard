@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 
 from visionguard.demo_server import DemoServerConfig, _handler_factory
-from visionguard.review import ReviewStore, validate_corrections
+from visionguard.review import ReviewStore, atomic_write_jsonl, validate_corrections
 
 
 def _sample_report() -> dict[str, object]:
@@ -35,6 +35,9 @@ def test_review_store_persists_decision_corrections_and_exports(tmp_path: Path) 
             "status": "corrected",
             "reviewer": "qa-user",
             "notes": "Box tightened after visual inspection.",
+            "violation_confirmations": [
+                {"class_name": "no_helmet", "confirmed": True}
+            ],
             "corrections": [
                 {
                     "action": "update",
@@ -52,6 +55,88 @@ def test_review_store_persists_decision_corrections_and_exports(tmp_path: Path) 
     assert reloaded["corrections"][0]["xyxy"] == [12, 22, 75, 96]
     assert json.loads(store.export_json())["reviews"][0]["status"] == "corrected"
     assert b"prediction_count,correction_count" in store.export_csv()
+
+
+def test_test_split_is_blind_and_ground_truth_is_not_public(tmp_path: Path) -> None:
+    store = ReviewStore(tmp_path / "reviews.sqlite3")
+    report = {
+        **_sample_report(),
+        "dataset_split": "test",
+        "ground_truth": {"private": "must not leak"},
+    }
+    review = store.enqueue("blind-test", report)
+    assert review["blind_review"] is True
+    assert "ground_truth" not in review
+    assert "private" not in json.dumps(store.list())
+
+
+def test_eval_gate_allows_only_reviewed_clean_protocol_records(tmp_path: Path) -> None:
+    store = ReviewStore(tmp_path / "reviews.sqlite3")
+    clean = store.enqueue("clean", {**_sample_report(), "dataset_split": "dev"})
+    dirty = store.enqueue("dirty", {**_sample_report(), "dataset_split": "dev"})
+    pending = store.enqueue("pending", {**_sample_report(), "dataset_split": "dev"})
+    store.update(
+        clean["id"],
+        {
+            "status": "accepted",
+            "reviewer": "reviewer",
+            "notes": "checked",
+            "corrections": [],
+            "violation_confirmations": [
+                {"class_name": "no_helmet", "confirmed": True}
+            ],
+        },
+    )
+    store.update(
+        dirty["id"],
+        {
+            "status": "accepted",
+            "reviewer": "reviewer",
+            "notes": "contaminated",
+            "corrections": [],
+            "dirty": True,
+            "exclusion_reason": "label leakage discovered",
+            "violation_confirmations": [
+                {"class_name": "no_helmet", "confirmed": True}
+            ],
+        },
+    )
+    assert pending["status"] == "pending"
+    records = store.evaluation_records()
+    assert [record["id"] for record in records] == ["clean"]
+
+
+def test_eval_gate_blocks_unconfirmed_violation(tmp_path: Path) -> None:
+    store = ReviewStore(tmp_path / "reviews.sqlite3")
+    review = store.enqueue("unconfirmed", {**_sample_report(), "dataset_split": "dev"})
+    store.update(
+        review["id"],
+        {
+            "status": "accepted",
+            "reviewer": "reviewer",
+            "notes": "forgot confirmation",
+            "corrections": [],
+            "violation_confirmations": [],
+        },
+    )
+    assert store.evaluation_records() == []
+
+
+def test_atomic_jsonl_failure_preserves_existing_file(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    path = tmp_path / "audit.jsonl"
+    path.write_text('{"old":true}\n', encoding="utf-8")
+    original_replace = Path.replace
+
+    def fail_replace(self: Path, target: Path) -> Path:
+        if self.suffix == ".tmp":
+            raise OSError("simulated interrupted write")
+        return original_replace(self, target)
+
+    monkeypatch.setattr(Path, "replace", fail_replace)
+    with pytest.raises(OSError, match="interrupted"):
+        atomic_write_jsonl(path, [{"new": True}])
+    assert path.read_text(encoding="utf-8") == '{"old":true}\n'
+    assert not list(tmp_path.glob("*.tmp"))
 
 
 def test_review_validation_rejects_ambiguous_edits() -> None:
@@ -96,7 +181,15 @@ def test_review_http_queue_patch_and_export(tmp_path: Path) -> None:
         assert queue["reviews"][0]["id"] == review["id"]
 
         body = json.dumps(
-            {"status": "accepted", "reviewer": "api-reviewer", "notes": "checked", "corrections": []}
+            {
+                "status": "accepted",
+                "reviewer": "api-reviewer",
+                "notes": "checked",
+                "corrections": [],
+                "violation_confirmations": [
+                    {"class_name": "no_helmet", "confirmed": True}
+                ],
+            }
         )
         connection.request(
             "PATCH",
