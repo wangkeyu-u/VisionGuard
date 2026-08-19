@@ -19,7 +19,7 @@ EXPERIMENT_DIR ?= outputs/experiments/$(EXPERIMENT)
 FINAL_DATA ?= training/datasets/safety_final/data.yaml
 BEST_MODEL ?= $(EXPERIMENT_DIR)/weights/best.pt
 
-.PHONY: setup install environment validate remap finalize visualize train resume evaluate benchmark errors report comparison evidence evidence-gate vlm-fixture demo baseline test lint compile check
+.PHONY: setup install environment validate remap finalize visualize train resume evaluate benchmark errors report comparison evidence evidence-gate evidence-ledger vlm-fixture vlm-real-historical demo baseline test lint compile check
 
 setup:
 	$(BOOTSTRAP_PYTHON) -m venv .venv
@@ -91,9 +91,19 @@ evidence:
 evidence-gate:
 	$(PYTHON) scripts/verify_resume_evidence.py --output docs/source-verification.json --require-verified
 
+evidence-ledger:
+	$(PYTHON) scripts/audit_vlm_evidence.py --output docs/evidence/vlm_asset_audit.json
+	$(PYTHON) scripts/generate_resume_evidence.py
+
 vlm-fixture:
 	$(PYTHON) scripts/evaluate_vlm.py --config configs/vlm_ablation.fixture.yaml \
 		--output outputs/vlm/fixture_evaluation.json
+
+vlm-real-historical:
+	$(PYTHON) scripts/prepare_historical_vlm_dev.py
+	$(PYTHON) scripts/evaluate_vlm.py --config configs/vlm_qwen_real_historical.yaml \
+		--cache-dir outputs/vlm/cache --output outputs/vlm/qwen_real_historical.json
+	$(PYTHON) scripts/promote_vlm_diagnostic.py
 
 demo:
 	$(PYTHON) scripts/run_demo.py --model "$(BEST_MODEL)" --imgsz $(IMGSZ) --device auto

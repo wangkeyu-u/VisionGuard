@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-08-12",
+  "method": "manual_visual_qa_with_in_app_browser",
+  "route": "http://127.0.0.1:7870/",
+  "fixture_notice": "The local fixture queue exercised review UI behavior only; no model-quality result was generated.",
+  "desktop": {
+    "viewport": {"width": 1280, "height": 720},
+    "document_client_width": 1280,
+    "document_scroll_width": 1280,
+    "review_grid_columns_px": [327.7, 910.3],
+    "image_width_px": 833,
+    "overlay_width_px": 833,
+    "bbox_rows": 2,
+    "rendered_boxes": 2,
+    "passed": true
+  },
+  "mobile": {
+    "viewport": {"width": 390, "height": 844},
+    "document_client_width": 390,
+    "document_scroll_width": 390,
+    "review_grid_columns": "364px",
+    "decision_columns": "324px",
+    "coordinate_columns": "64.5px 64.5px 64.5px 64.5px",
+    "passed": true
+  },
+  "interactions_checked": [
+    "queue item selection",
+    "two editable person bbox rows",
+    "violation confirmation controls",
+    "dirty and exclusion reason controls",
+    "accept, reject, and correct actions"
+  ],
+  "console": {"warnings": 0, "errors": 0},
+  "conclusion": "Desktop and 390px layouts had no horizontal overflow; image and bbox overlay geometry aligned, and the mobile decision area collapsed to one column.",
+  "passed": true
+}

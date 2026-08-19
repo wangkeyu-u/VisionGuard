@@ -6,6 +6,12 @@ Reproducible computer-vision system for detecting and reviewing PPE and workplac
 
 ## Result at a glance
 
+> Round-2 evidence status: dataset facts and review-platform capabilities are verified from source
+> artifacts and negative tests. The YOLO values below are historical project claims marked
+> `implemented_unverified` because the checkpoints and training/evaluation JSON/CSV artifacts are
+> absent. The resume VLM F1=0.600 claim is `unsupported`. See
+> [`docs/RESUME_EVIDENCE.md`](docs/RESUME_EVIDENCE.md) and run `make evidence-gate`.
+
 The selected checkpoint is **YOLO11s, 512 px, best epoch 40**. It was selected by validation mAP@50–95, then evaluated once on the held-out test split.
 
 | Model | Validation mAP@50–95 | Test mAP@50–95 | Test mAP@50 | Mean latency* |
@@ -17,19 +23,33 @@ The selected checkpoint is **YOLO11s, 512 px, best epoch 40**. It was selected b
 
 \* Batch 1 on Apple Silicon MPS; 5 warm-up images and 100 measured test images. Runs were recorded at different times, so latency is descriptive rather than a controlled hardware claim.
 
-The final model improves test mAP@50–95 by **+0.0289 absolute** over the baseline. The minority violations remain the bottleneck: test AP@50–95 is 0.1392 for `no_helmet` and 0.2197 for `no_vest`.
+These values cannot currently be independently recomputed from the checkout. Do not cite them as
+verified until the source-artifact gate passes.
 
 ## Implementation and evidence status
 
 | Capability | Code implemented | Verified here | Needs real weights/data |
 | --- | --- | --- | --- |
-| Dataset validation, class remap, SHA-256 deduplication, source-group split, frozen fingerprint and leakage audit | Yes | Regression tests | Full dataset to reproduce recorded fingerprint |
-| Four YOLO11 experiment configurations, evaluation, benchmark and reporting | Yes | Regression tests; recorded results above are repository evidence from the original project | Checkpoints and dataset to rerun |
-| YOLO11, Qwen3-VL and YOLO-grounded Qwen3-VL adapters | Yes | Deterministic fixture pipeline only | Pinned Qwen3-VL revision, YOLO checkpoint, adjudicated images and suitable compute |
-| IoU-grounded precision/recall/F1, unsupported-finding and negative-scene hallucination metrics | Yes | Unit tests and fixture ablation | Real ablation set to produce model-quality metrics |
+| Dataset validation, class remap, SHA-256 deduplication, source-group split, frozen fingerprint and leakage audit | Yes | Recomputed source artifacts + negative tests | Upstream source needed for a fresh rebuild |
+| Four YOLO11 experiment configurations, evaluation, benchmark and reporting | Yes | Code/tests only; numeric claims unverified | Checkpoints, four training CSVs, test and benchmark JSON |
+| YOLO11, Qwen3-VL and YOLO-grounded Qwen3-VL adapters | Yes | Fixture pipeline plus one real Qwen-only diagnostic | Project YOLO checkpoint and grounded-Qwen run |
+| IoU-grounded precision/recall/F1, unsupported-finding and negative-scene hallucination metrics | Yes | Record-level recomputation, tamper test, fixture, and real Qwen diagnostic | Independently adjudicated real ablation set |
 | Persistent sample review queue, bbox/label add/update/delete, accept/reject/correct, JSON/CSV audit export | Yes | Store and HTTP interaction tests | YOLO checkpoint to populate via live inference |
 
-**Fixture results are synthetic control-flow checks. They are not real model results and must not be described as a completed VLM ablation experiment.** No Qwen3-VL weights or adjudicated multimodal test set are bundled.
+**Fixture results are synthetic control-flow checks. They are not real model results and must not be described as a completed VLM ablation experiment.** Qwen3-VL weights, caches, images, and the full dataset are not bundled.
+
+One real Qwen3-VL 2B diagnostic was executed on 36 recovered historical Dev records with mixed
+reviewer provenance. A resumed evidence pass had 34 cache hits and retained two strict JSON parse
+failures. Record-level recomputation at IoU 0.5 produced precision 0.1786, recall 0.2778, and F1
+**0.2174**. This is evidence about one diagnostic arm—not evidence that the three-model ablation was
+completed, and not support for the resume's F1=0.600 statement. See
+`docs/evidence/qwen_real_historical_result.json` and
+`docs/evidence/QWEN_DIAGNOSTIC_FAILURES.md`.
+
+Round 2 independently recomputed 8,762 images, 43,727 annotations, seven classes, zero
+cross-split SHA-256 groups, zero cross-split source groups, and dataset SHA-256
+`6d40b6e5d09cc4e1ed3a6d8d9a8a88259f1e18dc9f117d664fa5694473db3bb2`.
+The machine-readable source is `docs/source-verification.json`; README text alone is not evidence.
 
 ## Local inference and review platform
 
@@ -53,7 +73,18 @@ Open [http://127.0.0.1:7860](http://127.0.0.1:7860), then upload a JPG, PNG, MP4
 Model weights and generated demo sessions are intentionally Git-ignored. Put your checkpoint at the path above or pass `--model /path/to/best.pt`.
 
 Review state defaults to `outputs/demo/reviews.sqlite3`. Override it with
-`--review-database /durable/path/reviews.sqlite3`. The UI exposes queue filtering and audit exports; the underlying routes are `GET /api/reviews`, `GET /api/reviews/{id}`, `PATCH /api/reviews/{id}`, and `GET /api/reviews/export.{json,csv}`.
+`--review-database /durable/path/reviews.sqlite3`. Reviewers can edit person boxes, explicitly
+confirm violation classes, mark dirty/excluded samples with reasons, and accept, reject, or correct
+each record. Test-split queue responses omit ground truth. Evaluation JSONL contains only reviewed,
+protocol-valid, non-dirty, non-excluded records and is written with fsync plus atomic replace. The
+underlying routes include `GET /api/reviews`, `GET /api/reviews/{id}`,
+`PATCH /api/reviews/{id}`, `GET /api/reviews/export.{json,csv}`, and
+`GET /api/reviews/evaluation.jsonl`.
+
+Desktop 1280×720 and mobile 390×844 visual checks found no horizontal overflow, aligned image and
+bbox overlays, and a one-column mobile decision area; browser console warnings/errors were zero.
+The check used a clearly labeled local fixture queue, not a model run. Measurements are recorded in
+`docs/evidence/review_visual_qa.json`.
 
 ## System design
 
@@ -128,6 +159,11 @@ make evaluate benchmark errors report \
   EXPERIMENT=exp4_yolo11s_512_e50 IMGSZ=512
 make comparison
 
+# Evidence audit; strict mode fails while required YOLO artifacts are absent.
+make evidence
+make evidence-gate
+make evidence-ledger
+
 # Fixture-only VLM pipeline verification (never model-quality evidence)
 make vlm-fixture
 ```
@@ -148,6 +184,19 @@ python scripts/evaluate_vlm.py \
 ```
 
 The direct Qwen adapter follows the official model card's `AutoModelForMultimodalLM` and `AutoProcessor` interface. The example revision remains a deliberate placeholder so a real run cannot accidentally claim an unpinned model.
+
+The recovered historical Dev labels can be used for an explicitly limited Qwen-only diagnostic:
+
+```bash
+make vlm-real-historical
+```
+
+This uses an atomic per-example cache, preserves raw outputs and failures, and promotes a compact
+record-level evidence report. The recorded real Qwen-only result is F1 0.2174 over 36 records, with
+34 cache hits and two strict JSON parse failures on the resumed evidence pass. The labels mix named
+human, Codex-assisted, and missing reviewer provenance, so the result cannot verify the resume F1.
+A full three-model ablation remains blocked without the selected project YOLO checkpoint and a
+grounded-Qwen run.
 
 The manifest is JSONL with one adjudicated target per image:
 
