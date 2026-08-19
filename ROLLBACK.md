@@ -2,8 +2,10 @@
 
 This work started from the repository's original default branch `main` at
 commit `5e8769c9aad00ad529b2b3b818252534306d001c`. All implementation commits live
-on `codex/interview-alignment`; the original branch is not rewritten and no
-changes are pushed by this workflow.
+on `codex/interview-alignment`; the original branch is not rewritten. After
+explicit user authorization, the implementation branch was published as
+`origin/codex/interview-alignment` for Draft PR review. The local rollback tag
+described below was not pushed.
 
 Round 1 completed at commit
 `4085bb350c193a026aeebe83bcfc5ddf55da1d1e`, protected by the local-only
@@ -64,4 +66,14 @@ git branch -D codex/interview-alignment
 ```
 
 This deletes the local implementation branch and its commits. It does not
-change `main` or any remote branch.
+change `main` or the published remote review branch.
+
+If the Draft PR has first been closed and the published review branch is no
+longer needed, remove only that remote branch with:
+
+```bash
+git push origin --delete codex/interview-alignment
+```
+
+This remote deletion is intentionally separate and is not required for either
+of the two read-only detached rollback procedures above.
