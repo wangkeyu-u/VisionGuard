@@ -1,0 +1,11 @@
+schema_version: 1
+manifest: ../outputs/vlm/real_dev_manifest.jsonl
+iou_threshold: 0.5
+runs:
+  - name: qwen3_vl_2b_real_historical_dev
+    adapter: qwen3_vl
+    execution: real
+    model_id: Qwen/Qwen3-VL-2B-Instruct
+    revision: 89644892e4d85e24eaac8bacfd4f463576704203
+    device_map: auto
+    max_new_tokens: 384

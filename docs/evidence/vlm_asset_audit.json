@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-19T16:52:08.767426+00:00",
+  "runtime": "macOS-26.6.1-arm64-arm-64bit",
+  "qwen": {
+    "model_id": "Qwen/Qwen3-VL-2B-Instruct",
+    "revision": "89644892e4d85e24eaac8bacfd4f463576704203",
+    "config": {
+      "path": "/Users/wangkeyu/.cache/huggingface/hub/models--Qwen--Qwen3-VL-2B-Instruct/snapshots/89644892e4d85e24eaac8bacfd4f463576704203/config.json",
+      "exists": true,
+      "size_bytes": 1505,
+      "sha256": "bec4b3d446efa05807365c9e1cec03ac590836879d02f3a6da879971154bdd3b"
+    },
+    "weights": {
+      "path": "/Users/wangkeyu/.cache/huggingface/hub/models--Qwen--Qwen3-VL-2B-Instruct/snapshots/89644892e4d85e24eaac8bacfd4f463576704203/model.safetensors",
+      "exists": true,
+      "size_bytes": 4255140312,
+      "sha256": "7de1838c87a5349b016c26a1c3f7d2bc400a3d485f95ef39a7059ffd734977a0"
+    },
+    "diagnostic_result": {
+      "path": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/docs/evidence/qwen_real_historical_result.json",
+      "exists": true,
+      "size_bytes": 130258,
+      "sha256": "dc5a714d210bc3133cba9b3edc366fc1979bb9a1a5f81f8a51d7739594439629"
+    },
+    "diagnostic_recomputed": {
+      "examples": 36,
+      "schema_valid_examples": 28,
+      "grounded_true_positives": 10,
+      "predicted_findings": 56,
+      "target_findings": 36,
+      "grounding_precision": 0.17857142857142858,
+      "grounding_recall": 0.2777777777777778,
+      "grounding_f1": 0.21739130434782608,
+      "cache_hit_count": 34,
+      "strict_json_parse_failures": 2,
+      "failure_ids": [
+        "00000239_jpg.rf.a41d71f80533740f61d5c59248364e77",
+        "033896729-construction-workers-install-r_jpg.rf.5da6ce192b56bc573a5bb364214aa2c7"
+      ],
+      "unsupported_finding_rate": 0.8214285714285714,
+      "negative_scene_hallucination_rate": 0.8461538461538461,
+      "mean_latency_ms": 18256.46477576533,
+      "deterministic_coordinate_repair_count": 58
+    },
+    "diagnostic_claim_support": {
+      "qwen_only_diagnostic": true,
+      "full_three_model_ablation": false,
+      "resume_dev_f1_0_600": false,
+      "reason": "This is one real Qwen3-VL arm on recovered mixed-provenance historical Dev labels. The project YOLO checkpoint, grounded-Qwen run, and original F1=0.600 predictions are absent."
+    }
+  },
+  "yolo": {
+    "selected_checkpoint": {
+      "path": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/outputs/experiments/exp4_yolo11s_512_e50/weights/best.pt",
+      "exists": false,
+      "size_bytes": null,
+      "sha256": null
+    }
+  },
+  "dev_source_audit": {
+    "path": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/docs/evidence/vlm_dev_source_audit.json",
+    "exists": true,
+    "size_bytes": 731,
+    "sha256": "8ca1e3e37edd139d0db940af8e5940679d72808df3c70481434042430c6291f6"
+  },
+  "ablation_arms": {
+    "yolo11": "missing_checkpoint",
+    "qwen3_vl": "real_diagnostic_mixed_provenance",
+    "grounded_qwen3_vl": "missing_run_and_yolo_checkpoint"
+  },
+  "full_three_model_ablation_verified": false,
+  "resume_f1_0_600_verified": false,
+  "blocking_reasons": [
+    "Selected project YOLO checkpoint is missing.",
+    "No committed source prediction set exists for the historical Dev F1=0.600 statement.",
+    "Recovered Dev labels have mixed reviewer provenance and cannot independently verify the resume claim.",
+    "No grounded-Qwen3-VL real run exists because the selected project YOLO checkpoint is missing."
+  ]
+}

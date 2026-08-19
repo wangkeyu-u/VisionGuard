@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://visionguard.local/schemas/vlm_evaluation_result.schema.json",
+  "title": "VisionGuard VLM evaluation result",
+  "type": "object",
+  "required": ["schema_version", "generated_at", "iou_threshold", "execution_modes", "runs"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "iou_threshold": {"type": "number", "minimum": 0, "maximum": 1},
+    "execution_modes": {"type": "array", "items": {"enum": ["fixture", "real"]}},
+    "contains_real_model_results": {"type": "boolean"},
+    "contains_fixture_results": {"type": "boolean"},
+    "runs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["adapter", "execution_mode", "result_interpretation", "metrics", "runtime_errors", "records"],
+        "properties": {
+          "adapter": {"type": "string"},
+          "execution_mode": {"enum": ["fixture", "real"]},
+          "result_interpretation": {"type": "string"},
+          "runtime_metadata": {"type": "object"},
+          "metrics": {
+            "type": "object",
+            "required": [
+              "examples", "schema_valid_rate", "grounding_precision", "grounding_recall",
+              "grounding_f1", "unsupported_finding_rate", "negative_scene_hallucination_rate",
+              "mean_latency_ms", "runtime_error_count", "cache_hit_count",
+              "deterministic_coordinate_repair_count"
+            ],
+            "properties": {
+              "examples": {"type": "integer", "minimum": 0},
+              "schema_valid_rate": {"type": "number", "minimum": 0, "maximum": 1},
+              "grounding_precision": {"type": "number", "minimum": 0, "maximum": 1},
+              "grounding_recall": {"type": "number", "minimum": 0, "maximum": 1},
+              "grounding_f1": {"type": "number", "minimum": 0, "maximum": 1},
+              "unsupported_finding_rate": {"type": "number", "minimum": 0, "maximum": 1},
+              "negative_scene_hallucination_rate": {"type": "number", "minimum": 0, "maximum": 1},
+              "mean_latency_ms": {"type": ["number", "null"], "minimum": 0},
+              "runtime_error_count": {"type": "integer", "minimum": 0},
+              "cache_hit_count": {"type": "integer", "minimum": 0},
+              "deterministic_coordinate_repair_count": {"type": "integer", "minimum": 0}
+            }
+          },
+          "runtime_errors": {"type": "array"},
+          "records": {"type": "array"}
+        }
+      }
+    }
+  }
+}

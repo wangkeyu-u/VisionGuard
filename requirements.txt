@@ -6,3 +6,7 @@ Pillow>=10.0,<13.0
 opencv-python>=4.10,<5.0
 pytest>=8.0,<10.0
 ruff>=0.9,<1.0
+
+# Optional real Qwen3-VL evaluation dependencies are intentionally not installed
+# by default. Install versions compatible with the pinned model revision:
+# transformers, accelerate

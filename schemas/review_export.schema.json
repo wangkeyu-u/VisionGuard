@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://visionguard.local/schemas/review_export.schema.json",
+  "title": "VisionGuard review audit export",
+  "type": "object",
+  "required": ["schema_version", "exported_at", "reviews"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "exported_at": {"type": "string", "format": "date-time"},
+    "reviews": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id", "session_id", "source_name", "media_type", "predictions", "status",
+          "corrections", "reviewer", "notes", "created_at", "updated_at"
+        ],
+        "properties": {
+          "status": {"enum": ["pending", "accepted", "rejected", "corrected"]},
+          "predictions": {"type": "array"},
+          "corrections": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["action"],
+              "properties": {
+                "action": {"enum": ["add", "update", "delete"]},
+                "original_index": {"type": "integer", "minimum": 0},
+                "class_name": {"type": "string"},
+                "xyxy": {
+                  "type": "array",
+                  "minItems": 4,
+                  "maxItems": 4,
+                  "items": {"type": "number"}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

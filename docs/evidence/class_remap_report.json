@@ -1,0 +1,97 @@
+{
+  "generated_at": "2026-08-12T17:31:11.384439+00:00",
+  "source_data_yaml": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/source_downloads.yaml",
+  "source_dataset_root": "/Users/wangkeyu/Downloads",
+  "output_dataset_root": "/Users/wangkeyu/Documents/Codex/2026-08-12/visionguard-interview-alignment/work/VisionGuard/training/datasets/safety_clean",
+  "source_dataset_modified": false,
+  "target_classes": {
+    "0": "person",
+    "1": "helmet",
+    "2": "vest",
+    "3": "gloves",
+    "4": "boots",
+    "5": "no_helmet",
+    "6": "no_vest",
+    "7": "no_gloves",
+    "8": "no_boots"
+  },
+  "mapping": {
+    "Human": "person",
+    "Helmet": "helmet",
+    "helmet": "helmet",
+    "hat": "helmet",
+    "Safety Vest": "vest",
+    "vest": "vest",
+    "Gloves": "gloves",
+    "gloves": "gloves",
+    "Safety Boot": "boots",
+    "boots": "boots",
+    "no hat": "no_helmet",
+    "no vest": "no_vest",
+    "no gloves": "no_gloves",
+    "no boot": "no_boots",
+    "no boots": "no_boots"
+  },
+  "removed_classes": [
+    "glasses"
+  ],
+  "old_class_counts": {
+    "Gloves": 3452,
+    "Helmet": 5482,
+    "Human": 5775,
+    "Safety Boot": 9325,
+    "Safety Vest": 7384,
+    "boots": 2329,
+    "glasses": 810,
+    "gloves": 1893,
+    "hat": 1669,
+    "helmet": 1294,
+    "no boot": 1,
+    "no boots": 8,
+    "no gloves": 1,
+    "no hat": 994,
+    "no vest": 1374,
+    "vest": 3073
+  },
+  "new_class_counts": {
+    "person": 5775,
+    "helmet": 8445,
+    "vest": 10457,
+    "gloves": 5345,
+    "boots": 11654,
+    "no_helmet": 994,
+    "no_vest": 1374,
+    "no_gloves": 1,
+    "no_boots": 9
+  },
+  "removed_glasses_annotations": 810,
+  "empty_label_images_count": 0,
+  "empty_label_images": [],
+  "splits": {
+    "train": {
+      "images": 7602,
+      "source_annotations": 38268,
+      "written_annotations": 37678,
+      "removed_annotations": 590,
+      "empty_label_images": 0
+    },
+    "valid": {
+      "images": 851,
+      "source_annotations": 4601,
+      "written_annotations": 4432,
+      "removed_annotations": 169,
+      "empty_label_images": 0
+    },
+    "test": {
+      "images": 392,
+      "source_annotations": 1995,
+      "written_annotations": 1944,
+      "removed_annotations": 51,
+      "empty_label_images": 0
+    }
+  },
+  "copied_metadata_files": [
+    "README.dataset.txt",
+    "README.roboflow.txt"
+  ]
+}

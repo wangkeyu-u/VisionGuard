@@ -1,0 +1,2 @@
+{"id":"worker-violation","prediction":{"scene_summary":"Fixture scene.","findings":[{"person_box":[0.65,0.1,0.9,0.8],"violation":"no_vest","evidence":"Synthetic unsupported fixture finding.","confidence":"low"}],"uncertainties":["Fixture."],"recommended_action":"Fixture review."}}
+{"id":"compliant-scene","prediction":{"scene_summary":"Fixture compliant scene.","findings":[{"person_box":[0.1,0.1,0.5,0.9],"violation":"no_helmet","evidence":"Synthetic fixture hallucination.","confidence":"low"}],"uncertainties":[],"recommended_action":"Fixture review."}}

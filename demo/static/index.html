@@ -151,10 +151,84 @@
           </article>
         </div>
       </section>
+
+      <section class="review-console" id="review-console" aria-labelledby="review-title">
+        <div class="results-heading review-heading">
+          <div>
+            <p class="eyebrow">HUMAN-IN-THE-LOOP</p>
+            <h2 id="review-title">Review queue</h2>
+          </div>
+          <div class="review-actions">
+            <select id="review-filter" aria-label="Filter review queue">
+              <option value="">ALL STATES</option>
+              <option value="pending">PENDING</option>
+              <option value="accepted">ACCEPTED</option>
+              <option value="rejected">REJECTED</option>
+              <option value="corrected">CORRECTED</option>
+            </select>
+            <a class="json-link" href="/api/reviews/export.json" download>JSON EXPORT ↗</a>
+            <a class="json-link" href="/api/reviews/export.csv" download>CSV EXPORT ↗</a>
+            <a class="json-link" href="/api/reviews/evaluation.jsonl" download>EVAL JSONL ↗</a>
+          </div>
+        </div>
+        <p class="review-intro">
+          Model output enters a persistent local queue. Inspect every prediction, then accept,
+          reject, or submit explicit label / box corrections. Decisions are audit records, not
+          retraining data until independently validated.
+        </p>
+        <div class="review-layout">
+          <aside class="queue-panel" aria-label="Review samples">
+            <div class="queue-summary"><span id="queue-count">0</span> ITEMS</div>
+            <div id="review-queue" class="review-queue"></div>
+          </aside>
+          <article class="review-editor" id="review-editor">
+            <div class="review-empty" id="review-empty">
+              <strong>SELECT A QUEUED SAMPLE</strong>
+              <span>Predictions and audit controls will appear here.</span>
+            </div>
+            <div id="review-form" hidden>
+              <div class="review-media">
+                <img id="review-image" alt="Original sample under review" />
+                <div id="box-overlay" class="box-overlay" aria-hidden="true"></div>
+              </div>
+              <div class="review-metadata">
+                <span id="review-state" class="state-chip">PENDING</span>
+                <strong id="review-source"></strong>
+                <small id="review-timestamp"></small>
+              </div>
+              <div class="field-row">
+                <label>REVIEWER<input id="reviewer" autocomplete="name" placeholder="name or handle" /></label>
+                <label>NOTES<textarea id="review-notes" rows="2" placeholder="evidence, uncertainty, reason"></textarea></label>
+              </div>
+              <div class="bbox-toolbar">
+                <div class="section-label"><span>06</span> BOX / LABEL AUDIT</div>
+                <button id="add-box" type="button">+ ADD BOX</button>
+              </div>
+              <div id="bbox-list" class="bbox-list"></div>
+              <fieldset class="violation-confirmations">
+                <legend>VIOLATION CONFIRMATION</legend>
+                <label><input type="checkbox" data-violation="no_helmet" /> Confirm no_helmet evidence</label>
+                <label><input type="checkbox" data-violation="no_vest" /> Confirm no_vest evidence</label>
+              </fieldset>
+              <div class="quality-controls">
+                <label><input id="dirty-sample" type="checkbox" /> DIRTY / CONTAMINATED</label>
+                <label><input id="exclude-sample" type="checkbox" /> EXCLUDE FROM EVAL</label>
+                <label>EXCLUSION REASON<textarea id="exclusion-reason" rows="2" placeholder="required for dirty or excluded samples"></textarea></label>
+              </div>
+              <div class="decision-buttons">
+                <button data-status="rejected" class="reject-button" type="button">REJECT PREDICTION</button>
+                <button data-status="corrected" class="correct-button" type="button">SAVE CORRECTIONS</button>
+                <button data-status="accepted" class="accept-button" type="button">ACCEPT AS SHOWN</button>
+              </div>
+              <p id="review-message" class="review-message" role="status"></p>
+            </div>
+          </article>
+        </div>
+      </section>
     </main>
 
     <footer>
-      <span>VISIONGUARD / LOCAL INFERENCE BUILD</span>
+      <span>VISIONGUARD / LOCAL REVIEW BUILD</span>
       <span>DETECTIONS ARE REVIEW CANDIDATES, NOT SAFETY CERTIFICATION</span>
     </footer>
 

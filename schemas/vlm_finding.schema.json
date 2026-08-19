@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://visionguard.local/schemas/vlm_finding.schema.json",
+  "title": "VisionGuard grounded safety finding",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["scene_summary", "findings", "uncertainties", "recommended_action"],
+  "properties": {
+    "scene_summary": {"type": "string"},
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["person_box", "violation", "evidence", "confidence"],
+        "properties": {
+          "person_box": {
+            "type": "array",
+            "minItems": 4,
+            "maxItems": 4,
+            "items": {"type": "number", "minimum": 0, "maximum": 1}
+          },
+          "violation": {"enum": ["no_helmet", "no_vest"]},
+          "evidence": {"type": "string", "minLength": 1},
+          "confidence": {"enum": ["low", "medium", "high"]}
+        }
+      }
+    },
+    "uncertainties": {"type": "array", "items": {"type": "string"}},
+    "recommended_action": {"type": "string"}
+  }
+}

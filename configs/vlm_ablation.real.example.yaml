@@ -1,0 +1,29 @@
+schema_version: 1
+manifest: /path/to/adjudicated/evaluation_manifest.jsonl
+iou_threshold: 0.5
+runs:
+  - name: yolo11_real
+    adapter: yolo11
+    execution: real
+    model: outputs/experiments/exp4_yolo11s_512_e50/weights/best.pt
+    imgsz: 512
+    confidence: 0.25
+    device: auto
+  - name: qwen3_vl_real
+    adapter: qwen3_vl
+    execution: real
+    model_id: Qwen/Qwen3-VL-4B-Instruct
+    revision: REPLACE_WITH_PINNED_COMMIT
+    device_map: auto
+    max_new_tokens: 512
+  - name: grounded_qwen3_vl_real
+    adapter: grounded_qwen3_vl
+    execution: real
+    detector_model: outputs/experiments/exp4_yolo11s_512_e50/weights/best.pt
+    imgsz: 512
+    confidence: 0.25
+    device: auto
+    model_id: Qwen/Qwen3-VL-4B-Instruct
+    revision: REPLACE_WITH_PINNED_COMMIT
+    device_map: auto
+    max_new_tokens: 512

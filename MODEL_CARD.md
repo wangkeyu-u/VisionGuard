@@ -1,5 +1,10 @@
 # VisionGuard Model Card
 
+> Evidence warning: all performance and latency values below are historical project records, not
+> independently verified in the current checkout. The checkpoint, four training `results.csv`
+> files, test metrics JSON, and performance JSON are missing. Run `make evidence-gate`; until it
+> passes, these values are `implemented_unverified` rather than verified evidence.
+
 ## Model
 
 - Architecture: Ultralytics YOLO11s object detector
@@ -11,6 +16,19 @@
 - Dataset: frozen 70/20/10 split described in `DATASET_CARD.md`
 
 Weights are intentionally excluded from Git. The expected local path is `outputs/experiments/exp4_yolo11s_512_e50/weights/best.pt`.
+
+## Real Qwen3-VL diagnostic boundary
+
+A real `Qwen/Qwen3-VL-2B-Instruct` diagnostic was run at pinned revision
+`89644892e4d85e24eaac8bacfd4f463576704203` on 36 recovered historical Dev records. The resumed
+evidence pass used 34 cached predictions and retained two strict JSON parse failures. Recomputing
+from record-level outputs at IoU 0.5 gives precision 0.1786, recall 0.2778, and F1 0.2174.
+
+This is not the resume's claimed three-model ablation: the selected project YOLO checkpoint and the
+grounded-Qwen run are absent, and the recovered labels mix named human, Codex-assisted, and missing
+reviewer provenance. It therefore cannot support Dev F1=0.600. The machine-readable report records
+the pinned model revision, local weight hash, source-label hash, raw predictions, parse failures,
+and the exact recomputation boundary in `docs/evidence/qwen_real_historical_result.json`.
 
 ## Selection and evaluation
 
