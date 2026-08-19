@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "source_ref": "origin/feature/vlm-grounding",
+  "source_commit": "2670d6db11d990298d5d6d6ae150aa0cce07490e",
+  "source_path": "vlm/data/dev.jsonl",
+  "source_sha256": "366b03aa50f02925c624584805c7648c5bd6dfc5c45108c08fe27b47f6ae2df0",
+  "records": 36,
+  "unique_source_groups": 36,
+  "duplicate_source_groups": 0,
+  "target_findings": 36,
+  "reviewer_provenance": {
+    "Codex-assisted visual audit": 21,
+    "missing": 3,
+    "wang keyu": 12
+  },
+  "missing_images": [],
+  "evidence_grade": "historical_mixed_provenance",
+  "limitation": "This recovered Dev set mixes named human, Codex-assisted, and missing reviewer provenance. Real-model runs are diagnostic and cannot verify the resume F1 claim."
+}

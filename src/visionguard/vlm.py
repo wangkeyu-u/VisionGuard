@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import json
+import os
 import re
+import tempfile
 import time
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
@@ -78,6 +80,7 @@ class AdapterResult:
     document: dict[str, Any]
     latency_ms: float
     raw_output: str | None = None
+    cache_hit: bool = False
 
 
 class VisionAdapter(ABC):
@@ -87,6 +90,62 @@ class VisionAdapter(ABC):
     @abstractmethod
     def predict(self, example: VLMExample) -> AdapterResult:
         raise NotImplementedError
+
+
+class CachedAdapter(VisionAdapter):
+    """Atomic per-example prediction cache for resumable expensive inference."""
+
+    def __init__(self, adapter: VisionAdapter, cache_path: Path, signature: str) -> None:
+        self.adapter = adapter
+        self.name = adapter.name
+        self.execution_mode = adapter.execution_mode
+        self.runtime_metadata = getattr(adapter, "runtime_metadata", {})
+        self.cache_path = cache_path
+        self.signature = signature
+        self._records: dict[str, dict[str, Any]] = {}
+        if cache_path.is_file():
+            for line in cache_path.read_text(encoding="utf-8").splitlines():
+                if line.strip():
+                    record = json.loads(line)
+                    if record.get("signature") == signature:
+                        self._records[str(record["id"])] = record
+
+    def _write(self) -> None:
+        self.cache_path.parent.mkdir(parents=True, exist_ok=True)
+        descriptor, temporary_name = tempfile.mkstemp(
+            prefix=f".{self.cache_path.name}.", suffix=".tmp", dir=self.cache_path.parent
+        )
+        temporary = Path(temporary_name)
+        try:
+            with os.fdopen(descriptor, "w", encoding="utf-8") as stream:
+                for record in self._records.values():
+                    stream.write(json.dumps(record, ensure_ascii=False, separators=(",", ":")) + "\n")
+                stream.flush()
+                os.fsync(stream.fileno())
+            temporary.replace(self.cache_path)
+        except Exception:
+            temporary.unlink(missing_ok=True)
+            raise
+
+    def predict(self, example: VLMExample) -> AdapterResult:
+        cached = self._records.get(example.id)
+        if cached is not None:
+            return AdapterResult(
+                cached["document"],
+                float(cached["latency_ms"]),
+                cached.get("raw_output"),
+                cache_hit=True,
+            )
+        result = self.adapter.predict(example)
+        self._records[example.id] = {
+            "signature": self.signature,
+            "id": example.id,
+            "document": result.document,
+            "latency_ms": result.latency_ms,
+            "raw_output": result.raw_output,
+        }
+        self._write()
+        return result
 
 
 class FixtureAdapter(VisionAdapter):
@@ -121,6 +180,12 @@ class YOLO11Adapter(VisionAdapter):
         self.imgsz = imgsz
         self.confidence = confidence
         self.device = device
+        self.runtime_metadata = {
+            "adapter": "yolo11",
+            "model": str(model),
+            "device_requested": device,
+            "image_size": imgsz,
+        }
 
     def detect(self, image: Path) -> list[dict[str, Any]]:
         result = self.model.predict(
@@ -201,6 +266,14 @@ class Qwen3VLAdapter(VisionAdapter):
         self.model = AutoModelForMultimodalLM.from_pretrained(
             model_id, revision=revision, device_map=device_map
         )
+        self.runtime_metadata = {
+            "adapter": "qwen3_vl",
+            "model_id": model_id,
+            "revision": revision,
+            "device_requested": device_map,
+            "model_device": str(self.model.device),
+            "max_new_tokens": max_new_tokens,
+        }
 
     def _prompt(self, grounding: list[dict[str, Any]] | None = None) -> str:
         grounding_text = ""

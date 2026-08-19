@@ -1,0 +1,2854 @@
+{
+  "schema_version": 1,
+  "evidence_class": "real_model_diagnostic_mixed_provenance",
+  "claim_support": {
+    "qwen_only_diagnostic": true,
+    "full_three_model_ablation": false,
+    "resume_dev_f1_0_600": false,
+    "reason": "This is one real Qwen3-VL arm on recovered mixed-provenance historical Dev labels. The project YOLO checkpoint, grounded-Qwen run, and original F1=0.600 predictions are absent."
+  },
+  "model": {
+    "model_id": "Qwen/Qwen3-VL-2B-Instruct",
+    "revision": "89644892e4d85e24eaac8bacfd4f463576704203",
+    "weights_sha256": "7de1838c87a5349b016c26a1c3f7d2bc400a3d485f95ef39a7059ffd734977a0",
+    "config_sha256": "bec4b3d446efa05807365c9e1cec03ac590836879d02f3a6da879971154bdd3b"
+  },
+  "data": {
+    "source_ref": "origin/feature/vlm-grounding",
+    "source_commit": "2670d6db11d990298d5d6d6ae150aa0cce07490e",
+    "source_path": "vlm/data/dev.jsonl",
+    "source_sha256": "366b03aa50f02925c624584805c7648c5bd6dfc5c45108c08fe27b47f6ae2df0",
+    "records": 36,
+    "reviewer_provenance": {
+      "Codex-assisted visual audit": 21,
+      "missing": 3,
+      "wang keyu": 12
+    },
+    "evidence_grade": "historical_mixed_provenance",
+    "limitation": "This recovered Dev set mixes named human, Codex-assisted, and missing reviewer provenance. Real-model runs are diagnostic and cannot verify the resume F1 claim."
+  },
+  "source_report": {
+    "sha256": "8092172e153e7e8233b02b675d0d00b78b2bd3aa9af4a1da72b5d19c1f80aadf",
+    "iou_threshold": 0.5,
+    "execution_modes": [
+      "real"
+    ]
+  },
+  "recomputed": {
+    "examples": 36,
+    "schema_valid_examples": 28,
+    "grounded_true_positives": 10,
+    "predicted_findings": 56,
+    "target_findings": 36,
+    "grounding_precision": 0.17857142857142858,
+    "grounding_recall": 0.2777777777777778,
+    "grounding_f1": 0.21739130434782608,
+    "cache_hit_count": 34,
+    "strict_json_parse_failures": 2,
+    "failure_ids": [
+      "00000239_jpg.rf.a41d71f80533740f61d5c59248364e77",
+      "033896729-construction-workers-install-r_jpg.rf.5da6ce192b56bc573a5bb364214aa2c7"
+    ],
+    "unsupported_finding_rate": 0.8214285714285714,
+    "negative_scene_hallucination_rate": 0.8461538461538461,
+    "mean_latency_ms": 18256.46477576533,
+    "deterministic_coordinate_repair_count": 58
+  },
+  "evaluation": {
+    "schema_version": 1,
+    "generated_at": "2026-08-19T16:50:46.315627+00:00",
+    "config": "configs/vlm_qwen_real_historical.yaml",
+    "iou_threshold": 0.5,
+    "execution_modes": [
+      "real"
+    ],
+    "contains_real_model_results": true,
+    "contains_fixture_results": false,
+    "runs": [
+      {
+        "adapter": "qwen3_vl_2b_real_historical_dev",
+        "execution_mode": "real",
+        "result_interpretation": "Real adapter execution on the configured images and weights.",
+        "runtime_metadata": {
+          "adapter": "qwen3_vl",
+          "model_id": "Qwen/Qwen3-VL-2B-Instruct",
+          "revision": "89644892e4d85e24eaac8bacfd4f463576704203",
+          "device_requested": "auto",
+          "model_device": "mps:0",
+          "max_new_tokens": 384
+        },
+        "metrics": {
+          "examples": 36,
+          "schema_valid_rate": 0.7777777777777778,
+          "grounded_true_positives": 10,
+          "predicted_findings": 56,
+          "target_findings": 36,
+          "grounding_precision": 0.17857142857142858,
+          "grounding_recall": 0.2777777777777778,
+          "grounding_f1": 0.21739130434782608,
+          "unsupported_finding_rate": 0.8214285714285714,
+          "negative_scene_hallucination_rate": 0.8461538461538461,
+          "mean_latency_ms": 18256.46477576533,
+          "runtime_error_count": 2,
+          "cache_hit_count": 34,
+          "deterministic_coordinate_repair_count": 58
+        },
+        "runtime_errors": [
+          {
+            "id": "00000239_jpg.rf.a41d71f80533740f61d5c59248364e77",
+            "error_type": "JSONDecodeError",
+            "message": "Expecting ',' delimiter: line 27 column 6 (char 1157)"
+          },
+          {
+            "id": "033896729-construction-workers-install-r_jpg.rf.5da6ce192b56bc573a5bb364214aa2c7",
+            "error_type": "JSONDecodeError",
+            "message": "Expecting ',' delimiter: line 15 column 6 (char 863)"
+          }
+        ],
+        "records": [
+          {
+            "id": "00000181_jpg.rf.0c26ad8550457d6cffc2ec51ca567b78",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 2,
+            "prediction": {
+              "scene_summary": "A worker is welding a metal structure, possibly a gate or wall, using a welding torch. The worker is wearing a protective helmet and gloves, and is focused on the task.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.07,
+                    0.118,
+                    0.525,
+                    0.999
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a welding helmet, which is a protective device. The helmet is on, and the worker is not wearing a helmet.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.07,
+                    0.118,
+                    0.525,
+                    0.999
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a brown t-shirt, but no vest is visible. The worker is not wearing a vest.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker's posture and the exact nature of the work are unclear.",
+                "The presence of a motorcycle in the background is not directly related to the worker's safety equipment."
+              ],
+              "recommended_action": "The worker should be instructed to wear a proper helmet and vest while performing welding tasks to ensure safety. The worker should be reminded of the importance of safety equipment."
+            },
+            "raw_prediction": {
+              "scene_summary": "A worker is welding a metal structure, possibly a gate or wall, using a welding torch. The worker is wearing a protective helmet and gloves, and is focused on the task.",
+              "findings": [
+                {
+                  "person_box": [
+                    70,
+                    118,
+                    525,
+                    999
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a welding helmet, which is a protective device. The helmet is on, and the worker is not wearing a helmet.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    70,
+                    118,
+                    525,
+                    999
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a brown t-shirt, but no vest is visible. The worker is not wearing a vest.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker's posture and the exact nature of the work are unclear.",
+                "The presence of a motorcycle in the background is not directly related to the worker's safety equipment."
+              ],
+              "recommended_action": "The worker should be instructed to wear a proper helmet and vest while performing welding tasks to ensure safety. The worker should be reminded of the importance of safety equipment."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": [
+                {
+                  "person_box": [
+                    0.06,
+                    0.12,
+                    0.61,
+                    1.0
+                  ],
+                  "violation": "no_helmet"
+                },
+                {
+                  "person_box": [
+                    0.06,
+                    0.12,
+                    0.61,
+                    1.0
+                  ],
+                  "violation": "no_vest"
+                }
+              ]
+            },
+            "latency_ms": 61810.017
+          },
+          {
+            "id": "00000050_jpg.rf.3e2d5d4307d4eee05a92295ea8ef05d1",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 1,
+            "prediction": {
+              "scene_summary": "A worker in a hard hat and dark clothing is standing in a debris field, likely from a demolition or construction site. The area is surrounded by rubble and industrial buildings, with a red and white caution tape cordoning off the site. The date on the image is 06/02/2008.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.0,
+                    0.4,
+                    0.185,
+                    0.935
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a white hard hat, which is a safety requirement for construction and demolition work. The presence of a hard hat is a clear violation of safety regulations.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.0,
+                    0.4,
+                    0.185,
+                    0.935
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a dark jacket and light-colored pants, but no vest is visible. A vest is typically required for protection in construction and demolition work.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker's posture and the exact nature of the work are unclear, which may affect the interpretation of the safety violations.",
+                "The red and white caution tape may be a temporary measure, and its purpose is not fully clear."
+              ],
+              "recommended_action": "The worker should be immediately removed from the site and provided with a proper hard hat and safety vest. The site should be inspected to ensure that all safety equipment is in place and that the work is being conducted in compliance with safety regulations."
+            },
+            "raw_prediction": {
+              "scene_summary": "A worker in a hard hat and dark clothing is standing in a debris field, likely from a demolition or construction site. The area is surrounded by rubble and industrial buildings, with a red and white caution tape cordoning off the site. The date on the image is 06/02/2008.",
+              "findings": [
+                {
+                  "person_box": [
+                    0,
+                    400,
+                    185,
+                    935
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a white hard hat, which is a safety requirement for construction and demolition work. The presence of a hard hat is a clear violation of safety regulations.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0,
+                    400,
+                    185,
+                    935
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a dark jacket and light-colored pants, but no vest is visible. A vest is typically required for protection in construction and demolition work.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker's posture and the exact nature of the work are unclear, which may affect the interpretation of the safety violations.",
+                "The red and white caution tape may be a temporary measure, and its purpose is not fully clear."
+              ],
+              "recommended_action": "The worker should be immediately removed from the site and provided with a proper hard hat and safety vest. The site should be inspected to ensure that all safety equipment is in place and that the work is being conducted in compliance with safety regulations."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": [
+                {
+                  "person_box": [
+                    0.02,
+                    0.4,
+                    0.2,
+                    0.94
+                  ],
+                  "violation": "no_vest"
+                }
+              ]
+            },
+            "latency_ms": 29976.875
+          },
+          {
+            "id": "image_159_jpg.rf.712445fec5ccf79d55dd45495c4bc09c",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "A worker in a blue uniform, orange vest, and yellow helmet stands with arms outstretched in front of a metal fence. The worker is wearing a face mask and gloves. The background includes a blue sign with text, a stone wall, and some greenery.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.185,
+                    0.194,
+                    0.725,
+                    0.948
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a yellow helmet, which is a safety equipment. The helmet is not worn.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.375,
+                    0.334,
+                    0.555,
+                    0.594
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing an orange vest, which is a safety equipment. The vest is not worn.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The blue sign in the background may be partially obscured, making it difficult to read the text.",
+                "The worker's posture and the presence of water droplets may affect the accuracy of the detection."
+              ],
+              "recommended_action": "Verify the worker's safety equipment and ensure that the helmet and vest are properly worn. If the worker is not wearing the required equipment, they should be instructed to wear it."
+            },
+            "raw_prediction": {
+              "scene_summary": "A worker in a blue uniform, orange vest, and yellow helmet stands with arms outstretched in front of a metal fence. The worker is wearing a face mask and gloves. The background includes a blue sign with text, a stone wall, and some greenery.",
+              "findings": [
+                {
+                  "person_box": [
+                    185,
+                    194,
+                    725,
+                    948
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a yellow helmet, which is a safety equipment. The helmet is not worn.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    375,
+                    334,
+                    555,
+                    594
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing an orange vest, which is a safety equipment. The vest is not worn.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The blue sign in the background may be partially obscured, making it difficult to read the text.",
+                "The worker's posture and the presence of water droplets may affect the accuracy of the detection."
+              ],
+              "recommended_action": "Verify the worker's safety equipment and ensure that the helmet and vest are properly worn. If the worker is not wearing the required equipment, they should be instructed to wear it."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": []
+            },
+            "latency_ms": 14598.944
+          },
+          {
+            "id": "IMG-20221020-WA0127_jpg.rf.1c9a70ea66596fc0782a3026aeb678cd",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "A display of gloves and other protective gear on a table, with price tags indicating they are for sale.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.165,
+                    0.225,
+                    0.72,
+                    0.765
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The glove is a protective item, but no helmet is visible in the image.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.165,
+                    0.225,
+                    0.72,
+                    0.765
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The glove is a protective item, but no vest is visible in the image.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The image may not be fully clear to confirm the presence of a helmet or vest.",
+                "The gloves are not clearly visible in the context of a worker's attire."
+              ],
+              "recommended_action": "Verify the presence of a helmet and vest by checking the surrounding area and ensuring the image is clear enough to confirm the worker's attire."
+            },
+            "raw_prediction": {
+              "scene_summary": "A display of gloves and other protective gear on a table, with price tags indicating they are for sale.",
+              "findings": [
+                {
+                  "person_box": [
+                    165,
+                    225,
+                    720,
+                    765
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The glove is a protective item, but no helmet is visible in the image.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    165,
+                    225,
+                    720,
+                    765
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The glove is a protective item, but no vest is visible in the image.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The image may not be fully clear to confirm the presence of a helmet or vest.",
+                "The gloves are not clearly visible in the context of a worker's attire."
+              ],
+              "recommended_action": "Verify the presence of a helmet and vest by checking the surrounding area and ensuring the image is clear enough to confirm the worker's attire."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": []
+            },
+            "latency_ms": 11764.516
+          },
+          {
+            "id": "images-68-_jpg.rf.1e32776f9389e6d295c315c53a7364d7",
+            "schema_valid": false,
+            "schema_errors": [
+              "findings[0].person_box must be normalized xyxy",
+              "findings[1].person_box must be normalized xyxy"
+            ],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "A person in a dark jacket and gloves is using a fire extinguisher to put out a fire.",
+              "findings": [
+                {
+                  "person_box": "0,0,1000,999",
+                  "violation": "no_helmet",
+                  "evidence": "The person is wearing a dark jacket and gloves, but no helmet is visible.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": "0,0,1000,999",
+                  "violation": "no_vest",
+                  "evidence": "The person is wearing a dark jacket, but no vest is visible.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The image is blurry, so it is difficult to confirm the exact position of the person's body.",
+                "The fire is intense, and the person may be in a high-risk environment, but the image does not provide enough detail to confirm the exact nature of the work."
+              ],
+              "recommended_action": "The person should be advised to wear a helmet and a vest to ensure safety. The fire extinguisher should be used properly, and the person should be trained in fire safety procedures."
+            },
+            "raw_prediction": null,
+            "deterministic_coordinate_repairs": 0,
+            "target": {
+              "findings": []
+            },
+            "latency_ms": 12018.776
+          },
+          {
+            "id": "Twalv0509_jpg.rf.5f2017a476a746d853aa6cdfd0ba9910",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "A close-up view of a printing machine in a factory setting, with a worker in a high-visibility vest and a yellow safety harness. The machine is labeled 'reprint YOU P10M' and is in operation.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.0,
+                    0.26,
+                    0.238,
+                    0.548
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a yellow high-visibility vest, but no helmet is visible on their head.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.0,
+                    0.26,
+                    0.238,
+                    0.548
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a yellow high-visibility vest, but no vest is visible on their body.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker's head is not visible, so it is unclear if they are wearing a helmet.",
+                "The worker's body is not visible, so it is unclear if they are wearing a vest."
+              ],
+              "recommended_action": "Inspect the worker's head and body to confirm the presence of a helmet and vest. If the worker is not wearing a helmet or vest, they should be instructed to wear appropriate safety gear."
+            },
+            "raw_prediction": {
+              "scene_summary": "A close-up view of a printing machine in a factory setting, with a worker in a high-visibility vest and a yellow safety harness. The machine is labeled 'reprint YOU P10M' and is in operation.",
+              "findings": [
+                {
+                  "person_box": [
+                    0,
+                    260,
+                    238,
+                    548
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a yellow high-visibility vest, but no helmet is visible on their head.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0,
+                    260,
+                    238,
+                    548
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a yellow high-visibility vest, but no vest is visible on their body.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker's head is not visible, so it is unclear if they are wearing a helmet.",
+                "The worker's body is not visible, so it is unclear if they are wearing a vest."
+              ],
+              "recommended_action": "Inspect the worker's head and body to confirm the presence of a helmet and vest. If the worker is not wearing a helmet or vest, they should be instructed to wear appropriate safety gear."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": []
+            },
+            "latency_ms": 13341.175
+          },
+          {
+            "id": "IMG-20231220-WA0014_jpg.rf.b80e4e0f736b2d37810eef55c04cbd16",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "A close-up of a worker's feet and lower legs, wearing heavy-duty work boots, gloves, and safety goggles, with a yellow tape measure on the ground. The worker is standing on a concrete surface in front of a brick wall.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.0,
+                    0.0,
+                    0.6,
+                    0.93
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing safety goggles, but no helmet is visible.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.0,
+                    0.0,
+                    0.6,
+                    0.93
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a pair of work boots and gloves, but no vest is visible.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker's upper body is not visible, so it is unclear if a vest is worn.",
+                "The safety goggles are worn, but the helmet is not visible, so it is unclear if the worker is wearing a helmet."
+              ],
+              "recommended_action": "The worker should be advised to wear a helmet and a vest to ensure safety. The worker should be instructed to wear appropriate personal protective equipment (PPE) as required by the workplace safety regulations."
+            },
+            "raw_prediction": {
+              "scene_summary": "A close-up of a worker's feet and lower legs, wearing heavy-duty work boots, gloves, and safety goggles, with a yellow tape measure on the ground. The worker is standing on a concrete surface in front of a brick wall.",
+              "findings": [
+                {
+                  "person_box": [
+                    0,
+                    0,
+                    600,
+                    930
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing safety goggles, but no helmet is visible.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0,
+                    0,
+                    600,
+                    930
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a pair of work boots and gloves, but no vest is visible.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker's upper body is not visible, so it is unclear if a vest is worn.",
+                "The safety goggles are worn, but the helmet is not visible, so it is unclear if the worker is wearing a helmet."
+              ],
+              "recommended_action": "The worker should be advised to wear a helmet and a vest to ensure safety. The worker should be instructed to wear appropriate personal protective equipment (PPE) as required by the workplace safety regulations."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": []
+            },
+            "latency_ms": 13130.983
+          },
+          {
+            "id": "Twalv1139_jpg.rf.4bdbe8f41c7594617b48edae0d0bec69",
+            "schema_valid": false,
+            "schema_errors": [
+              "findings[0].violation must be one of ['no_helmet', 'no_vest']",
+              "findings[1].violation must be one of ['no_helmet', 'no_vest']"
+            ],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "A yellow high-visibility vest with a blue logo is being processed on a conveyor belt, likely in a manufacturing or packaging facility.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.25,
+                    0.25,
+                    0.925,
+                    0.875
+                  ],
+                  "violation": "No helmet",
+                  "evidence": "The person is not wearing a helmet. The vest is being processed on a conveyor belt.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.25,
+                    0.25,
+                    0.925,
+                    0.875
+                  ],
+                  "violation": "No vest",
+                  "evidence": "The person is not wearing a vest. The vest is being processed on a conveyor belt.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The person is not visible in the image.",
+                "The person's identity is not clear.",
+                "The vest is being processed, but the person is not visible."
+              ],
+              "recommended_action": "Inspect the person's attire and ensure they are wearing a helmet and a vest. If the person is not wearing a vest, they should be provided with one."
+            },
+            "raw_prediction": {
+              "scene_summary": "A yellow high-visibility vest with a blue logo is being processed on a conveyor belt, likely in a manufacturing or packaging facility.",
+              "findings": [
+                {
+                  "person_box": [
+                    250,
+                    250,
+                    925,
+                    875
+                  ],
+                  "violation": "No helmet",
+                  "evidence": "The person is not wearing a helmet. The vest is being processed on a conveyor belt.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    250,
+                    250,
+                    925,
+                    875
+                  ],
+                  "violation": "No vest",
+                  "evidence": "The person is not wearing a vest. The vest is being processed on a conveyor belt.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The person is not visible in the image.",
+                "The person's identity is not clear.",
+                "The vest is being processed, but the person is not visible."
+              ],
+              "recommended_action": "Inspect the person's attire and ensure they are wearing a helmet and a vest. If the person is not wearing a vest, they should be provided with one."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": []
+            },
+            "latency_ms": 11940.211
+          },
+          {
+            "id": "68_JPG_jpg.rf.0929f643f7078d838d86517933bb754e",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "A worker in a construction or industrial setting, wearing protective gear including a hard hat, face mask, and safety goggles, is posing for a photo.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.225,
+                    0.345,
+                    0.775,
+                    0.998
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a white hard hat, which is a requirement for safety in construction environments. The presence of a hard hat indicates compliance with safety regulations.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.225,
+                    0.345,
+                    0.775,
+                    0.998
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a light blue short-sleeved shirt, which is not a safety vest. Safety vests are typically worn for protection against falls or impact, and are not required in all construction environments.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker's attire may be incomplete or not fully compliant with safety standards.",
+                "The image quality is low, making it difficult to confirm the exact nature of the worker's role or the full extent of their protective gear."
+              ],
+              "recommended_action": "Verify the worker's safety compliance with local regulations. Ensure that the worker is wearing a proper hard hat and safety vest. If the worker is not wearing a vest, they should be provided with one. The worker should be instructed to wear the required protective equipment at all times."
+            },
+            "raw_prediction": {
+              "scene_summary": "A worker in a construction or industrial setting, wearing protective gear including a hard hat, face mask, and safety goggles, is posing for a photo.",
+              "findings": [
+                {
+                  "person_box": [
+                    225,
+                    345,
+                    775,
+                    998
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a white hard hat, which is a requirement for safety in construction environments. The presence of a hard hat indicates compliance with safety regulations.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    225,
+                    345,
+                    775,
+                    998
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a light blue short-sleeved shirt, which is not a safety vest. Safety vests are typically worn for protection against falls or impact, and are not required in all construction environments.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker's attire may be incomplete or not fully compliant with safety standards.",
+                "The image quality is low, making it difficult to confirm the exact nature of the worker's role or the full extent of their protective gear."
+              ],
+              "recommended_action": "Verify the worker's safety compliance with local regulations. Ensure that the worker is wearing a proper hard hat and safety vest. If the worker is not wearing a vest, they should be provided with one. The worker should be instructed to wear the required protective equipment at all times."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": []
+            },
+            "latency_ms": 15004.19
+          },
+          {
+            "id": "00000033_jpg.rf.bb3105d7dbe0c59bcb2f5e0f87eea579",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "A construction site with a worker in a red uniform and a large crane lifting a panel. The scene is near a body of water with a bridge in the background.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.105,
+                    0.464,
+                    0.234,
+                    0.974
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a white hard hat, which is not a helmet.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.105,
+                    0.464,
+                    0.234,
+                    0.974
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a red uniform, but no vest is visible.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker's uniform may have a vest, but it is not clearly visible.",
+                "The presence of a hard hat is not definitive, as it could be a different type of headgear."
+              ],
+              "recommended_action": "Verify the worker's attire with a closer inspection to confirm the presence of a helmet and vest. Ensure safety protocols are followed."
+            },
+            "raw_prediction": {
+              "scene_summary": "A construction site with a worker in a red uniform and a large crane lifting a panel. The scene is near a body of water with a bridge in the background.",
+              "findings": [
+                {
+                  "person_box": [
+                    105,
+                    464,
+                    234,
+                    974
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a white hard hat, which is not a helmet.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    105,
+                    464,
+                    234,
+                    974
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a red uniform, but no vest is visible.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker's uniform may have a vest, but it is not clearly visible.",
+                "The presence of a hard hat is not definitive, as it could be a different type of headgear."
+              ],
+              "recommended_action": "Verify the worker's attire with a closer inspection to confirm the presence of a helmet and vest. Ensure safety protocols are followed."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": []
+            },
+            "latency_ms": 11864.818
+          },
+          {
+            "id": "Nein1018_jpg.rf.068d3615449e432fe54aaa73296fa077",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "A man in an orange safety vest is speaking in front of a backdrop with the word 'НАКАЧАННЫЕ' repeated.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.225,
+                    0.085,
+                    0.785,
+                    0.999
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The man is wearing a safety vest, but no helmet is visible on his head.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.225,
+                    0.085,
+                    0.785,
+                    0.999
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The man is wearing an orange safety vest, which is a vest. The vest is visible and is not a 'no_vest' violation.",
+                  "confidence": "low"
+                }
+              ],
+              "uncertainties": [
+                "The 'no_vest' violation is not clearly defined as the man is wearing a vest.",
+                "The 'no_helmet' violation is confirmed, but the evidence is not fully clear."
+              ],
+              "recommended_action": "The man is wearing a safety vest, so the 'no_vest' violation is not applicable. The 'no_helmet' violation is confirmed, so the worker should be reminded to wear a helmet."
+            },
+            "raw_prediction": {
+              "scene_summary": "A man in an orange safety vest is speaking in front of a backdrop with the word 'НАКАЧАННЫЕ' repeated.",
+              "findings": [
+                {
+                  "person_box": [
+                    225,
+                    85,
+                    785,
+                    999
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The man is wearing a safety vest, but no helmet is visible on his head.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    225,
+                    85,
+                    785,
+                    999
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The man is wearing an orange safety vest, which is a vest. The vest is visible and is not a 'no_vest' violation.",
+                  "confidence": "low"
+                }
+              ],
+              "uncertainties": [
+                "The 'no_vest' violation is not clearly defined as the man is wearing a vest.",
+                "The 'no_helmet' violation is confirmed, but the evidence is not fully clear."
+              ],
+              "recommended_action": "The man is wearing a safety vest, so the 'no_vest' violation is not applicable. The 'no_helmet' violation is confirmed, so the worker should be reminded to wear a helmet."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": [
+                {
+                  "person_box": [
+                    0.447,
+                    0.083,
+                    0.629,
+                    0.453
+                  ],
+                  "violation": "no_helmet"
+                }
+              ]
+            },
+            "latency_ms": 12829.948
+          },
+          {
+            "id": "images-29-_jpg.rf.01a096a87d1b332e90d68eb671d452f4",
+            "schema_valid": false,
+            "schema_errors": [
+              "findings[0].person_box must be normalized xyxy",
+              "findings[1].person_box must be normalized xyxy"
+            ],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "A worker wearing a blue plaid shirt and orange gloves is holding a yellow hard hat. The background is a blurred dirt or construction site.",
+              "findings": [
+                {
+                  "person_box": "0.45, 0.0, 1.0, 0.85",
+                  "violation": "no_helmet",
+                  "evidence": "The worker is holding a yellow hard hat, which is not worn on their head.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": "0.45, 0.0, 1.0, 0.85",
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a blue plaid shirt, but no vest is visible.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker's body is partially obscured, making it difficult to confirm if they are wearing a vest.",
+                "The hard hat is held in the hand, but it is not clear if it is being worn or just held."
+              ],
+              "recommended_action": "Verify the worker's safety equipment by checking if the hard hat is properly worn and if a vest is being worn. If the worker is not wearing a hard hat, they should be instructed to wear one. If the worker is not wearing a vest, they should be instructed to wear one."
+            },
+            "raw_prediction": null,
+            "deterministic_coordinate_repairs": 0,
+            "target": {
+              "findings": [
+                {
+                  "person_box": [
+                    0.425,
+                    0.005,
+                    1.0,
+                    0.689
+                  ],
+                  "violation": "no_vest"
+                }
+              ]
+            },
+            "latency_ms": 13589.977
+          },
+          {
+            "id": "00037_jpg.rf.2826f12e71a20fdba21a77fc426e4615",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "A man in a warehouse is handling a box, wearing a yellow vest and a plaid shirt.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.264,
+                    0.165,
+                    0.748,
+                    0.948
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The man is wearing a yellow vest, but no helmet is visible on his head.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.264,
+                    0.165,
+                    0.748,
+                    0.948
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The man is wearing a yellow vest, but no vest is visible on his body.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The image is slightly blurred, so the exact position of the vest and helmet is not fully clear.",
+                "The man's head is not fully visible, so it is difficult to confirm if he is wearing a helmet."
+              ],
+              "recommended_action": "Verify the man's safety equipment by checking if he is wearing a helmet and a vest. If not, consider providing the necessary safety gear."
+            },
+            "raw_prediction": {
+              "scene_summary": "A man in a warehouse is handling a box, wearing a yellow vest and a plaid shirt.",
+              "findings": [
+                {
+                  "person_box": [
+                    264,
+                    165,
+                    748,
+                    948
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The man is wearing a yellow vest, but no helmet is visible on his head.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    264,
+                    165,
+                    748,
+                    948
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The man is wearing a yellow vest, but no vest is visible on his body.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The image is slightly blurred, so the exact position of the vest and helmet is not fully clear.",
+                "The man's head is not fully visible, so it is difficult to confirm if he is wearing a helmet."
+              ],
+              "recommended_action": "Verify the man's safety equipment by checking if he is wearing a helmet and a vest. If not, consider providing the necessary safety gear."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": [
+                {
+                  "person_box": [
+                    0.417,
+                    0.151,
+                    0.576,
+                    0.455
+                  ],
+                  "violation": "no_helmet"
+                }
+              ]
+            },
+            "latency_ms": 12326.401
+          },
+          {
+            "id": "00087_jpg.rf.1ab0449de010ffd8a7325a7ff66f4e1c",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "A composite image showing a person wearing a glowing vest and a man wearing a reflective safety vest. The image includes a silhouette of a person wearing a glowing vest and a man wearing a reflective safety vest.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.744,
+                    0.014,
+                    0.999,
+                    0.424
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The person in the image is wearing a safety vest, but no helmet is visible.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.744,
+                    0.014,
+                    0.999,
+                    0.424
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The person in the image is wearing a safety vest, but no vest is visible.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The image may be a composite of different scenes, and the person in the left image may not be the same as the person in the right image.",
+                "The evidence for the person wearing a safety vest is not clear in the left image."
+              ],
+              "recommended_action": "Verify the identity of the person in the left image and ensure the safety vest is properly worn in the scene."
+            },
+            "raw_prediction": {
+              "scene_summary": "A composite image showing a person wearing a glowing vest and a man wearing a reflective safety vest. The image includes a silhouette of a person wearing a glowing vest and a man wearing a reflective safety vest.",
+              "findings": [
+                {
+                  "person_box": [
+                    744,
+                    14,
+                    999,
+                    424
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The person in the image is wearing a safety vest, but no helmet is visible.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    744,
+                    14,
+                    999,
+                    424
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The person in the image is wearing a safety vest, but no vest is visible.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The image may be a composite of different scenes, and the person in the left image may not be the same as the person in the right image.",
+                "The evidence for the person wearing a safety vest is not clear in the left image."
+              ],
+              "recommended_action": "Verify the identity of the person in the left image and ensure the safety vest is properly worn in the scene."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": [
+                {
+                  "person_box": [
+                    0.811,
+                    0.008,
+                    0.919,
+                    0.125
+                  ],
+                  "violation": "no_helmet"
+                }
+              ]
+            },
+            "latency_ms": 13631.79
+          },
+          {
+            "id": "Nein6244_jpg.rf.7247101f185d02733211cd73cb09cd72",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "A man in an orange safety vest is speaking in front of a backdrop with the word 'НАКАЧАНИЕ' repeated.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.284,
+                    0.074,
+                    0.8,
+                    0.999
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The man is wearing a safety vest, but no helmet is visible on his head.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.284,
+                    0.074,
+                    0.8,
+                    0.999
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The man is wearing an orange safety vest, which is a vest. The vest is visible and is worn.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The image is low resolution, making it difficult to confirm the exact nature of the vest or the presence of any other safety equipment.",
+                "The word 'НАКАЧАНИЕ' is repeated on the backdrop, but it is unclear if this is part of the scene or a background element."
+              ],
+              "recommended_action": "Verify the safety vest and helmet status of the individual in the scene. If the individual is not wearing a helmet, consider providing a safety helmet to ensure compliance with safety regulations."
+            },
+            "raw_prediction": {
+              "scene_summary": "A man in an orange safety vest is speaking in front of a backdrop with the word 'НАКАЧАНИЕ' repeated.",
+              "findings": [
+                {
+                  "person_box": [
+                    284,
+                    74,
+                    800,
+                    999
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The man is wearing a safety vest, but no helmet is visible on his head.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    284,
+                    74,
+                    800,
+                    999
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The man is wearing an orange safety vest, which is a vest. The vest is visible and is worn.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The image is low resolution, making it difficult to confirm the exact nature of the vest or the presence of any other safety equipment.",
+                "The word 'НАКАЧАНИЕ' is repeated on the backdrop, but it is unclear if this is part of the scene or a background element."
+              ],
+              "recommended_action": "Verify the safety vest and helmet status of the individual in the scene. If the individual is not wearing a helmet, consider providing a safety helmet to ensure compliance with safety regulations."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": [
+                {
+                  "person_box": [
+                    0.381,
+                    0.071,
+                    0.608,
+                    0.48
+                  ],
+                  "violation": "no_helmet"
+                }
+              ]
+            },
+            "latency_ms": 14315.069
+          },
+          {
+            "id": "00000245_jpg.rf.609f1ba5b9b9e7225db2ec102031eb5f",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 2,
+            "prediction": {
+              "scene_summary": "A man stands in a large, unfinished indoor space, likely a warehouse or construction site, with a yellow skid-steer loader nearby. The ground is covered in dirt and has wooden formwork, suggesting a foundation or floor is being constructed. The man is wearing a dark shirt and jeans.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.384,
+                    0.398,
+                    0.654,
+                    0.742
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The man is wearing a dark-colored shirt and jeans, but no helmet is visible on his head.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.384,
+                    0.398,
+                    0.654,
+                    0.742
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The man is wearing a dark-colored shirt and jeans, but no vest is visible on his body.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The image quality is low, making it difficult to confirm if the man is wearing any protective gear.",
+                "The presence of a yellow skid-steer loader and wooden formwork suggests a construction site, but the man's attire is not clearly visible in the context of safety regulations."
+              ],
+              "recommended_action": "Inspect the man's attire for safety compliance, particularly regarding helmet and vest requirements. Ensure that the construction site is properly equipped with safety gear. If the man is not wearing a helmet or vest, he should be reminded of the safety protocols."
+            },
+            "raw_prediction": {
+              "scene_summary": "A man stands in a large, unfinished indoor space, likely a warehouse or construction site, with a yellow skid-steer loader nearby. The ground is covered in dirt and has wooden formwork, suggesting a foundation or floor is being constructed. The man is wearing a dark shirt and jeans.",
+              "findings": [
+                {
+                  "person_box": [
+                    384,
+                    398,
+                    654,
+                    742
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The man is wearing a dark-colored shirt and jeans, but no helmet is visible on his head.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    384,
+                    398,
+                    654,
+                    742
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The man is wearing a dark-colored shirt and jeans, but no vest is visible on his body.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The image quality is low, making it difficult to confirm if the man is wearing any protective gear.",
+                "The presence of a yellow skid-steer loader and wooden formwork suggests a construction site, but the man's attire is not clearly visible in the context of safety regulations."
+              ],
+              "recommended_action": "Inspect the man's attire for safety compliance, particularly regarding helmet and vest requirements. Ensure that the construction site is properly equipped with safety gear. If the man is not wearing a helmet or vest, he should be reminded of the safety protocols."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": [
+                {
+                  "person_box": [
+                    0.43,
+                    0.35,
+                    0.6,
+                    0.8
+                  ],
+                  "violation": "no_helmet"
+                },
+                {
+                  "person_box": [
+                    0.43,
+                    0.35,
+                    0.6,
+                    0.8
+                  ],
+                  "violation": "no_vest"
+                }
+              ]
+            },
+            "latency_ms": 16321.794
+          },
+          {
+            "id": "00000271_jpg.rf.9e78e0f33a7ff9db7a7f12a2f7f05852",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 1,
+            "prediction": {
+              "scene_summary": "An aerial view of two workers digging in a deep, narrow excavation pit. One worker is lifting a large pile of soil, while the other is holding a shovel. A pair of blue shoes is visible on the ground to the right, and a small metal tool lies on the ground near the workers.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.362,
+                    0.268,
+                    0.562,
+                    0.75
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a pink head covering, but no helmet is visible on their head.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.242,
+                    0.345,
+                    0.412,
+                    0.712
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a light-colored shirt and pants, but no vest is visible on their body.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The presence of a third worker is not fully confirmed due to the angle and visibility.",
+                "The exact nature of the excavation (e.g., mining, construction) is not clear from the image alone."
+              ],
+              "recommended_action": "Verify the presence of a third worker and confirm the nature of the excavation. Ensure that safety equipment such as helmets and vests are worn by all workers. Conduct a safety inspection to ensure compliance with labor and safety regulations."
+            },
+            "raw_prediction": {
+              "scene_summary": "An aerial view of two workers digging in a deep, narrow excavation pit. One worker is lifting a large pile of soil, while the other is holding a shovel. A pair of blue shoes is visible on the ground to the right, and a small metal tool lies on the ground near the workers.",
+              "findings": [
+                {
+                  "person_box": [
+                    362,
+                    268,
+                    562,
+                    750
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a pink head covering, but no helmet is visible on their head.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    242,
+                    345,
+                    412,
+                    712
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a light-colored shirt and pants, but no vest is visible on their body.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The presence of a third worker is not fully confirmed due to the angle and visibility.",
+                "The exact nature of the excavation (e.g., mining, construction) is not clear from the image alone."
+              ],
+              "recommended_action": "Verify the presence of a third worker and confirm the nature of the excavation. Ensure that safety equipment such as helmets and vests are worn by all workers. Conduct a safety inspection to ensure compliance with labor and safety regulations."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": [
+                {
+                  "person_box": [
+                    0.23,
+                    0.37,
+                    0.405,
+                    0.7
+                  ],
+                  "violation": "no_helmet"
+                },
+                {
+                  "person_box": [
+                    0.23,
+                    0.37,
+                    0.405,
+                    0.7
+                  ],
+                  "violation": "no_vest"
+                },
+                {
+                  "person_box": [
+                    0.425,
+                    0.37,
+                    0.625,
+                    0.7
+                  ],
+                  "violation": "no_helmet"
+                },
+                {
+                  "person_box": [
+                    0.425,
+                    0.37,
+                    0.625,
+                    0.7
+                  ],
+                  "violation": "no_vest"
+                }
+              ]
+            },
+            "latency_ms": 16154.384
+          },
+          {
+            "id": "00000323_jpg.rf.021a8f69f1a4d8fc3109a3c0af769243",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 1,
+            "prediction": {
+              "scene_summary": "Two workers are operating a miter saw outdoors on a sunny day. One worker is wearing a helmet and a t-shirt, while the other is wearing a military uniform and sunglasses.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.355,
+                    0.044,
+                    0.998,
+                    0.998
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker on the right is wearing a hard hat, which is a helmet. The worker on the left is wearing a military uniform, but no helmet.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.0,
+                    0.114,
+                    0.315,
+                    0.87
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker on the left is wearing a military uniform, but no vest. The worker on the right is wearing a t-shirt, which is not a vest.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker on the left is wearing a military uniform, but it is unclear if the uniform includes a vest.",
+                "The worker on the right is wearing a t-shirt, which is not a vest, but it is unclear if the t-shirt is a vest."
+              ],
+              "recommended_action": "Verify the presence of a vest on the worker on the left and the worker on the right. If a vest is not present, it may be necessary to provide a vest to ensure safety."
+            },
+            "raw_prediction": {
+              "scene_summary": "Two workers are operating a miter saw outdoors on a sunny day. One worker is wearing a helmet and a t-shirt, while the other is wearing a military uniform and sunglasses.",
+              "findings": [
+                {
+                  "person_box": [
+                    355,
+                    44,
+                    998,
+                    998
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker on the right is wearing a hard hat, which is a helmet. The worker on the left is wearing a military uniform, but no helmet.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0,
+                    114,
+                    315,
+                    870
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker on the left is wearing a military uniform, but no vest. The worker on the right is wearing a t-shirt, which is not a vest.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker on the left is wearing a military uniform, but it is unclear if the uniform includes a vest.",
+                "The worker on the right is wearing a t-shirt, which is not a vest, but it is unclear if the t-shirt is a vest."
+              ],
+              "recommended_action": "Verify the presence of a vest on the worker on the left and the worker on the right. If a vest is not present, it may be necessary to provide a vest to ensure safety."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": [
+                {
+                  "person_box": [
+                    0.0,
+                    0.03,
+                    0.38,
+                    1.0
+                  ],
+                  "violation": "no_helmet"
+                },
+                {
+                  "person_box": [
+                    0.0,
+                    0.03,
+                    0.38,
+                    1.0
+                  ],
+                  "violation": "no_vest"
+                },
+                {
+                  "person_box": [
+                    0.47,
+                    0.0,
+                    1.0,
+                    1.0
+                  ],
+                  "violation": "no_vest"
+                }
+              ]
+            },
+            "latency_ms": 17179.656
+          },
+          {
+            "id": "00000336_jpg.rf.474a4d62c1ef5d77e268086d359a85b5",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 2,
+            "prediction": {
+              "scene_summary": "A person in a blue puffer jacket stands in a devastated, muddy landscape, seemingly praying or in deep distress. The area is littered with debris and remnants of structures, suggesting a disaster has occurred. The background shows a distant shoreline and trees.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.438,
+                    0.098,
+                    0.768,
+                    0.998
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The person is wearing a blue puffer jacket and has no visible helmet on their head.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.438,
+                    0.098,
+                    0.768,
+                    0.998
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The person is wearing a blue puffer jacket, but no vest is visible on their body.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The person's posture and the context of the scene are unclear, making it difficult to determine if the person is a worker or a bystander.",
+                "The presence of debris and the environment suggest a disaster, but the specific nature of the event is not clear."
+              ],
+              "recommended_action": "Verify the identity and role of the person in the scene. Assess the safety of the area and ensure that any potential hazards are addressed. If the person is a worker, ensure they are wearing appropriate protective gear."
+            },
+            "raw_prediction": {
+              "scene_summary": "A person in a blue puffer jacket stands in a devastated, muddy landscape, seemingly praying or in deep distress. The area is littered with debris and remnants of structures, suggesting a disaster has occurred. The background shows a distant shoreline and trees.",
+              "findings": [
+                {
+                  "person_box": [
+                    438,
+                    98,
+                    768,
+                    998
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The person is wearing a blue puffer jacket and has no visible helmet on their head.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    438,
+                    98,
+                    768,
+                    998
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The person is wearing a blue puffer jacket, but no vest is visible on their body.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The person's posture and the context of the scene are unclear, making it difficult to determine if the person is a worker or a bystander.",
+                "The presence of debris and the environment suggest a disaster, but the specific nature of the event is not clear."
+              ],
+              "recommended_action": "Verify the identity and role of the person in the scene. Assess the safety of the area and ensure that any potential hazards are addressed. If the person is a worker, ensure they are wearing appropriate protective gear."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": [
+                {
+                  "person_box": [
+                    0.33,
+                    0.05,
+                    0.79,
+                    0.85
+                  ],
+                  "violation": "no_helmet"
+                },
+                {
+                  "person_box": [
+                    0.33,
+                    0.05,
+                    0.79,
+                    0.85
+                  ],
+                  "violation": "no_vest"
+                }
+              ]
+            },
+            "latency_ms": 16647.608
+          },
+          {
+            "id": "00000369_jpg.rf.2e9e3bd3a21aaf121e2dd869461755bb",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "A distorted, inverted image of a building, trees, and a person walking on a street, captured through a reflective surface like a puddle or mirror.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.115,
+                    0.0,
+                    0.335,
+                    0.39
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The person in the image is wearing a dark jacket and a tie, but no helmet is visible on their head.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.115,
+                    0.0,
+                    0.335,
+                    0.39
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The person is wearing a dark jacket, but no vest is visible on their torso.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The image is highly distorted, making it difficult to confirm the exact nature of the reflection.",
+                "The person's posture and the presence of a tie are ambiguous due to the reflection."
+              ],
+              "recommended_action": "Verify the person's attire and helmet presence by examining the original image or a clearer view of the scene."
+            },
+            "raw_prediction": {
+              "scene_summary": "A distorted, inverted image of a building, trees, and a person walking on a street, captured through a reflective surface like a puddle or mirror.",
+              "findings": [
+                {
+                  "person_box": [
+                    115,
+                    0,
+                    335,
+                    390
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The person in the image is wearing a dark jacket and a tie, but no helmet is visible on their head.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    115,
+                    0,
+                    335,
+                    390
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The person is wearing a dark jacket, but no vest is visible on their torso.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The image is highly distorted, making it difficult to confirm the exact nature of the reflection.",
+                "The person's posture and the presence of a tie are ambiguous due to the reflection."
+              ],
+              "recommended_action": "Verify the person's attire and helmet presence by examining the original image or a clearer view of the scene."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": [
+                {
+                  "person_box": [
+                    0.07,
+                    0.0,
+                    0.4,
+                    0.54
+                  ],
+                  "violation": "no_helmet"
+                },
+                {
+                  "person_box": [
+                    0.07,
+                    0.0,
+                    0.4,
+                    0.54
+                  ],
+                  "violation": "no_vest"
+                }
+              ]
+            },
+            "latency_ms": 14028.626
+          },
+          {
+            "id": "00000370_jpg.rf.76245ee512d91c2db39cda70a8e20a58",
+            "schema_valid": false,
+            "schema_errors": [
+              "findings[0].person_box must be normalized xyxy",
+              "findings[1].person_box must be normalized xyxy"
+            ],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "A man in a white shirt and dark pants is standing in a dimly lit, rustic-looking room with wooden beams and a sign with handwritten text. The room appears to be a temporary or makeshift structure, possibly a workshop or a storage area.",
+              "findings": [
+                {
+                  "person_box": "0.62, 0.22, 1.0, 0.85",
+                  "violation": "no_helmet",
+                  "evidence": "The man is wearing a white shirt and dark pants, but no helmet is visible on his head.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": "0.62, 0.22, 1.0, 0.85",
+                  "violation": "no_vest",
+                  "evidence": "The man is wearing a white shirt and dark pants, but no vest is visible on his body.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The sign in the image is written in Filipino and may be a warning or instruction, but its meaning is unclear.",
+                "The room's condition and the presence of a man in a white shirt and dark pants suggest that the environment may be temporary or informal, but no further details are available."
+              ],
+              "recommended_action": "Assess the safety of the environment and ensure that the man is wearing appropriate protective gear, such as a helmet and vest, if he is working in a potentially hazardous area. If the environment is not safe, consider providing safety equipment and re-evaluating the situation."
+            },
+            "raw_prediction": null,
+            "deterministic_coordinate_repairs": 0,
+            "target": {
+              "findings": [
+                {
+                  "person_box": [
+                    0.7,
+                    0.09,
+                    1.0,
+                    1.0
+                  ],
+                  "violation": "no_helmet"
+                },
+                {
+                  "person_box": [
+                    0.7,
+                    0.09,
+                    1.0,
+                    1.0
+                  ],
+                  "violation": "no_vest"
+                }
+              ]
+            },
+            "latency_ms": 16968.367
+          },
+          {
+            "id": "058817280-construction-workers-framing-n_jpg.rf.2f334f78656023f89752e26c1f6ae71a",
+            "schema_valid": false,
+            "schema_errors": [
+              "findings[0].person_box must be normalized xyxy",
+              "findings[1].person_box must be normalized xyxy"
+            ],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "Two workers are on a wooden roof, likely during a roofing project. One worker is bent over, and the other is standing.",
+              "findings": [
+                {
+                  "person_box": "0.15,0.35,0.45,0.65",
+                  "violation": "no_helmet",
+                  "evidence": "The worker on the left is wearing a backpack and has no visible helmet.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": "0.42,0.25,0.65,0.55",
+                  "violation": "no_vest",
+                  "evidence": "The worker on the right is wearing a light green t-shirt, but no vest is visible.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker on the left is wearing a backpack, but it is unclear if it is a safety vest.",
+                "The worker on the right is wearing a t-shirt, but it is unclear if it is a safety vest."
+              ],
+              "recommended_action": "Inspect the workers' attire for safety compliance. Ensure that both workers are wearing appropriate protective gear, including helmets and vests, as per safety regulations."
+            },
+            "raw_prediction": null,
+            "deterministic_coordinate_repairs": 0,
+            "target": {
+              "findings": [
+                {
+                  "person_box": [
+                    0.185,
+                    0.275,
+                    0.42,
+                    0.68
+                  ],
+                  "violation": "no_helmet"
+                },
+                {
+                  "person_box": [
+                    0.185,
+                    0.275,
+                    0.42,
+                    0.68
+                  ],
+                  "violation": "no_vest"
+                },
+                {
+                  "person_box": [
+                    0.405,
+                    0.07,
+                    0.675,
+                    0.7
+                  ],
+                  "violation": "no_helmet"
+                },
+                {
+                  "person_box": [
+                    0.405,
+                    0.07,
+                    0.675,
+                    0.7
+                  ],
+                  "violation": "no_vest"
+                }
+              ]
+            },
+            "latency_ms": 13516.756
+          },
+          {
+            "id": "WhatsApp-Image-2023-09-28-at-09-46-27_29a949a5_jpg.rf.a3e09405af98741e31837bf4ef0ef925",
+            "schema_valid": false,
+            "schema_errors": [
+              "findings[0].person_box must be normalized xyxy",
+              "findings[1].person_box must be normalized xyxy"
+            ],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "A construction site in Yogyakarta, Indonesia, featuring workers on a staircase under construction. The image shows a worker in a hard hat and vest, and another worker in an orange vest on a scaffold. The scene is taken during the day with natural light.",
+              "findings": [
+                {
+                  "person_box": "0.15, 0.52, 0.55, 0.85",
+                  "violation": "no_helmet",
+                  "evidence": "A worker in the foreground is wearing a white hard hat, but the image shows a person without a helmet.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": "0.45, 0.45, 0.65, 0.75",
+                  "violation": "no_vest",
+                  "evidence": "A worker on the scaffold is wearing an orange vest, but the worker in the foreground is not wearing a vest.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker in the background may be wearing a vest, but the image is not clear enough to confirm.",
+                "The worker on the scaffold may be wearing a vest, but the image is not clear enough to confirm."
+              ],
+              "recommended_action": "Inspect the workers on the scaffold and the worker in the foreground to confirm their safety gear. Ensure that all workers are wearing appropriate protective equipment, including helmets and vests, as per safety regulations."
+            },
+            "raw_prediction": null,
+            "deterministic_coordinate_repairs": 0,
+            "target": {
+              "findings": [
+                {
+                  "person_box": [
+                    0.215,
+                    0.49,
+                    0.43,
+                    0.85
+                  ],
+                  "violation": "no_vest"
+                },
+                {
+                  "person_box": [
+                    0.385,
+                    0.35,
+                    0.5,
+                    0.55
+                  ],
+                  "violation": "no_helmet"
+                }
+              ]
+            },
+            "latency_ms": 16758.839
+          },
+          {
+            "id": "00000112_jpg.rf.adcb14356b8fc106da06a14220c5c47e",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "A construction worker wearing a green helmet and a yellow safety vest is on a red scaffold, working on a large metal structure. Another worker is partially visible behind the first worker, also on the scaffold.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.48,
+                    0.32,
+                    0.708,
+                    0.998
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a green hard hat, which is a helmet. The worker is not wearing a helmet.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.4,
+                    0.555,
+                    0.5,
+                    0.998
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a yellow safety vest. The worker is not wearing a vest.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The second worker's helmet is not clearly visible.",
+                "The worker's vest is not fully visible, so the presence of a vest cannot be confirmed with certainty."
+              ],
+              "recommended_action": "Inspect the workers' safety gear to ensure compliance with safety regulations. Provide training on proper safety equipment use."
+            },
+            "raw_prediction": {
+              "scene_summary": "A construction worker wearing a green helmet and a yellow safety vest is on a red scaffold, working on a large metal structure. Another worker is partially visible behind the first worker, also on the scaffold.",
+              "findings": [
+                {
+                  "person_box": [
+                    480,
+                    320,
+                    708,
+                    998
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a green hard hat, which is a helmet. The worker is not wearing a helmet.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    400,
+                    555,
+                    500,
+                    998
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a yellow safety vest. The worker is not wearing a vest.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The second worker's helmet is not clearly visible.",
+                "The worker's vest is not fully visible, so the presence of a vest cannot be confirmed with certainty."
+              ],
+              "recommended_action": "Inspect the workers' safety gear to ensure compliance with safety regulations. Provide training on proper safety equipment use."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": []
+            },
+            "latency_ms": 14471.268
+          },
+          {
+            "id": "00000239_jpg.rf.a41d71f80533740f61d5c59248364e77",
+            "schema_valid": false,
+            "schema_errors": [
+              "runtime error: JSONDecodeError: Expecting ',' delimiter: line 27 column 6 (char 1157)"
+            ],
+            "matched_grounded_findings": 0,
+            "prediction": null,
+            "target": {
+              "findings": []
+            },
+            "latency_ms": null
+          },
+          {
+            "id": "00000301_jpg.rf.d5e04eead4f741dd9d07643ef5af1df5",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "A construction site with a worker in a green vest and a yellow excavator. The worker is in a trench, and there are various pipes and equipment.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.765,
+                    0.248,
+                    0.888,
+                    0.37
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a green vest but no helmet.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.765,
+                    0.248,
+                    0.888,
+                    0.37
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a green vest, but there is no visible vest on the worker.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker's position is partially obscured, making it difficult to confirm the exact nature of the vest.",
+                "The image quality is low, which may affect the accuracy of the detection."
+              ],
+              "recommended_action": "Verify the worker's safety equipment, including the helmet and vest, to ensure compliance with safety regulations."
+            },
+            "raw_prediction": {
+              "scene_summary": "A construction site with a worker in a green vest and a yellow excavator. The worker is in a trench, and there are various pipes and equipment.",
+              "findings": [
+                {
+                  "person_box": [
+                    765,
+                    248,
+                    888,
+                    370
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a green vest but no helmet.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    765,
+                    248,
+                    888,
+                    370
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a green vest, but there is no visible vest on the worker.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker's position is partially obscured, making it difficult to confirm the exact nature of the vest.",
+                "The image quality is low, which may affect the accuracy of the detection."
+              ],
+              "recommended_action": "Verify the worker's safety equipment, including the helmet and vest, to ensure compliance with safety regulations."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": [
+                {
+                  "person_box": [
+                    0.74,
+                    0.165,
+                    0.925,
+                    0.47
+                  ],
+                  "violation": "no_helmet"
+                }
+              ]
+            },
+            "latency_ms": 12797.232
+          },
+          {
+            "id": "00000144_jpg.rf.7e5706cd6acd89a19a1f4fa2713f5e49",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "A worker is on a scaffolding structure, viewed from a low angle against a clear blue sky. The worker is wearing a yellow hard hat and blue jeans.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.398,
+                    0.155,
+                    0.63,
+                    0.538
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a yellow hard hat, which is a helmet. The helmet is not worn.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.398,
+                    0.155,
+                    0.63,
+                    0.538
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a dark jacket, which is a vest. The vest is not worn.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The image is inverted, so the worker's position and the scaffolding are mirrored. This could affect the interpretation of the worker's attire.",
+                "The worker's posture and the presence of the scaffolding are consistent with a construction site, but the exact nature of the work is unclear."
+              ],
+              "recommended_action": "Verify the worker's safety equipment, including the helmet and vest, to ensure compliance with safety regulations. Conduct a safety inspection to confirm the worker's attire and the condition of the scaffolding."
+            },
+            "raw_prediction": {
+              "scene_summary": "A worker is on a scaffolding structure, viewed from a low angle against a clear blue sky. The worker is wearing a yellow hard hat and blue jeans.",
+              "findings": [
+                {
+                  "person_box": [
+                    398,
+                    155,
+                    630,
+                    538
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a yellow hard hat, which is a helmet. The helmet is not worn.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    398,
+                    155,
+                    630,
+                    538
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a dark jacket, which is a vest. The vest is not worn.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The image is inverted, so the worker's position and the scaffolding are mirrored. This could affect the interpretation of the worker's attire.",
+                "The worker's posture and the presence of the scaffolding are consistent with a construction site, but the exact nature of the work is unclear."
+              ],
+              "recommended_action": "Verify the worker's safety equipment, including the helmet and vest, to ensure compliance with safety regulations. Conduct a safety inspection to confirm the worker's attire and the condition of the scaffolding."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": [
+                {
+                  "person_box": [
+                    0.33,
+                    0.235,
+                    0.76,
+                    0.61
+                  ],
+                  "violation": "no_vest"
+                }
+              ]
+            },
+            "latency_ms": 14469.065
+          },
+          {
+            "id": "00000147_jpg.rf.21c278291b2f21d83f94386517fe671c",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "A construction or industrial site where large white cylindrical equipment is being transported on a flatbed trailer. Workers in high-visibility vests and hard hats are present, and a crane is attached to the trailer.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.166,
+                    0.264,
+                    0.284,
+                    0.614
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a red hard hat, which is not visible in the image.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.852,
+                    0.408,
+                    0.932,
+                    0.675
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a yellow high-visibility vest, which is not visible in the image.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker in the background may be wearing a vest, but it is not clearly visible.",
+                "The crane's attachment point is not clearly visible, so it is uncertain whether the worker is wearing a helmet."
+              ],
+              "recommended_action": "Inspect the workers' attire and ensure they are wearing appropriate safety gear, including helmets and vests, before continuing operations."
+            },
+            "raw_prediction": {
+              "scene_summary": "A construction or industrial site where large white cylindrical equipment is being transported on a flatbed trailer. Workers in high-visibility vests and hard hats are present, and a crane is attached to the trailer.",
+              "findings": [
+                {
+                  "person_box": [
+                    166,
+                    264,
+                    284,
+                    614
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a red hard hat, which is not visible in the image.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    852,
+                    408,
+                    932,
+                    675
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a yellow high-visibility vest, which is not visible in the image.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker in the background may be wearing a vest, but it is not clearly visible.",
+                "The crane's attachment point is not clearly visible, so it is uncertain whether the worker is wearing a helmet."
+              ],
+              "recommended_action": "Inspect the workers' attire and ensure they are wearing appropriate safety gear, including helmets and vests, before continuing operations."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": []
+            },
+            "latency_ms": 14514.588
+          },
+          {
+            "id": "00000174_jpg.rf.aec15ebeeb08f5328a12486c7175a236",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "A construction worker in a high-visibility vest and helmet is inspecting the interior of a building under construction, pointing towards the ceiling structure.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.0,
+                    0.652,
+                    0.738,
+                    0.999
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a white hard hat with red and white stripes, which is a standard safety helmet. The helmet is not worn.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.0,
+                    0.652,
+                    0.738,
+                    0.999
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a bright orange safety vest with reflective stripes. The vest is not worn.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker's face is partially obscured, making it difficult to confirm if the helmet is truly absent.",
+                "The worker's body is partially obscured by the structure, so the vest's presence is not fully visible."
+              ],
+              "recommended_action": "The worker should be instructed to wear a helmet and a safety vest as per safety regulations. The construction site should be inspected to ensure all workers are wearing appropriate personal protective equipment (PPE)."
+            },
+            "raw_prediction": {
+              "scene_summary": "A construction worker in a high-visibility vest and helmet is inspecting the interior of a building under construction, pointing towards the ceiling structure.",
+              "findings": [
+                {
+                  "person_box": [
+                    0,
+                    652,
+                    738,
+                    999
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a white hard hat with red and white stripes, which is a standard safety helmet. The helmet is not worn.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0,
+                    652,
+                    738,
+                    999
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a bright orange safety vest with reflective stripes. The vest is not worn.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker's face is partially obscured, making it difficult to confirm if the helmet is truly absent.",
+                "The worker's body is partially obscured by the structure, so the vest's presence is not fully visible."
+              ],
+              "recommended_action": "The worker should be instructed to wear a helmet and a safety vest as per safety regulations. The construction site should be inspected to ensure all workers are wearing appropriate personal protective equipment (PPE)."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": []
+            },
+            "latency_ms": 19727.001
+          },
+          {
+            "id": "00000273_jpg.rf.446c9cb94bd6c58f68dd1aa9c2a5bdeb",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "A worker is seen in a high-risk position, seemingly suspended or falling, with a clear view of the construction site and a blue sky.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.205,
+                    0.292,
+                    0.435,
+                    0.765
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a white shirt and blue pants, but no helmet is visible on their head.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.205,
+                    0.292,
+                    0.435,
+                    0.765
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a white shirt, but no vest is visible on their torso.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker's position is unclear due to the image being inverted.",
+                "The image may be a digital manipulation, making it difficult to confirm the worker's actual status."
+              ],
+              "recommended_action": "Verify the worker's safety status by conducting a visual inspection and ensuring the worker is wearing appropriate protective gear, including a helmet and vest, before any further work is performed."
+            },
+            "raw_prediction": {
+              "scene_summary": "A worker is seen in a high-risk position, seemingly suspended or falling, with a clear view of the construction site and a blue sky.",
+              "findings": [
+                {
+                  "person_box": [
+                    205,
+                    292,
+                    435,
+                    765
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker is wearing a white shirt and blue pants, but no helmet is visible on their head.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    205,
+                    292,
+                    435,
+                    765
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker is wearing a white shirt, but no vest is visible on their torso.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker's position is unclear due to the image being inverted.",
+                "The image may be a digital manipulation, making it difficult to confirm the worker's actual status."
+              ],
+              "recommended_action": "Verify the worker's safety status by conducting a visual inspection and ensuring the worker is wearing appropriate protective gear, including a helmet and vest, before any further work is performed."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": [
+                {
+                  "person_box": [
+                    0.23,
+                    0.47,
+                    0.455,
+                    0.85
+                  ],
+                  "violation": "no_vest"
+                }
+              ]
+            },
+            "latency_ms": 19589.487
+          },
+          {
+            "id": "00000279_jpg.rf.aaa461af48fb9b03c7ae671582a81927",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "Two workers in high-visibility clothing are working in a tunnel, likely performing maintenance or repair on a piece of heavy machinery.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.335,
+                    0.388,
+                    0.641,
+                    0.999
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker in the foreground is wearing a yellow hard hat, which is a requirement for safety in this environment.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.315,
+                    0.122,
+                    0.494,
+                    0.641
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker in the background is wearing an orange work vest, which is visible and is a standard safety requirement.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The image quality is low, making it difficult to confirm the exact nature of the equipment or the full context of the work.",
+                "The presence of a red machine suggests a high-risk environment, but the specific type of work is not clear."
+              ],
+              "recommended_action": "Verify the safety protocols for the workers, including the presence of a helmet and vest, and ensure that all equipment is properly maintained and used in accordance with safety standards."
+            },
+            "raw_prediction": {
+              "scene_summary": "Two workers in high-visibility clothing are working in a tunnel, likely performing maintenance or repair on a piece of heavy machinery.",
+              "findings": [
+                {
+                  "person_box": [
+                    335,
+                    388,
+                    641,
+                    999
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker in the foreground is wearing a yellow hard hat, which is a requirement for safety in this environment.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    315,
+                    122,
+                    494,
+                    641
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker in the background is wearing an orange work vest, which is visible and is a standard safety requirement.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The image quality is low, making it difficult to confirm the exact nature of the equipment or the full context of the work.",
+                "The presence of a red machine suggests a high-risk environment, but the specific type of work is not clear."
+              ],
+              "recommended_action": "Verify the safety protocols for the workers, including the presence of a helmet and vest, and ensure that all equipment is properly maintained and used in accordance with safety standards."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": []
+            },
+            "latency_ms": 15744.016
+          },
+          {
+            "id": "00000373_jpg.rf.019be9fcf559925ce83e8ee97f462f7e",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "An interior view of a large, dimly lit, and flooded architectural space, likely a historical or underground structure. The space features a complex network of pillars and vaulted ceilings, with water covering the floor. Two workers are visible in the center of the room, one wearing a high-visibility vest and the other without a helmet or vest.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.435,
+                    0.475,
+                    0.495,
+                    0.688
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker on the left is wearing a high-visibility vest, but their head is not visible, so it is not possible to confirm if they are wearing a helmet.",
+                  "confidence": "low"
+                },
+                {
+                  "person_box": [
+                    0.495,
+                    0.475,
+                    0.545,
+                    0.688
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker on the right is wearing a dark jacket, but no vest is visible on their body.",
+                  "confidence": "low"
+                }
+              ],
+              "uncertainties": [
+                "The presence of a helmet on the first worker is uncertain due to the lack of visibility.",
+                "The second worker's clothing is not clearly visible, making it difficult to confirm the presence of a vest.",
+                "The lighting and reflections in the water may obscure details of the workers' attire."
+              ],
+              "recommended_action": "Verify the presence of helmets and vests on both workers using a closer inspection or additional lighting. If the workers are not wearing protective gear, they should be provided with appropriate safety equipment."
+            },
+            "raw_prediction": {
+              "scene_summary": "An interior view of a large, dimly lit, and flooded architectural space, likely a historical or underground structure. The space features a complex network of pillars and vaulted ceilings, with water covering the floor. Two workers are visible in the center of the room, one wearing a high-visibility vest and the other without a helmet or vest.",
+              "findings": [
+                {
+                  "person_box": [
+                    435,
+                    475,
+                    495,
+                    688
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker on the left is wearing a high-visibility vest, but their head is not visible, so it is not possible to confirm if they are wearing a helmet.",
+                  "confidence": "low"
+                },
+                {
+                  "person_box": [
+                    495,
+                    475,
+                    545,
+                    688
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker on the right is wearing a dark jacket, but no vest is visible on their body.",
+                  "confidence": "low"
+                }
+              ],
+              "uncertainties": [
+                "The presence of a helmet on the first worker is uncertain due to the lack of visibility.",
+                "The second worker's clothing is not clearly visible, making it difficult to confirm the presence of a vest.",
+                "The lighting and reflections in the water may obscure details of the workers' attire."
+              ],
+              "recommended_action": "Verify the presence of helmets and vests on both workers using a closer inspection or additional lighting. If the workers are not wearing protective gear, they should be provided with appropriate safety equipment."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": []
+            },
+            "latency_ms": 28184.848
+          },
+          {
+            "id": "033896729-construction-workers-install-r_jpg.rf.5da6ce192b56bc573a5bb364214aa2c7",
+            "schema_valid": false,
+            "schema_errors": [
+              "runtime error: JSONDecodeError: Expecting ',' delimiter: line 15 column 6 (char 863)"
+            ],
+            "matched_grounded_findings": 0,
+            "prediction": null,
+            "target": {
+              "findings": [
+                {
+                  "person_box": [
+                    0.62,
+                    0.26,
+                    0.81,
+                    0.7
+                  ],
+                  "violation": "no_vest"
+                }
+              ]
+            },
+            "latency_ms": null
+          },
+          {
+            "id": "TimePhoto_20230808_112037_jpg.rf.30bee0aa5d737cbecef9f637215d26ee",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "An interior construction site with concrete walls and steps, featuring two workers suspended in the air by a metal scaffold. The workers are wearing hard hats and safety vests, and the scene appears to be in the early stages of construction.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.22,
+                    0.15,
+                    0.32,
+                    0.53
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker on the left is wearing a hard hat, but the image shows the worker's head is not visible, and the hard hat is not clearly seen.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.44,
+                    0.54,
+                    0.52,
+                    0.75
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker on the right is wearing a red vest, but the vest is not clearly visible due to the angle and lighting.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker on the left may not be wearing a helmet due to the angle of the image.",
+                "The worker on the right may not be wearing a vest due to the angle and lighting."
+              ],
+              "recommended_action": "Verify the presence of helmets and vests on both workers by checking the image from a different angle. Ensure that all workers are wearing appropriate safety gear before the work is completed."
+            },
+            "raw_prediction": {
+              "scene_summary": "An interior construction site with concrete walls and steps, featuring two workers suspended in the air by a metal scaffold. The workers are wearing hard hats and safety vests, and the scene appears to be in the early stages of construction.",
+              "findings": [
+                {
+                  "person_box": [
+                    220,
+                    150,
+                    320,
+                    530
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker on the left is wearing a hard hat, but the image shows the worker's head is not visible, and the hard hat is not clearly seen.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    440,
+                    540,
+                    520,
+                    750
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker on the right is wearing a red vest, but the vest is not clearly visible due to the angle and lighting.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker on the left may not be wearing a helmet due to the angle of the image.",
+                "The worker on the right may not be wearing a vest due to the angle and lighting."
+              ],
+              "recommended_action": "Verify the presence of helmets and vests on both workers by checking the image from a different angle. Ensure that all workers are wearing appropriate safety gear before the work is completed."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": [
+                {
+                  "person_box": [
+                    0.175,
+                    0.285,
+                    0.345,
+                    0.59
+                  ],
+                  "violation": "no_vest"
+                }
+              ]
+            },
+            "latency_ms": 33009.843
+          },
+          {
+            "id": "li-lin-rZcC9J5ZT6I-unsplash_jpg-rf2_jpg.rf.af5809d06c68c4fa64259e18c3b63f8b",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 0,
+            "prediction": {
+              "scene_summary": "A person is seen in a dynamic, possibly hazardous situation, with a blurred image of a person in a blue shirt and dark pants, possibly on a motorcycle or similar vehicle. The image is heavily distorted, making it difficult to discern details.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.115,
+                    0.014,
+                    0.935,
+                    0.845
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The person is wearing a blue shirt and dark pants, but no helmet is visible on their head.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.115,
+                    0.014,
+                    0.935,
+                    0.845
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The person is wearing a blue shirt, but no vest is visible on their torso.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The image is extremely blurry and distorted, making it difficult to confirm the exact nature of the person's actions or the environment.",
+                "The presence of a motorcycle or similar vehicle is suggested but not clearly visible due to the image quality.",
+                "The person's posture and the context of the scene are unclear due to the motion blur and low resolution."
+              ],
+              "recommended_action": "Contact the appropriate safety personnel to investigate the scene. The image quality is too low to determine the exact nature of the incident, but the person is likely in a hazardous situation. A detailed visual inspection is recommended to confirm the presence of a helmet and vest."
+            },
+            "raw_prediction": {
+              "scene_summary": "A person is seen in a dynamic, possibly hazardous situation, with a blurred image of a person in a blue shirt and dark pants, possibly on a motorcycle or similar vehicle. The image is heavily distorted, making it difficult to discern details.",
+              "findings": [
+                {
+                  "person_box": [
+                    115,
+                    14,
+                    935,
+                    845
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The person is wearing a blue shirt and dark pants, but no helmet is visible on their head.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    115,
+                    14,
+                    935,
+                    845
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The person is wearing a blue shirt, but no vest is visible on their torso.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The image is extremely blurry and distorted, making it difficult to confirm the exact nature of the person's actions or the environment.",
+                "The presence of a motorcycle or similar vehicle is suggested but not clearly visible due to the image quality.",
+                "The person's posture and the context of the scene are unclear due to the motion blur and low resolution."
+              ],
+              "recommended_action": "Contact the appropriate safety personnel to investigate the scene. The image quality is too low to determine the exact nature of the incident, but the person is likely in a hazardous situation. A detailed visual inspection is recommended to confirm the presence of a helmet and vest."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": [
+                {
+                  "person_box": [
+                    0.0,
+                    0.34,
+                    0.81,
+                    1.0
+                  ],
+                  "violation": "no_vest"
+                }
+              ]
+            },
+            "latency_ms": 28787.231
+          },
+          {
+            "id": "obreros-de-construccion-parados-frente-al-modelo-comprobacion-gruas-sitio-186755075_jpg.rf.1e4331fba19adbef5b437b4783e16f03",
+            "schema_valid": true,
+            "schema_errors": [],
+            "matched_grounded_findings": 1,
+            "prediction": {
+              "scene_summary": "Two construction workers are reviewing blueprints at a construction site. One worker is wearing a safety vest and a helmet, while the other is wearing a plaid shirt and a helmet. A yellow crane is visible in the background.",
+              "findings": [
+                {
+                  "person_box": [
+                    0.11,
+                    0.185,
+                    0.465,
+                    0.999
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker on the left is wearing a white hard hat, so he does not have a helmet.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    0.37,
+                    0.144,
+                    0.745,
+                    0.999
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker on the right is wearing a plaid shirt and blue overalls, but no safety vest.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker on the left is wearing a yellow safety vest, but the image quality is low, making it difficult to confirm if the vest is fully visible.",
+                "The worker on the right is wearing a plaid shirt and blue overalls, but the image quality is low, making it difficult to confirm if the vest is fully visible."
+              ],
+              "recommended_action": "Verify the safety equipment of both workers. Ensure that all workers are wearing appropriate safety gear, including helmets and vests, as required by safety regulations."
+            },
+            "raw_prediction": {
+              "scene_summary": "Two construction workers are reviewing blueprints at a construction site. One worker is wearing a safety vest and a helmet, while the other is wearing a plaid shirt and a helmet. A yellow crane is visible in the background.",
+              "findings": [
+                {
+                  "person_box": [
+                    110,
+                    185,
+                    465,
+                    999
+                  ],
+                  "violation": "no_helmet",
+                  "evidence": "The worker on the left is wearing a white hard hat, so he does not have a helmet.",
+                  "confidence": "high"
+                },
+                {
+                  "person_box": [
+                    370,
+                    144,
+                    745,
+                    999
+                  ],
+                  "violation": "no_vest",
+                  "evidence": "The worker on the right is wearing a plaid shirt and blue overalls, but no safety vest.",
+                  "confidence": "high"
+                }
+              ],
+              "uncertainties": [
+                "The worker on the left is wearing a yellow safety vest, but the image quality is low, making it difficult to confirm if the vest is fully visible.",
+                "The worker on the right is wearing a plaid shirt and blue overalls, but the image quality is low, making it difficult to confirm if the vest is fully visible."
+              ],
+              "recommended_action": "Verify the safety equipment of both workers. Ensure that all workers are wearing appropriate safety gear, including helmets and vests, as required by safety regulations."
+            },
+            "deterministic_coordinate_repairs": 2,
+            "target": {
+              "findings": [
+                {
+                  "person_box": [
+                    0.415,
+                    0.07,
+                    0.69,
+                    1.0
+                  ],
+                  "violation": "no_vest"
+                }
+              ]
+            },
+            "latency_ms": 29705.503
+          }
+        ]
+      }
+    ]
+  }
+}

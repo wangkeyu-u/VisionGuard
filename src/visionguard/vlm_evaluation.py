@@ -1,11 +1,35 @@
 from __future__ import annotations
 
 import json
+from copy import deepcopy
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
 from visionguard.vlm import VisionAdapter, VLMExample, validate_finding_document
+
+
+def normalize_qwen_coordinate_scale(document: dict[str, Any]) -> tuple[dict[str, Any], int]:
+    """Convert Qwen's documented 0-1000 grounding scale to the 0-1 contract."""
+    normalized = deepcopy(document)
+    repairs = 0
+    findings = normalized.get("findings", [])
+    if not isinstance(findings, list):
+        return normalized, repairs
+    for finding in findings:
+        if not isinstance(finding, dict):
+            continue
+        box = finding.get("person_box")
+        if (
+            isinstance(box, list)
+            and len(box) == 4
+            and all(isinstance(value, (int, float)) for value in box)
+            and all(0 <= float(value) <= 1000 for value in box)
+            and any(float(value) > 1 for value in box)
+        ):
+            finding["person_box"] = [float(value) / 1000 for value in box]
+            repairs += 1
+    return normalized, repairs
 
 
 def box_iou(first: list[float], second: list[float]) -> float:
@@ -40,10 +64,34 @@ def evaluate_adapter(adapter: VisionAdapter, examples: list[VLMExample], iou_thr
     records = []
     prediction_count = target_count = matched_count = schema_valid = negative_count = hallucinated_negative = 0
     latencies = []
+    runtime_errors = []
+    cache_hits = 0
+    deterministic_repairs = 0
     for example in examples:
-        result = adapter.predict(example)
-        errors = validate_finding_document(result.document)
-        predictions = result.document.get("findings", []) if not errors else []
+        try:
+            result = adapter.predict(example)
+        except Exception as exc:  # evaluation must preserve completed cache entries for resume
+            runtime_errors.append(
+                {"id": example.id, "error_type": type(exc).__name__, "message": str(exc)}
+            )
+            records.append(
+                {
+                    "id": example.id,
+                    "schema_valid": False,
+                    "schema_errors": [f"runtime error: {type(exc).__name__}: {exc}"],
+                    "matched_grounded_findings": 0,
+                    "prediction": None,
+                    "target": example.target,
+                    "latency_ms": None,
+                }
+            )
+            target_count += len(example.target.get("findings", []))
+            continue
+        cache_hits += result.cache_hit
+        document, repairs = normalize_qwen_coordinate_scale(result.document)
+        deterministic_repairs += repairs
+        errors = validate_finding_document(document)
+        predictions = document.get("findings", []) if not errors else []
         targets = example.target.get("findings", [])
         matched = _match_findings(predictions, targets, iou_threshold) if not errors else 0
         schema_valid += not errors
@@ -60,7 +108,9 @@ def evaluate_adapter(adapter: VisionAdapter, examples: list[VLMExample], iou_thr
                 "schema_valid": not errors,
                 "schema_errors": errors,
                 "matched_grounded_findings": matched,
-                "prediction": result.document,
+                "prediction": document,
+                "raw_prediction": result.document if repairs else None,
+                "deterministic_coordinate_repairs": repairs,
                 "target": example.target,
                 "latency_ms": round(result.latency_ms, 3),
             }
@@ -76,6 +126,7 @@ def evaluate_adapter(adapter: VisionAdapter, examples: list[VLMExample], iou_thr
             if adapter.execution_mode == "fixture"
             else "Real adapter execution on the configured images and weights."
         ),
+        "runtime_metadata": getattr(adapter, "runtime_metadata", {}),
         "metrics": {
             "examples": len(examples),
             "schema_valid_rate": schema_valid / len(examples),
@@ -91,8 +142,12 @@ def evaluate_adapter(adapter: VisionAdapter, examples: list[VLMExample], iou_thr
                 else 0.0
             ),
             "negative_scene_hallucination_rate": hallucinated_negative / negative_count if negative_count else 0.0,
-            "mean_latency_ms": sum(latencies) / len(latencies),
+            "mean_latency_ms": sum(latencies) / len(latencies) if latencies else None,
+            "runtime_error_count": len(runtime_errors),
+            "cache_hit_count": cache_hits,
+            "deterministic_coordinate_repair_count": deterministic_repairs,
         },
+        "runtime_errors": runtime_errors,
         "records": records,
     }
 

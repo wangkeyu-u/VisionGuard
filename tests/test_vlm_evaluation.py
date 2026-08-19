@@ -5,8 +5,21 @@ from pathlib import Path
 
 import pytest
 
-from visionguard.vlm import FixtureAdapter, load_evaluation_config, validate_finding_document
-from visionguard.vlm_evaluation import box_iou, evaluate_adapter, write_evaluation_report
+from visionguard.vlm import (
+    AdapterResult,
+    CachedAdapter,
+    FixtureAdapter,
+    VisionAdapter,
+    load_evaluation_config,
+    validate_finding_document,
+)
+from visionguard.vlm_evaluation import (
+    box_iou,
+    evaluate_adapter,
+    normalize_qwen_coordinate_scale,
+    write_evaluation_report,
+)
+from visionguard.vlm_evidence import recompute_run_metrics, verify_report_summary
 
 FIXTURES = Path(__file__).parent / "fixtures" / "vlm"
 
@@ -73,3 +86,91 @@ def test_fixture_ablation_exposes_hallucination_metric() -> None:
     assert result["metrics"]["grounded_true_positives"] == 0
     assert result["metrics"]["unsupported_finding_rate"] == 1.0
     assert result["metrics"]["negative_scene_hallucination_rate"] == 1.0
+
+
+def test_cached_adapter_resumes_without_repeating_prediction(tmp_path: Path) -> None:
+    class CountingAdapter(VisionAdapter):
+        name = "counting"
+        execution_mode = "real"
+        calls = 0
+
+        def predict(self, example):
+            self.calls += 1
+            return AdapterResult(
+                {
+                    "scene_summary": "cached",
+                    "findings": [],
+                    "uncertainties": [],
+                    "recommended_action": "review",
+                },
+                3.5,
+            )
+
+    _, examples = load_evaluation_config(Path("configs/vlm_ablation.fixture.yaml"))
+    adapter = CountingAdapter()
+    first = CachedAdapter(adapter, tmp_path / "cache.jsonl", "signature")
+    assert first.predict(examples[0]).cache_hit is False
+    second = CachedAdapter(adapter, tmp_path / "cache.jsonl", "signature")
+    assert second.predict(examples[0]).cache_hit is True
+    assert adapter.calls == 1
+
+
+def test_runtime_failure_is_preserved_in_failure_report() -> None:
+    class FailingAdapter(VisionAdapter):
+        name = "failure"
+        execution_mode = "real"
+
+        def predict(self, example):
+            raise RuntimeError("intentional failure")
+
+    _, examples = load_evaluation_config(Path("configs/vlm_ablation.fixture.yaml"))
+    result = evaluate_adapter(FailingAdapter(), examples[:1], iou_threshold=0.5)
+    assert result["metrics"]["runtime_error_count"] == 1
+    assert result["runtime_errors"][0]["error_type"] == "RuntimeError"
+
+
+def test_qwen_coordinate_scale_repair_is_explicit_and_non_mutating() -> None:
+    document = {
+        "scene_summary": "worker",
+        "findings": [
+            {
+                "person_box": [20, 100, 800, 950],
+                "violation": "no_vest",
+                "evidence": "visible",
+                "confidence": "medium",
+            }
+        ],
+        "uncertainties": [],
+        "recommended_action": "review",
+    }
+    normalized, repairs = normalize_qwen_coordinate_scale(document)
+    assert repairs == 1
+    assert normalized["findings"][0]["person_box"] == [0.02, 0.1, 0.8, 0.95]
+    assert document["findings"][0]["person_box"] == [20, 100, 800, 950]
+
+
+def test_record_level_recomputation_rejects_tampered_metric() -> None:
+    run = {
+        "metrics": {
+            "examples": 1,
+            "grounded_true_positives": 1,
+            "predicted_findings": 1,
+            "target_findings": 1,
+            "grounding_precision": 1.0,
+            "grounding_recall": 1.0,
+            "grounding_f1": 1.0,
+        },
+        "records": [
+            {
+                "schema_valid": True,
+                "prediction": {"findings": [{"violation": "no_vest"}]},
+                "target": {"findings": [{"violation": "no_vest"}]},
+                "matched_grounded_findings": 1,
+            }
+        ],
+    }
+    recomputed = recompute_run_metrics(run)
+    verify_report_summary(run, recomputed)
+    run["metrics"]["grounding_f1"] = 0.6
+    with pytest.raises(ValueError, match="record-level recomputation"):
+        verify_report_summary(run, recomputed)
