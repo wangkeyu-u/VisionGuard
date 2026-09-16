@@ -1,6 +1,6 @@
-# VLM Extension Guide: Your Next Stage
+# Proposed VLM Extension
 
-This stage is intentionally a guide rather than an implemented feature. The goal is for you to build and defend the multimodal part yourself in an interview.
+This stage is intentionally a guide rather than an implemented feature. The proposal defines an evaluation plan for a detector-grounded multimodal extension.
 
 ## The project you should build
 
@@ -65,7 +65,7 @@ Compare:
 2. **YOLO rules only** — current detector output converted to the same schema.
 3. **YOLO-grounded VLM** — full image, annotated image or crops, and serialized detector boxes/classes.
 
-This ablation is your interview story: it shows whether grounding actually reduces hallucination or improves minority violations.
+This ablation tests whether grounding reduces unsupported findings or improves detection of minority violations.
 
 ## Phase 3 — Build detector-grounded inputs (2–3 days)
 
@@ -127,20 +127,7 @@ Only after offline evaluation, add a second action to the existing demo: **Gener
 | 10–11 | ablation metrics and confidence intervals |
 | 12 | failure taxonomy and manual review |
 | 13 | optional demo integration |
-| 14 | README, model card, 3-minute interview walkthrough |
-
-## What to say in an interview
-
-Use this structure:
-
-1. **Problem:** detector labels do not express person–equipment relationships or uncertainty.
-2. **Hypothesis:** detector grounding reduces VLM hallucination and improves correct-person attribution.
-3. **Method:** fixed schema, frozen test set, three baselines, LoRA only after zero-shot evidence.
-4. **Evidence:** class metrics, grounding accuracy, unsupported-finding rate, latency, and ablations.
-5. **Failure:** show one convincing miss and what data/system change it motivated.
-6. **Boundary:** this is decision support with human review, not autonomous safety enforcement.
-
-The strongest version of this work is not “I called a VLM API.” It is “I framed a measurable multimodal hypothesis, controlled leakage, grounded outputs, quantified hallucination, and knew where the system must abstain.”
+| 14 | README, model card, reproducible usage example |
 
 ## Definition of done
 
@@ -152,4 +139,4 @@ The strongest version of this work is not “I called a VLM API.” It is “I f
 - Per-class, grounding, hallucination, latency, and memory metrics
 - Failure gallery with an error taxonomy
 - Model card updated with new limitations
-- Short demo and a three-minute explanation you can deliver without notes
+- Runnable usage example with documented inputs and expected output
