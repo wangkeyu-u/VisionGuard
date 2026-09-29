@@ -1,0 +1,21 @@
+stage: safety-focused fine-tuning
+initial_checkpoint: outputs/experiments/exp4_yolo11s_512_e50/weights/best.pt
+data: training/datasets/safety_quality_exp5/data.yaml
+expected_fingerprint: 77d1ec6aaeda702877a5f5a9ead346b257c8e8496d9fecf2988656a7880e0447
+model: yolo11s
+epochs: 15
+imgsz: 640
+batch: 4
+patience: 6
+workers: 0
+seed: 42
+class_weight_power: 0.5
+save_period: 3
+selection:
+  split: validation
+  primary_metric: harmonic mean of no_helmet and no_vest AP@50-95
+  test_used: false
+controls:
+  dev_content_changed: false
+  test_content_changed: false
+  test_predictions_allowed_before_freeze: false

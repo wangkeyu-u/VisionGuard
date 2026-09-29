@@ -18,8 +18,20 @@ EXPERIMENT ?= baseline_yolo11n_512
 EXPERIMENT_DIR ?= outputs/experiments/$(EXPERIMENT)
 FINAL_DATA ?= training/datasets/safety_final/data.yaml
 BEST_MODEL ?= $(EXPERIMENT_DIR)/weights/best.pt
+VLM_SPLIT ?= train
+VLM_MODE ?= vlm
+VLM_LIMIT ?= 1
+VLM_PREDICTIONS ?= vlm/outputs/$(VLM_SPLIT)_$(VLM_MODE).jsonl
+VLM_DEVICE ?= auto
+VLM_YOLO_DEVICE ?= cpu
+VLM_SCHEMA_RETRIES ?= 1
+VLM_REVIEWER ?=
+QUALITY_RECIPE ?= safety_tune
+QUALITY_DEVICE ?= auto
+QUALITY_RUN ?= outputs/experiments/exp5_safety_tune
+QUALITY_IMGSZ ?= 640
 
-.PHONY: setup install environment validate remap finalize visualize train resume evaluate benchmark errors report comparison demo baseline test lint compile check
+.PHONY: setup install environment validate remap finalize visualize train resume evaluate benchmark errors report comparison demo quality-data quality-train quality-select quality-report vlm-install vlm-validate vlm-candidates vlm-review vlm-test-v2-candidates vlm-review-v2 vlm-test-v2-gate vlm-test-v2-once vlm-baseline vlm-evaluate vlm-train baseline test lint compile check
 
 setup:
 	$(BOOTSTRAP_PYTHON) -m venv .venv
@@ -88,15 +100,67 @@ comparison:
 demo:
 	$(PYTHON) scripts/run_demo.py --model "$(BEST_MODEL)" --imgsz $(IMGSZ) --device auto
 
+quality-data:
+	$(PYTHON) scripts/build_quality_dataset.py
+
+quality-train:
+	$(PYTHON) scripts/train_quality_yolo.py --recipe "$(QUALITY_RECIPE)" --device "$(QUALITY_DEVICE)"
+
+quality-select:
+	$(PYTHON) scripts/select_safety_checkpoint.py --run-dir "$(QUALITY_RUN)" \
+		--imgsz "$(QUALITY_IMGSZ)" --device "$(QUALITY_DEVICE)"
+
+quality-report:
+	$(PYTHON) scripts/generate_quality_report.py --runs \
+		outputs/experiments/exp4_yolo11s_512_e50 "$(QUALITY_RUN)"
+
+vlm-install:
+	uv pip install --python $(PYTHON) -r requirements-vlm.txt
+
+vlm-validate:
+	$(PYTHON) vlm/src/validate_data.py
+
+vlm-candidates:
+	$(PYTHON) vlm/src/build_review_manifest.py --per-split 40
+
+vlm-review:
+	$(PYTHON) scripts/run_review.py --reviewer "$(VLM_REVIEWER)"
+
+vlm-test-v2-candidates:
+	$(PYTHON) vlm/src/build_review_manifest.py --splits test --per-split 40 \
+		--history-data-dir vlm/data --output vlm/data_v2/candidates.jsonl
+
+vlm-review-v2:
+	$(PYTHON) scripts/run_review.py --reviewer "$(VLM_REVIEWER)" \
+		--candidates vlm/data_v2/candidates.jsonl --data-dir vlm/data_v2 --port 7862
+
+vlm-test-v2-gate:
+	$(PYTHON) vlm/src/gate_test_data.py
+
+vlm-test-v2-once:
+	$(PYTHON) vlm/src/run_test_once.py --yolo-device "$(VLM_YOLO_DEVICE)"
+
+vlm-baseline:
+	$(PYTHON) vlm/src/run_baseline.py --split $(VLM_SPLIT) --mode $(VLM_MODE) \
+		--limit $(VLM_LIMIT) --device $(VLM_DEVICE) --yolo-device $(VLM_YOLO_DEVICE) \
+		--schema-retries $(VLM_SCHEMA_RETRIES) --output $(VLM_PREDICTIONS)
+
+vlm-evaluate:
+	$(PYTHON) vlm/src/evaluate.py --gold vlm/data/$(VLM_SPLIT).jsonl \
+		--predictions $(VLM_PREDICTIONS)
+
+vlm-train:
+	$(PYTHON) vlm/src/train_lora.py
+
 baseline: train evaluate benchmark errors report
 
 test:
 	PYTHONPATH=src $(PYTHON) -m pytest -q
 
 lint:
-	$(PYTHON) -m ruff check src scripts tests
+	$(PYTHON) -m ruff check src scripts tests vlm/src
 
 compile:
-	$(PYTHON) -m compileall -q src scripts tests
+	$(PYTHON) -m compileall -q src scripts tests vlm/src
 
 check: environment lint compile test

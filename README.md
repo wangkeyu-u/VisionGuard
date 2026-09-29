@@ -115,6 +115,28 @@ make comparison
 
 Generated artifacts include JSON/CSV/Markdown metrics, confusion matrices, prediction samples, latency summaries, review candidates, and an interactive HTML comparison report.
 
+## Safety-class quality upgrade
+
+The completed Exp5 detector experiment targeted the actual bottleneck rather than increasing model size blindly. In the selected Exp4 checkpoint, validation AP@50–95 is much lower for `no_helmet` and `no_vest` than for the common PPE classes. The Exp5 workflow:
+
+1. verifies the frozen source fingerprint;
+2. resamples only Train images containing rare violations (3×), escalating small/overlapped/dense rare cases to 4×;
+3. keeps Validation and Test byte-identical to the source dataset;
+4. fine-tunes the Exp4 checkpoint at 640 px with square-root inverse-frequency class weighting (`cls_pw=0.5`);
+5. saves periodic checkpoints and selects on the harmonic mean of Validation `no_helmet` / `no_vest` AP@50–95.
+
+```bash
+# First-time build command. The current local workspace already contains this artifact.
+make quality-data
+
+# CUDA is recommended; the recorded run used Apple MPS with batch 2.
+make quality-train QUALITY_DEVICE=0 QUALITY_RECIPE=safety_tune
+make quality-select QUALITY_DEVICE=0
+make quality-report
+```
+
+The combined recipe completed 15 epochs but was rejected on Validation: safety H-mean fell from **0.2552 to 0.2308**, while overall mAP@50–95 fell from **0.4887 to 0.4543**, violating the 0.01 regression guardrail. Exp4 remains selected and Exp5 was not run on Test. Controlled ablations remain available through `QUALITY_RECIPE=rare_only`, `weighted_only`, and `resolution_only`, but are required before attributing the regression to any one intervention. See [`configs/exp5_safety_tune.yaml`](configs/exp5_safety_tune.yaml) and [`docs/MODEL_QUALITY_UPGRADE.md`](docs/MODEL_QUALITY_UPGRADE.md).
+
 ## Repository map
 
 ```text
@@ -123,16 +145,48 @@ configs/                     experiment and data examples
 scripts/                     CLI entry points
 src/visionguard/             dataset, training, evaluation, reporting, demo logic
 tests/                       unit and regression tests
+vlm/                         grounded-VLM data, baselines, evaluation, LoRA entry point
 DATASET_CARD.md              data provenance and limitations
 MODEL_CARD.md                selected model evidence and intended use
-docs/VLM_EXTENSION_GUIDE.md  next-stage multimodal implementation guide
+docs/VLM_EXTENSION_GUIDE.md  multimodal experiment design guide
 ```
+
+## Experimental grounded-VLM extension
+
+The `feature/vlm-grounding` work adds a strict safety-inspection JSON schema, manually reviewed gold-data workflow, YOLO-only / VLM-only / YOLO-grounded ablations, hallucination and grounding metrics, and a guarded CUDA LoRA entry point. The grounded prompt exposes only `person`, `helmet`, and `vest` detections—not the target violation labels.
+
+```bash
+make vlm-install
+make vlm-validate
+make vlm-candidates
+make vlm-review VLM_REVIEWER="Your Name"
+
+# Independent replacement benchmark after the consumed Test v1 geometry failure
+make vlm-test-v2-candidates
+make vlm-review-v2 VLM_REVIEWER="Your Name"  # opens port 7862
+make vlm-test-v2-gate                         # must PASS before evaluation
+make vlm-test-v2-once VLM_YOLO_DEVICE=cpu     # writes the consumption manifest first
+
+# One-record system smoke tests; not reportable performance metrics
+make vlm-baseline VLM_SPLIT=train VLM_MODE=yolo VLM_LIMIT=1
+make vlm-evaluate VLM_SPLIT=train VLM_MODE=yolo
+```
+
+The local review desk opens at [http://127.0.0.1:7861](http://127.0.0.1:7861). It overlays source YOLO annotations, supports drawing and resizing normalized person boxes, records violations and uncertainty, and atomically writes approved records to the correct gold JSONL. The v2 protocol preserves compliant person boxes and requires explicit confirmation that each box covers a complete visible person—not just a PPE part. Test candidates automatically use blind review: source classes and boxes are hidden. See [`vlm/README.md`](vlm/README.md) for the full data-adjudication contract, Qwen3-VL baseline commands, evaluation methodology, and CUDA LoRA gate. Dev/test gold sets must be populated by manual review before any multimodal accuracy claim is made.
 
 ## What this project does—and does not—claim
 
 This repository demonstrates an end-to-end ML workflow and a working inference surface. It does not establish production readiness: each configuration has only one seed; minority-class test coverage is small; source grouping relies on filename-derived proxies; and no domain-shift, calibration, adversarial, privacy, or human-factors study has been completed. See [MODEL_CARD.md](MODEL_CARD.md) before interpreting outputs.
 
-The next multimodal stage is deliberately left as a guided extension so its training and evaluation can be completed and defended by the project owner: [VLM extension guide](docs/VLM_EXTENSION_GUIDE.md).
+The multimodal extension is experimental and now contains 41 Train, 36 Dev, and 40 blind-reviewed
+Test records. The [formal Dev ablation](vlm/outputs/dev_formal/DEV_ABLATION_REPORT.md) selected
+YOLO-only over Qwen3-VL-only and YOLO-grounded Qwen3-VL. The one-time
+[final evaluation report](vlm/outputs/test_final/FINAL_REPORT.md) records a Test v1 annotation-
+geometry failure: image-level violation presence generalized, but many Test boxes covered PPE parts
+instead of full visible people, so person-grounding Test F1 is not considered valid. Test v1 was not
+edited or rerun. The full experiment plan remains in the
+[VLM extension guide](docs/VLM_EXTENSION_GUIDE.md). A new 40-image Test v2 candidate queue is ready;
+evaluation is programmatically blocked until independent human review and geometry QA pass.
 
 ## License
 

@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="VisionGuard 本地人工标注审核台：审核 PPE 违规、调整人物框并写入金标 JSONL。"
+    />
+    <title>VisionGuard // 人工审核台</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23f1c84b' d='M4 4h56v42L42 60H4z'/%3E%3Ctext x='12' y='39' font-family='Arial' font-size='23' font-weight='900'%3EVG%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="/review/static/styles.css" />
+  </head>
+  <body>
+    <div class="grid-field" aria-hidden="true"></div>
+    <header class="topbar">
+      <a class="brand" href="/review" aria-label="VisionGuard 人工审核台首页">
+        <span class="brand-mark">VG</span>
+        <span class="brand-copy">
+          <strong>VISIONGUARD</strong>
+          <small>HUMAN REVIEW DESK / 人工审核台</small>
+        </span>
+      </a>
+      <div class="session-strip">
+        <label for="reviewer-input">审核人</label>
+        <input id="reviewer-input" type="text" autocomplete="name" placeholder="输入姓名" />
+        <span class="system-state"><i></i><span id="system-state">正在读取队列</span></span>
+      </div>
+    </header>
+
+    <main class="review-shell">
+      <aside class="queue-panel">
+        <div class="panel-heading">
+          <div>
+            <span class="micro-label">01 / DATASET PULSE</span>
+            <h1>审核队列</h1>
+          </div>
+          <button id="refresh-button" class="icon-button" type="button" title="刷新队列">↻</button>
+        </div>
+
+        <div class="split-progress" id="split-progress" aria-label="标注进度"></div>
+
+        <fieldset class="filter-block">
+          <legend>数据切分</legend>
+          <div class="segmented" id="split-filter">
+            <button type="button" data-value="train" class="is-active">TRAIN</button>
+            <button type="button" data-value="dev">DEV</button>
+            <button type="button" data-value="test">TEST</button>
+          </div>
+        </fieldset>
+
+        <fieldset class="filter-block">
+          <legend>审核状态</legend>
+          <div class="segmented segmented-three" id="status-filter">
+            <button type="button" data-value="pending" class="is-active">待审</button>
+            <button type="button" data-value="approved">已入库</button>
+            <button type="button" data-value="excluded">已排除</button>
+          </div>
+        </fieldset>
+
+        <label class="select-label" for="category-filter">候选类型</label>
+        <select id="category-filter">
+          <option value="all">全部候选</option>
+          <option value="both_violations">双违规候选</option>
+          <option value="no_helmet">未戴安全帽候选</option>
+          <option value="no_vest">未穿反光衣候选</option>
+          <option value="no_labeled_violation">合规候选</option>
+          <option value="blind_review">盲审候选</option>
+        </select>
+
+        <div class="queue-summary">
+          <span id="queue-count">0 个样本</span>
+          <span id="queue-position">— / —</span>
+        </div>
+        <div class="candidate-list" id="candidate-list" role="listbox" aria-label="候选样本"></div>
+
+        <div class="composition-card">
+          <span class="micro-label">SAMPLE MIX</span>
+          <div id="composition-stats"></div>
+        </div>
+      </aside>
+
+      <section class="evidence-panel" aria-labelledby="candidate-title">
+        <div class="evidence-head">
+          <div class="candidate-identity">
+            <span class="micro-label" id="candidate-context">02 / VISUAL EVIDENCE</span>
+            <h2 id="candidate-title">选择一个候选样本</h2>
+            <p id="candidate-meta">从左侧队列开始审核</p>
+          </div>
+          <div class="navigation-controls">
+            <button id="previous-button" type="button" title="上一个样本（P）">←</button>
+            <button id="next-button" type="button" title="下一个样本（N）">→</button>
+          </div>
+        </div>
+
+        <div class="canvas-toolbar">
+          <button id="add-person-button" class="tool-button" type="button" disabled>
+            <span>＋</span> 绘制人物框 <kbd>B</kbd>
+          </button>
+          <button id="delete-person-button" class="tool-button" type="button" disabled>
+            删除选中框
+          </button>
+          <label class="overlay-toggle">
+            <input id="source-overlay-toggle" type="checkbox" checked />
+            <span></span> 显示 YOLO 来源框
+          </label>
+          <div class="legend" aria-label="标注图例">
+            <span><i class="person-dot"></i>人工人物框</span>
+            <span><i class="source-dot"></i>YOLO 来源框</span>
+          </div>
+        </div>
+
+        <div class="blind-banner" id="blind-banner" hidden>
+          <strong>TEST BLIND REVIEW</strong>
+          <span>已隐藏来源类别与 YOLO 框；这里只建立人工金标，不显示任何模型预测。</span>
+        </div>
+
+        <div class="image-stage" id="image-stage">
+          <div class="stage-empty" id="stage-empty">
+            <span class="reticle" aria-hidden="true"></span>
+            <strong>等待审核信号</strong>
+            <small>SELECT A CANDIDATE FROM THE QUEUE</small>
+          </div>
+          <div class="media-layer" id="media-layer" hidden>
+            <img id="candidate-image" alt="待审核的施工安全候选图片" />
+            <canvas id="annotation-canvas" aria-label="人物框标注画布"></canvas>
+          </div>
+          <div class="image-loading" id="image-loading" hidden>
+            <span></span><strong>正在装载图像</strong>
+          </div>
+        </div>
+
+        <div class="stage-foot">
+          <span id="canvas-hint">框坐标使用 0–1000 归一化格式</span>
+          <span>拖动画框 · 拖动角点缩放 · 点击画框选择</span>
+        </div>
+      </section>
+
+      <aside class="annotation-panel">
+        <div class="annotation-head">
+          <div>
+            <span class="micro-label">03 / HUMAN VERDICT</span>
+            <h2>人工结论</h2>
+          </div>
+          <span class="save-state" id="save-state">尚未修改</span>
+        </div>
+
+        <div class="empty-inspector" id="empty-inspector">
+          <strong>还没有选中样本</strong>
+          <p>选择候选图后，可确认违规、调整人物框、记录不确定性或排除脏数据。</p>
+        </div>
+
+        <form id="review-form" hidden>
+          <section class="quick-verdict">
+            <button id="mark-compliant-button" class="compliant-button" type="button">
+              <span>✓</span>
+              <span><strong>标记为合规</strong><small>清除所有违规发现</small></span>
+            </button>
+          </section>
+
+          <section class="inspector-section">
+            <div class="section-title-row">
+              <div>
+                <span class="micro-label">PERSONS</span>
+                <h3>人物与违规</h3>
+              </div>
+              <span id="person-count">0 人</span>
+            </div>
+            <p class="section-help">人物编号按画框从左到右自动排序。框必须覆盖完整可见人体，不要只框头部、安全帽或反光衣。</p>
+            <div class="person-list" id="person-list"></div>
+          </section>
+
+          <section class="inspector-section protocol-section">
+            <div class="section-title-row">
+              <div>
+                <span class="micro-label">ANNOTATION CONTRACT V2</span>
+                <h3>人物框协议</h3>
+              </div>
+            </div>
+            <label class="protocol-confirmation">
+              <input id="person-box-contract" type="checkbox" />
+              <span>
+                <strong>我确认每个框都覆盖完整可见人物</strong>
+                <small>人物被画面裁切时框住可见部分；不得只框 PPE 部件。调整人物框后需要重新确认。</small>
+              </span>
+            </label>
+          </section>
+
+          <section class="inspector-section">
+            <div class="section-title-row">
+              <div>
+                <span class="micro-label">UNCERTAINTY</span>
+                <h3>不确定性</h3>
+              </div>
+            </div>
+            <textarea
+              id="uncertainties-input"
+              rows="3"
+              placeholder="每行一条，例如：头部被脚手架遮挡，无法确认安全帽。"
+            ></textarea>
+          </section>
+
+          <section class="inspector-section">
+            <div class="section-title-row">
+              <div>
+                <span class="micro-label">QUALITY TAGS</span>
+                <h3>样本属性</h3>
+              </div>
+            </div>
+            <div class="tag-grid" id="quality-tags"></div>
+          </section>
+
+          <section class="record-preview">
+            <span>将写入</span>
+            <strong id="output-path">vlm/data/—.jsonl</strong>
+            <small id="record-summary">等待人工结论</small>
+          </section>
+
+          <div class="decision-actions">
+            <button id="exclude-button" class="exclude-button" type="button">排除脏数据</button>
+            <button id="approve-button" class="approve-button" type="submit">
+              <span>确认并写入 JSONL</span><kbd>⌘ ↵</kbd>
+            </button>
+          </div>
+        </form>
+      </aside>
+    </main>
+
+    <dialog id="exclude-dialog" class="exclude-dialog">
+      <form method="dialog" id="exclude-form">
+        <div class="dialog-kicker">EXCLUDE FROM GOLD DATA</div>
+        <h2>为什么排除这个样本？</h2>
+        <p>排除项会写入 <code>review_log.jsonl</code>，不会进入 Train / Dev / Test 金标。</p>
+        <textarea id="exclude-reason" rows="4" required placeholder="例如：非施工场景、图像损坏、主体不可辨认……"></textarea>
+        <div class="dialog-actions">
+          <button value="cancel" type="button" id="cancel-exclude">取消</button>
+          <button value="confirm" type="submit">确认排除</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+    <script src="/review/static/app.js" defer></script>
+  </body>
+</html>

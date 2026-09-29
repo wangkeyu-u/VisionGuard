@@ -27,6 +27,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--project", type=Path, default=PROJECT_ROOT / "outputs" / "experiments")
     parser.add_argument("--name", default="baseline_yolo11n_512")
     parser.add_argument("--expected-fingerprint", default=FROZEN_DATASET_SHA256)
+    parser.add_argument(
+        "--class-weight-power",
+        type=float,
+        default=0.0,
+        help="Ultralytics cls_pw: 0 disables class weighting; 0.5 uses square-root inverse frequency.",
+    )
+    parser.add_argument(
+        "--save-period",
+        type=int,
+        default=-1,
+        help="Save every N epochs for validation-based safety checkpoint selection.",
+    )
     return parser.parse_args()
 
 

@@ -34,12 +34,18 @@ class TrainingConfig:
     project: Path = Path("outputs/experiments")
     name: str = "baseline_yolo11n_512"
     expected_fingerprint: str = FROZEN_DATASET_SHA256
+    class_weight_power: float = 0.0
+    save_period: int = -1
 
     def resolved(self) -> TrainingConfig:
         if self.epochs < 1 or self.imgsz < 32 or self.batch < 1:
             raise ValueError("epochs and batch must be positive; imgsz must be at least 32.")
         if self.patience < 0 or self.workers < 0:
             raise ValueError("patience and workers cannot be negative.")
+        if not 0.0 <= self.class_weight_power <= 1.0:
+            raise ValueError("class_weight_power must be between 0 and 1.")
+        if self.save_period == 0 or self.save_period < -1:
+            raise ValueError("save_period must be -1 (disabled) or a positive integer.")
         if not self.name.strip():
             raise ValueError("Experiment name cannot be empty.")
         return TrainingConfig(
@@ -55,6 +61,8 @@ class TrainingConfig:
             project=self.project.expanduser().resolve(),
             name=self.name,
             expected_fingerprint=self.expected_fingerprint,
+            class_weight_power=self.class_weight_power,
+            save_period=self.save_period,
         )
 
     def to_dict(self) -> dict[str, Any]:
@@ -215,6 +223,8 @@ def train_yolo(config: TrainingConfig, project_root: Path) -> dict[str, Any]:
             plots=True,
             exist_ok=True,
             verbose=True,
+            cls_pw=config.class_weight_power,
+            save_period=config.save_period,
         )
     except BaseException as exc:
         metadata["status"] = "interrupted" if isinstance(exc, KeyboardInterrupt) else "failed"
